@@ -1,0 +1,807 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BookingDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="bookingID" />
+          </Key>
+          <Property Name="bookingID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="custID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="roomID" Type="varchar" MaxLength="50" />
+          <Property Name="CheckInDate" Type="date" Nullable="false" />
+          <Property Name="CheckOutDate" Type="date" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookingEnquiry">
+          <Key>
+            <PropertyRef Name="enquiryID" />
+          </Key>
+          <Property Name="enquiryID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="custID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Details" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookingSystem">
+          <Key>
+            <PropertyRef Name="systemID" />
+          </Key>
+          <Property Name="systemID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Version" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cancellation">
+          <Key>
+            <PropertyRef Name="cancellationID" />
+          </Key>
+          <Property Name="cancellationID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bookingID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Reason" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChangeBooking">
+          <Key>
+            <PropertyRef Name="changeID" />
+          </Key>
+          <Property Name="changeID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bookingID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Details" Type="text" />
+        </EntityType>
+        <EntityType Name="Confirmation">
+          <Key>
+            <PropertyRef Name="confirmationID" />
+          </Key>
+          <Property Name="confirmationID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="hotelID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Rate" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="custID" />
+          </Key>
+          <Property Name="custID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="text" />
+          <Property Name="Balance" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Hotel">
+          <Key>
+            <PropertyRef Name="hotelID" />
+          </Key>
+          <Property Name="hotelID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Location" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Facilities" Type="text" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="paymentID" />
+          </Key>
+          <Property Name="paymentID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bookingID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Method" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Receptionist">
+          <Key>
+            <PropertyRef Name="receptionistID" />
+          </Key>
+          <Property Name="receptionistID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Shift" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reports">
+          <Key>
+            <PropertyRef Name="reportID" />
+          </Key>
+          <Property Name="reportID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Content" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="requestID" />
+          </Key>
+          <Property Name="requestID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Details" Type="text" />
+          <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="custID" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="roomID" />
+          </Key>
+          <Property Name="roomID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="hotelID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Number" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Rate" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Booking__custID__44FF419A">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="custID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="custID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__roomID__45F365D3">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="roomID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="roomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingEn__custI__628FA481">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BookingEnquiry" Type="Self.BookingEnquiry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="custID" />
+            </Principal>
+            <Dependent Role="BookingEnquiry">
+              <PropertyRef Name="custID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cancellat__booki__5BE2A6F2">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cancellation" Type="Self.Cancellation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="bookingID" />
+            </Principal>
+            <Dependent Role="Cancellation">
+              <PropertyRef Name="bookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChangeBoo__booki__5FB337D6">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ChangeBooking" Type="Self.ChangeBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="bookingID" />
+            </Principal>
+            <Dependent Role="ChangeBooking">
+              <PropertyRef Name="bookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Confirmat__hotel__5165187F">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Confirmation" Type="Self.Confirmation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="hotelID" />
+            </Principal>
+            <Dependent Role="Confirmation">
+              <PropertyRef Name="hotelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__booking__4AB81AF0">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="bookingID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="bookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Request__custID__59063A47">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="custID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="custID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Room__hotelID__3A81B327">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="hotelID" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="hotelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookingDatabaseModelStoreContainer">
+          <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookingEnquiry" EntityType="Self.BookingEnquiry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookingSystem" EntityType="Self.BookingSystem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cancellation" EntityType="Self.Cancellation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChangeBooking" EntityType="Self.ChangeBooking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Confirmation" EntityType="Self.Confirmation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Receptionist" EntityType="Self.Receptionist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reports" EntityType="Self.Reports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Booking__custID__44FF419A" Association="Self.FK__Booking__custID__44FF419A">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__roomID__45F365D3" Association="Self.FK__Booking__roomID__45F365D3">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingEn__custI__628FA481" Association="Self.FK__BookingEn__custI__628FA481">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="BookingEnquiry" EntitySet="BookingEnquiry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cancellat__booki__5BE2A6F2" Association="Self.FK__Cancellat__booki__5BE2A6F2">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="Cancellation" EntitySet="Cancellation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChangeBoo__booki__5FB337D6" Association="Self.FK__ChangeBoo__booki__5FB337D6">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="ChangeBooking" EntitySet="ChangeBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Confirmat__hotel__5165187F" Association="Self.FK__Confirmat__hotel__5165187F">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="Confirmation" EntitySet="Confirmation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__booking__4AB81AF0" Association="Self.FK__Payment__booking__4AB81AF0">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Request__custID__59063A47" Association="Self.FK__Request__custID__59063A47">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Room__hotelID__3A81B327" Association="Self.FK__Room__hotelID__3A81B327">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BookingDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="bookingID" />
+          </Key>
+          <Property Name="bookingID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="custID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="roomID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CheckInDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CheckOutDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Booking__custID__44FF419A" FromRole="Booking" ToRole="Customer" />
+          <NavigationProperty Name="Room" Relationship="Self.FK__Booking__roomID__45F365D3" FromRole="Booking" ToRole="Room" />
+          <NavigationProperty Name="Cancellations" Relationship="Self.FK__Cancellat__booki__5BE2A6F2" FromRole="Booking" ToRole="Cancellation" />
+          <NavigationProperty Name="ChangeBookings" Relationship="Self.FK__ChangeBoo__booki__5FB337D6" FromRole="Booking" ToRole="ChangeBooking" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__booking__4AB81AF0" FromRole="Booking" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="BookingEnquiry">
+          <Key>
+            <PropertyRef Name="enquiryID" />
+          </Key>
+          <Property Name="enquiryID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="custID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__BookingEn__custI__628FA481" FromRole="BookingEnquiry" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="BookingSystem">
+          <Key>
+            <PropertyRef Name="systemID" />
+          </Key>
+          <Property Name="systemID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Version" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cancellation">
+          <Key>
+            <PropertyRef Name="cancellationID" />
+          </Key>
+          <Property Name="cancellationID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bookingID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="Self.FK__Cancellat__booki__5BE2A6F2" FromRole="Cancellation" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="ChangeBooking">
+          <Key>
+            <PropertyRef Name="changeID" />
+          </Key>
+          <Property Name="changeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bookingID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Booking" Relationship="Self.FK__ChangeBoo__booki__5FB337D6" FromRole="ChangeBooking" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="Confirmation">
+          <Key>
+            <PropertyRef Name="confirmationID" />
+          </Key>
+          <Property Name="confirmationID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="hotelID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rate" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Hotel" Relationship="Self.FK__Confirmat__hotel__5165187F" FromRole="Confirmation" ToRole="Hotel" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="custID" />
+          </Key>
+          <Property Name="custID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Balance" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Booking__custID__44FF419A" FromRole="Customer" ToRole="Booking" />
+          <NavigationProperty Name="BookingEnquiries" Relationship="Self.FK__BookingEn__custI__628FA481" FromRole="Customer" ToRole="BookingEnquiry" />
+          <NavigationProperty Name="Requests" Relationship="Self.FK__Request__custID__59063A47" FromRole="Customer" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="Hotel">
+          <Key>
+            <PropertyRef Name="hotelID" />
+          </Key>
+          <Property Name="hotelID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Facilities" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Confirmations" Relationship="Self.FK__Confirmat__hotel__5165187F" FromRole="Hotel" ToRole="Confirmation" />
+          <NavigationProperty Name="Rooms" Relationship="Self.FK__Room__hotelID__3A81B327" FromRole="Hotel" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="paymentID" />
+          </Key>
+          <Property Name="paymentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bookingID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Method" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="Self.FK__Payment__booking__4AB81AF0" FromRole="Payment" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="Receptionist">
+          <Key>
+            <PropertyRef Name="receptionistID" />
+          </Key>
+          <Property Name="receptionistID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Shift" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="reportID" />
+          </Key>
+          <Property Name="reportID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="requestID" />
+          </Key>
+          <Property Name="requestID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="custID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Request__custID__59063A47" FromRole="Request" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="roomID" />
+          </Key>
+          <Property Name="roomID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="hotelID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rate" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Booking__roomID__45F365D3" FromRole="Room" ToRole="Booking" />
+          <NavigationProperty Name="Hotel" Relationship="Self.FK__Room__hotelID__3A81B327" FromRole="Room" ToRole="Hotel" />
+        </EntityType>
+        <Association Name="FK__Booking__custID__44FF419A">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="custID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="custID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__roomID__45F365D3">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="roomID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="roomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cancellat__booki__5BE2A6F2">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cancellation" Type="Self.Cancellation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="bookingID" />
+            </Principal>
+            <Dependent Role="Cancellation">
+              <PropertyRef Name="bookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChangeBoo__booki__5FB337D6">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ChangeBooking" Type="Self.ChangeBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="bookingID" />
+            </Principal>
+            <Dependent Role="ChangeBooking">
+              <PropertyRef Name="bookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__booking__4AB81AF0">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="bookingID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="bookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingEn__custI__628FA481">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BookingEnquiry" Type="Self.BookingEnquiry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="custID" />
+            </Principal>
+            <Dependent Role="BookingEnquiry">
+              <PropertyRef Name="custID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Confirmat__hotel__5165187F">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Confirmation" Type="Self.Confirmation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="hotelID" />
+            </Principal>
+            <Dependent Role="Confirmation">
+              <PropertyRef Name="hotelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Request__custID__59063A47">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="custID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="custID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Room__hotelID__3A81B327">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="hotelID" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="hotelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookingDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bookings" EntityType="Self.Booking" />
+          <EntitySet Name="BookingEnquiries" EntityType="Self.BookingEnquiry" />
+          <EntitySet Name="BookingSystems" EntityType="Self.BookingSystem" />
+          <EntitySet Name="Cancellations" EntityType="Self.Cancellation" />
+          <EntitySet Name="ChangeBookings" EntityType="Self.ChangeBooking" />
+          <EntitySet Name="Confirmations" EntityType="Self.Confirmation" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Hotels" EntityType="Self.Hotel" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <EntitySet Name="Receptionists" EntityType="Self.Receptionist" />
+          <EntitySet Name="Reports" EntityType="Self.Report" />
+          <EntitySet Name="Requests" EntityType="Self.Request" />
+          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <AssociationSet Name="FK__Booking__custID__44FF419A" Association="Self.FK__Booking__custID__44FF419A">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__roomID__45F365D3" Association="Self.FK__Booking__roomID__45F365D3">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cancellat__booki__5BE2A6F2" Association="Self.FK__Cancellat__booki__5BE2A6F2">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="Cancellation" EntitySet="Cancellations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChangeBoo__booki__5FB337D6" Association="Self.FK__ChangeBoo__booki__5FB337D6">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="ChangeBooking" EntitySet="ChangeBookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__booking__4AB81AF0" Association="Self.FK__Payment__booking__4AB81AF0">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingEn__custI__628FA481" Association="Self.FK__BookingEn__custI__628FA481">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="BookingEnquiry" EntitySet="BookingEnquiries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Confirmat__hotel__5165187F" Association="Self.FK__Confirmat__hotel__5165187F">
+            <End Role="Hotel" EntitySet="Hotels" />
+            <End Role="Confirmation" EntitySet="Confirmations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Request__custID__59063A47" Association="Self.FK__Request__custID__59063A47">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Request" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Room__hotelID__3A81B327" Association="Self.FK__Room__hotelID__3A81B327">
+            <End Role="Hotel" EntitySet="Hotels" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BookingDatabaseModelStoreContainer" CdmEntityContainer="BookingDatabaseEntities">
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="BookingDatabaseModel.Booking">
+              <MappingFragment StoreEntitySet="Booking">
+                <ScalarProperty Name="bookingID" ColumnName="bookingID" />
+                <ScalarProperty Name="custID" ColumnName="custID" />
+                <ScalarProperty Name="roomID" ColumnName="roomID" />
+                <ScalarProperty Name="CheckInDate" ColumnName="CheckInDate" />
+                <ScalarProperty Name="CheckOutDate" ColumnName="CheckOutDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingEnquiries">
+            <EntityTypeMapping TypeName="BookingDatabaseModel.BookingEnquiry">
+              <MappingFragment StoreEntitySet="BookingEnquiry">
+                <ScalarProperty Name="enquiryID" ColumnName="enquiryID" />
+                <ScalarProperty Name="custID" ColumnName="custID" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingSystems">
+            <EntityTypeMapping TypeName="BookingDatabaseModel.BookingSystem">
+              <MappingFragment StoreEntitySet="BookingSystem">
+                <ScalarProperty Name="systemID" ColumnName="systemID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cancellations">
+            <EntityTypeMapping TypeName="BookingDatabaseModel.Cancellation">
+              <MappingFragment StoreEntitySet="Cancellation">
+                <ScalarProperty Name="cancellationID" ColumnName="cancellationID" />
+                <ScalarProperty Name="bookingID" ColumnName="bookingID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChangeBookings">
+            <EntityTypeMapping TypeName="BookingDatabaseModel.ChangeBooking">
+              <MappingFragment StoreEntitySet="ChangeBooking">
+                <ScalarProperty Name="changeID" ColumnName="changeID" />
+                <ScalarProperty Name="bookingID" ColumnName="bookingID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Confirmations">
+            <EntityTypeMapping TypeName="BookingDatabaseModel.Confirmation">
+              <MappingFragment StoreEntitySet="Confirmation">
+                <ScalarProperty Name="confirmationID" ColumnName="confirmationID" />
+                <ScalarProperty Name="hotelID" ColumnName="hotelID" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="BookingDatabaseModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="custID" ColumnName="custID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hotels">
+            <EntityTypeMapping TypeName="BookingDatabaseModel.Hotel">
+              <MappingFragment StoreEntitySet="Hotel">
+                <ScalarProperty Name="hotelID" ColumnName="hotelID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Facilities" ColumnName="Facilities" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="BookingDatabaseModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="paymentID" ColumnName="paymentID" />
+                <ScalarProperty Name="bookingID" ColumnName="bookingID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Method" ColumnName="Method" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Receptionists">
+            <EntityTypeMapping TypeName="BookingDatabaseModel.Receptionist">
+              <MappingFragment StoreEntitySet="Receptionist">
+                <ScalarProperty Name="receptionistID" ColumnName="receptionistID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Shift" ColumnName="Shift" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reports">
+            <EntityTypeMapping TypeName="BookingDatabaseModel.Report">
+              <MappingFragment StoreEntitySet="Reports">
+                <ScalarProperty Name="reportID" ColumnName="reportID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requests">
+            <EntityTypeMapping TypeName="BookingDatabaseModel.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="requestID" ColumnName="requestID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="custID" ColumnName="custID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="BookingDatabaseModel.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="roomID" ColumnName="roomID" />
+                <ScalarProperty Name="hotelID" ColumnName="hotelID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
