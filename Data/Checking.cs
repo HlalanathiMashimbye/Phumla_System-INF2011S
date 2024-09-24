@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Phumla_System.Data
 {
-    internal class Checking
+    internal class Checkings
     {
     }
 }
