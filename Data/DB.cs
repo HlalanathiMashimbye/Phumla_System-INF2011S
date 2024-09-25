@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Phumla_System.Data
 {
-    public class BookingDB
+    public class DB
     {
         //enum to store operations
         public enum BookingDBoperatios
@@ -24,7 +24,7 @@ namespace Phumla_System.Data
         #endregion
 
         #region Constructor
-        public BookingDB()
+        public DB()
         {
             try
             {
