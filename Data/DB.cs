@@ -1,15 +1,17 @@
-﻿using Phumla_System.Properties;
-using System.Data;
-using System.Data.SqlClient;
-using System;
-using System.Windows.Forms;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Phumla_System.Data
 {
-    public class DB
+    internal class DB
     {
+<<<<<<< Updated upstream
+=======
         //enum to store operations
-        public enum BookingDBoperatios
+        public enum DBOperation
         {
             Add = 0,
             Change = 1,
@@ -82,5 +84,6 @@ namespace Phumla_System.Data
             return success;
         }
         #endregion
+>>>>>>> Stashed changes
     }
 }
