@@ -70,8 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookingsDatabaseDataSet.Designer.cs" />
-    <Compile Include="BookingsDatabaseDataSet1.Designer.cs">
+    <Compile Include="BookingsDatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BookingsDatabaseDataSet.xsd</DependentUpon>
@@ -118,7 +117,7 @@
     </None>
     <None Include="BookingsDatabaseDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>BookingsDatabaseDataSet1.Designer.cs</LastGenOutput>
+      <LastGenOutput>BookingsDatabaseDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="BookingsDatabaseDataSet.xss">
