@@ -8,8 +8,7 @@ namespace Phumla_System.Data
 {
     internal class DB
     {
-<<<<<<< Updated upstream
-=======
+
         //enum to store operations
         public enum DBOperation
         {
@@ -84,6 +83,6 @@ namespace Phumla_System.Data
             return success;
         }
         #endregion
->>>>>>> Stashed changes
+
     }
 }
