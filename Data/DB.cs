@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Phumla_System.Data
 {
+<<<<<<< HEAD
     internal class DB
+=======
+    public class BookingDB
+>>>>>>> parent of f028f1c (Refactor DB class and add Booking, Customer, Room classes)
     {
 <<<<<<< Updated upstream
 =======
@@ -26,7 +30,7 @@ namespace Phumla_System.Data
         #endregion
 
         #region Constructor
-        public DB()
+        public BookingDB()
         {
             try
             {

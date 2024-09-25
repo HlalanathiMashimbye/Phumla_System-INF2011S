@@ -81,6 +81,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BookingsDataSet.xsd</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="BookingSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -104,10 +105,15 @@
     <Compile Include="Business\CustomerController.cs" />
     <Compile Include="Business\RoomController.cs" />
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of f028f1c (Refactor DB class and add Booking, Customer, Room classes)
     <Compile Include="Data\BookingDB.cs" />
     <Compile Include="Data\Checking.cs" />
     <Compile Include="Data\DB.cs" />
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+>>>>>>> parent of f028f1c (Refactor DB class and add Booking, Customer, Room classes)
     <Compile Include="Form1.cs">
 =======
     <Compile Include="Business\Room.cs" />
