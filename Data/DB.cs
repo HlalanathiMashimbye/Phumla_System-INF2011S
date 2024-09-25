@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Phumla_System.Properties;
+using System.Data;
+using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace Phumla_System.Data
 {
-    internal class DB
+    public class DB
     {
 
         //enum to store operations
