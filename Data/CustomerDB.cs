@@ -35,7 +35,7 @@ namespace Phumla_System.Data
         {
             customers = new Collection<Customer>();
             FillDataSet(sqlLocalCustomer, customerTable);
-            Add2Collection(customers); //fix!?
+            AddCustomers2Collection(customerTable); 
         }
         #endregion
 
@@ -45,7 +45,7 @@ namespace Phumla_System.Data
             return DataSet;
         }
 
-        private void AddCustomers2Collection()
+        private void AddCustomers2Collection(string sqlTable)
         {
             DataRow myRow;
             foreach (DataRow myRow_loopVariable in DataSet.Tables[customerTable].Rows)
@@ -70,6 +70,46 @@ namespace Phumla_System.Data
         }
 
         private void FillCustomerRow(DataRow aRow, Customer aCustomer, DBOperation operation)
+        {
+            if (operation == DBOperation.Add)
+            {
+                aRow["CustID"] = aCustomer.CustID;
+            }
+
+            aRow["Name"] = aCustomer.Name;
+            aRow["Surname"] = aCustomer.Surname;
+            aRow["Phone"] = aCustomer.Phone;
+            aRow["Email"] = aCustomer.Email;
+            aRow["Address"] = aCustomer.Address;
+            aRow["Status"] = aCustomer.Status;
+            aRow["Balance"] = aCustomer.Balance;
+        }
+
+        private void Add2Collection()
+        {
+            DataRow myRow;
+            foreach (DataRow myRow_loopVariable in DataSet.Tables[customerTable].Rows)
+            {
+                myRow = myRow_loopVariable;
+                if (myRow.RowState != DataRowState.Deleted)
+                {
+                    var aCustomer = new Customer(
+                        Convert.ToString(myRow["CustID"]).TrimEnd(),
+                        Convert.ToString(myRow["Name"]).TrimEnd(),
+                        Convert.ToString(myRow["Surname"]).TrimEnd(),
+                        Convert.ToString(myRow["Phone"]).TrimEnd(),
+                        Convert.ToString(myRow["Email"]).TrimEnd(),
+                        Convert.ToString(myRow["Address"]).TrimEnd(),
+                        Convert.ToString(myRow["Status"]).TrimEnd(),
+                        Convert.ToDecimal(myRow["Balance"])
+                    );
+
+                    customers.Add(aCustomer);
+                }
+            }
+        }
+
+        private void FillRow(DataRow aRow, Customer aCustomer, DBOperation operation)
         {
             if (operation == DBOperation.Add)
             {

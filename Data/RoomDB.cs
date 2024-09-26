@@ -32,8 +32,7 @@ namespace Phumla_System.Data
         {
             rooms = new Collection<Room>();
             FillDataSet(sqlLocalRoom, roomTable);
-            //Add2Collection(roomTable); //fix???
-            AddRooms2Collection();
+            AddRooms2Collection(roomTable);
         }
         #endregion
 
@@ -43,7 +42,7 @@ namespace Phumla_System.Data
             return DataSet;
         }
 
-        private void AddRooms2Collection()
+        private void AddRooms2Collection(string sqlTable)
         {
             DataRow myRow;
             foreach (DataRow myRow_loopVariable in DataSet.Tables[roomTable].Rows)
@@ -66,6 +65,42 @@ namespace Phumla_System.Data
         }
 
         private void FillRoomRow(DataRow aRow, Room aRoom, DBOperation operation)
+        {
+            if (operation == DBOperation.Add)
+            {
+                aRow["RoomID"] = aRoom.RoomID;
+                aRow["HotelID"] = aRoom.HotelID;
+            }
+
+            aRow["Status"] = aRoom.Status;
+            aRow["Number"] = aRoom.Number;
+            aRow["Type"] = aRoom.Type;
+            aRow["Rate"] = aRoom.Rate;
+        }
+
+        private void Add2Collection()
+        {
+            DataRow myRow;
+            foreach (DataRow myRow_loopVariable in DataSet.Tables[roomTable].Rows)
+            {
+                myRow = myRow_loopVariable;
+                if (myRow.RowState != DataRowState.Deleted)
+                {
+                    var aRoom = new Room(
+                        Convert.ToString(myRow["RoomID"]).TrimEnd(),
+                        Convert.ToString(myRow["HotelID"]).TrimEnd(),
+                        Convert.ToString(myRow["Status"]).TrimEnd(),
+                        Convert.ToString(myRow["Number"]).TrimEnd(),
+                        Convert.ToString(myRow["Type"]).TrimEnd(),
+                        Convert.ToDecimal(myRow["Rate"])
+                    );
+
+                    rooms.Add(aRoom);
+                }
+            }
+        }
+
+        private void FillRow(DataRow aRow, Room aRoom, DBOperation operation)
         {
             if (operation == DBOperation.Add)
             {
