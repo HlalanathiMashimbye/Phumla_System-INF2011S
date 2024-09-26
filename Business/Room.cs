@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Phumla_System
+namespace Phumla_System.Business
 {
     public class Room
     {

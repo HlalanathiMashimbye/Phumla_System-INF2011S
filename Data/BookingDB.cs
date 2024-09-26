@@ -297,5 +297,22 @@ namespace Phumla_System.Data
             adapter.Update(DataSet, customerTable);
         }
         #endregion
+
+        #region Build Parameters, Create Commands & Update database
+        private void Build_INSERT_Parameters(Booking aBook)
+        { }
+
+        private void Build_UPDATE_Parameters(Booking aBook)
+        { }
+
+        private void Create_UPDATE_Command(Booking aBook)
+        { }
+
+        private void Create_INSERT_Command(Booking Book)
+        { }
+
+        public bool UpdateDataSource(Booking aBook)
+        { }
+        #endregion
     }
 }

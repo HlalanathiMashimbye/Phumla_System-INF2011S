@@ -53,9 +53,12 @@ namespace Phumla_System.Business
 
         public bool FinalizeChanges(Booking booking)
         {
-            return bookingDB.UpdateDataSource(sqlLocalBooking, tableBooking);
+            return bookingDB.UpdateDataSource(booking);
         }
 
+        #endregion
+
+        #region Search Methods
         private int FindIndex(Booking booking)
         {
             for (int i = 0; i < bookings.Count; i++)
