@@ -276,6 +276,8 @@ namespace Phumla_System.Data
                 }
             }
         }
+
+        
         #endregion
 
         #region Database Commit
@@ -300,7 +302,23 @@ namespace Phumla_System.Data
 
         #region Build Parameters, Create Commands & Update database
         private void Build_INSERT_Parameters(Booking aBook)
-        { }
+        {
+            SqlParameter param = default(SqlParameter);
+            param = new SqlParameter("@ID", SqlDbType.NVarChar, 15, "ID");
+            DataAdapter.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@BookingID", SqlDbType.NVarChar, 10, "BookingID");
+            DataAdapter.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@Name", SqlDbType.NVarChar, 100, "Name");
+            DataAdapter.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@Phone", SqlDbType.NVarChar, 15, "Phone");
+            DataAdapter.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter(
+
+        }
 
         private void Build_UPDATE_Parameters(Booking aBook)
         { }
@@ -313,6 +331,7 @@ namespace Phumla_System.Data
 
         public bool UpdateDataSource(Booking aBook)
         { }
+
         #endregion
     }
 }
