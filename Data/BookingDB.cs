@@ -37,7 +37,19 @@ namespace Phumla_System.Data
         // Populate the bookings collection from the dataset
         private void AddBookingsToCollection()
         {
+            if (!DataSet.Tables.Contains(table))
+            {
+                throw new InvalidOperationException($"The specified table '{table}' does not exist in the DataSet.");
+            }
+
             DataTable dataTable = DataSet.Tables[table];
+            
+
+            if (dataTable == null)
+            {
+                // Handle the error, e.g., log it or throw an exception
+                throw new InvalidOperationException("The specified table does not exist in the DataSet.");
+            }
 
             foreach (DataRow row in dataTable.Rows)
             {
@@ -58,6 +70,7 @@ namespace Phumla_System.Data
                 bookings.Add(booking);
             }
         }
+
 
         // Find a DataRow for a specific booking by BookingID
         private DataRow FindRow(string bookingID)

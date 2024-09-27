@@ -103,5 +103,20 @@ namespace Phumla_System
                 childForm.Close();
             }
         }
+
+        private void bookingBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.bookingBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.bookingsDatabaseDataSet);
+
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'bookingsDatabaseDataSet.Booking' table. You can move, or remove it, as needed.
+            this.bookingTableAdapter.Fill(this.bookingsDatabaseDataSet.Booking);
+
+        }
     }
 }

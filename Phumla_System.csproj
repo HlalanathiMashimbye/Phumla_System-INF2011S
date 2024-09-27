@@ -77,6 +77,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BookingsDatabaseDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="BookingTestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BookingTestForm.Designer.cs">
+      <DependentUpon>BookingTestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Business\Booking.cs" />
     <Compile Include="Business\BookingController.cs" />
     <Compile Include="Business\Customer.cs" />
@@ -95,6 +101,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BookingTestForm.resx">
+      <DependentUpon>BookingTestForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
