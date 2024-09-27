@@ -18,7 +18,7 @@ namespace Phumla_System.Data
         }
 
         #region Variables
-        private string strConn = Settings.Default.BookingsDatabaseConnectionString;
+        protected string strConn = Settings.Default.BookingsDatabaseConnectionString;
         protected SqlConnection SqlConnection;
         protected DataSet DataSet;
         protected SqlDataAdapter DataAdapter;
