@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace Phumla_System.Data
 {
     public class RoomDB : DB
@@ -64,42 +65,6 @@ namespace Phumla_System.Data
             }
         }
 
-        private void FillRoomRow(DataRow aRow, Room aRoom, DBOperation operation)
-        {
-            if (operation == DBOperation.Add)
-            {
-                aRow["RoomID"] = aRoom.RoomID;
-                aRow["HotelID"] = aRoom.HotelID;
-            }
-
-            aRow["Status"] = aRoom.Status;
-            aRow["Number"] = aRoom.Number;
-            aRow["Type"] = aRoom.Type;
-            aRow["Rate"] = aRoom.Rate;
-        }
-
-        private void Add2Collection()
-        {
-            DataRow myRow;
-            foreach (DataRow myRow_loopVariable in DataSet.Tables[roomTable].Rows)
-            {
-                myRow = myRow_loopVariable;
-                if (myRow.RowState != DataRowState.Deleted)
-                {
-                    var aRoom = new Room(
-                        Convert.ToString(myRow["RoomID"]).TrimEnd(),
-                        Convert.ToString(myRow["HotelID"]).TrimEnd(),
-                        Convert.ToString(myRow["Status"]).TrimEnd(),
-                        Convert.ToString(myRow["Number"]).TrimEnd(),
-                        Convert.ToString(myRow["Type"]).TrimEnd(),
-                        Convert.ToDecimal(myRow["Rate"])
-                    );
-
-                    rooms.Add(aRoom);
-                }
-            }
-        }
-
         private void FillRow(DataRow aRow, Room aRoom, DBOperation operation)
         {
             if (operation == DBOperation.Add)
@@ -115,10 +80,40 @@ namespace Phumla_System.Data
         }
         #endregion
 
-        #region Database Operations Crud
+        #region Database Operations CRUD
+        public void DataSetChange(Room room, DBOperation operation)
+        {
+            DataRow roomRow = null;
+            string strIndex;
+
+            switch (operation)
+            {
+                case DBOperation.Add:
+                    roomRow = DataSet.Tables[roomTable].NewRow();
+                    FillRow(roomRow, room, operation);
+                    DataSet.Tables[roomTable].Rows.Add(roomRow);
+                    break;
+                case DBOperation.Change:
+                    strIndex = room.RoomID;
+                    roomRow = DataSet.Tables[roomTable].Rows.Find(strIndex);
+                    FillRow(roomRow, room, operation);
+                    break;
+                case DBOperation.Delete:
+                    strIndex = room.RoomID;
+                    roomRow = DataSet.Tables[roomTable].Rows.Find(strIndex);
+                    roomRow.Delete();
+                    break;
+            }
+        }
+
+        public bool UpdateDataSource()
+        {
+            return UpdateDataSource(sqlLocalRoom, roomTable);
+        }
         #endregion
 
         #region Build Parameters, Create Commands & Update database
+        // This region is empty in the original code
         #endregion
     }
 }

@@ -1,103 +1,107 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using Phumla_System.Business;
-using Phumla_System.Data;
 
 namespace Phumla_System
 {
     public partial class MainForm : Form
     {
-        private RoomController roomController;
-        private CustomerController customerController;
-        private BookingController bookingController;
+        private int childFormNumber = 0;
 
         public MainForm()
         {
             InitializeComponent();
-            roomController = new RoomController();
-            customerController = new CustomerController();
-            bookingController = new BookingController();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void ShowNewForm(object sender, EventArgs e)
         {
-            LoadData();
+            Form childForm = new Form();
+            childForm.MdiParent = this;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Show();
         }
 
-        private void LoadData()
+        private void OpenFile(object sender, EventArgs e)
         {
-            roomDataGridView.DataSource = roomController.AllRooms;
-            customerDataGridView.DataSource = customerController.AllCustomers;
-            bookingDataGridView.DataSource = bookingController.AllBookings;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                string FileName = openFileDialog.FileName;
+            }
         }
 
-        private void addRoomButton_Click(object sender, EventArgs e)
+        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var room = new Room(roomIdTextBox.Text, roomNumberTextBox.Text, roomTypeTextBox.Text, "Deluxe", "Available", decimal.Parse(roomPriceTextBox.Text));
-            roomController.DataMaintenance(room, DB.DBOperation.Add);
-            LoadData();
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                string FileName = saveFileDialog.FileName;
+            }
         }
 
-        private void updateRoomButton_Click(object sender, EventArgs e)
+        private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
         {
-            var room = new Room(roomIdTextBox.Text, roomNumberTextBox.Text, roomTypeTextBox.Text, "Deluxe", "Available", decimal.Parse(roomPriceTextBox.Text));
-            roomController.DataMaintenance(room, DB.DBOperation.Change);
-            LoadData();
+            this.Close();
         }
 
-        private void deleteRoomButton_Click(object sender, EventArgs e)
+        private void CutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var room = new Room(roomIdTextBox.Text, null, null, null, null, 0);
-            roomController.DataMaintenance(room, DB.DBOperation.Delete);
-            LoadData();
         }
 
-        private void addCustomerButton_Click(object sender, EventArgs e)
+        private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var customer = new Customer(customerIdTextBox.Text, customerNameTextBox.Text, customerContactTextBox.Text, "john.doe@example.com", "123 Main St", "Male", "0123456789", 0);
-            customerController.DataMaintenance(customer, DB.DBOperation.Add);
-            LoadData();
         }
 
-        private void updateCustomerButton_Click(object sender, EventArgs e)
+        private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var customer = new Customer(customerIdTextBox.Text, customerNameTextBox.Text, customerContactTextBox.Text, "john.doe@example.com", "123 Main St", "Male", "0123456789", 0);
-            customerController.DataMaintenance(customer, DB.DBOperation.Change);
-            LoadData();
         }
 
-        private void deleteCustomerButton_Click(object sender, EventArgs e)
+        private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var customer = new Customer(customerIdTextBox.Text, null, null, null, null, null, null, 0);
-            customerController.DataMaintenance(customer, DB.DBOperation.Delete);
-            LoadData();
+            toolStrip.Visible = toolBarToolStripMenuItem.Checked;
         }
 
-        private void addBookingButton_Click(object sender, EventArgs e)
+        private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DateTime checkInDate = DateTime.Parse(bookingCheckInDateTextBox.Text);
-            DateTime checkOutDate = DateTime.Parse(bookingCheckOutDateTextBox.Text);
-
-            var booking = new Booking(bookingIdTextBox.Text, bookingCustomerIdTextBox.Text, bookingRoomIdTextBox.Text, checkInDate, checkOutDate);
-            bookingController.DataMaintenance(booking, DB.DBOperation.Add);
-            LoadData();
+            statusStrip.Visible = statusBarToolStripMenuItem.Checked;
         }
 
-        private void updateBookingButton_Click(object sender, EventArgs e)
+        private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DateTime checkInDate = DateTime.Parse(bookingCheckInDateTextBox.Text);
-            DateTime checkOutDate = DateTime.Parse(bookingCheckOutDateTextBox.Text);
-
-            var booking = new Booking(bookingIdTextBox.Text, bookingCustomerIdTextBox.Text, bookingRoomIdTextBox.Text, checkInDate, checkOutDate);
-            bookingController.DataMaintenance(booking, DB.DBOperation.Change);
-            LoadData();
+            LayoutMdi(MdiLayout.Cascade);
         }
 
-        private void deleteBookingButton_Click(object sender, EventArgs e)
+        private void TileVerticalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var booking = new Booking(bookingIdTextBox.Text, null, null, DateTime.MinValue, DateTime.MinValue);
-            bookingController.DataMaintenance(booking, DB.DBOperation.Delete);
-            LoadData();
+            LayoutMdi(MdiLayout.TileVertical);
+        }
+
+        private void TileHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LayoutMdi(MdiLayout.TileHorizontal);
+        }
+
+        private void ArrangeIconsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LayoutMdi(MdiLayout.ArrangeIcons);
+        }
+
+        private void CloseAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Form childForm in MdiChildren)
+            {
+                childForm.Close();
+            }
         }
     }
 }

@@ -1,336 +1,148 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms; 
-using Phumla_System.Properties;
 using Phumla_System.Business;
+using Phumla_System.Properties;
+using System.Windows.Forms;
 
 namespace Phumla_System.Data
 {
     public class BookingDB : DB
     {
-        #region Data members
-        private string bookingTable = "Booking";
-        private string roomTable = "Room";
-        private string customerTable = "Customer";
-        private string sqlLocalBooking = "SELECT * FROM Booking";
-        private string sqlLocalRoom = "SELECT * FROM Room";
-        private string sqlLocalCustomer = "SELECT * FROM Customer";
+        #region Data Members
         private Collection<Booking> bookings;
-        private Collection<Room> rooms;
-        private Collection<Customer> customers;
-        #endregion
-
-        #region Property Methods: Collections
-        public Collection<Booking> AllBookings => bookings;
-
-        public Collection<Room> AllRooms => rooms;
-
-        public Collection<Customer> AllCustomers => customers;
+        private string table = "Booking";  // Table name in the database
+        private string sqlLocal = "SELECT * FROM Booking";  // SQL query to load the bookings
         #endregion
 
         #region Constructor
         public BookingDB() : base()
         {
             bookings = new Collection<Booking>();
-            rooms = new Collection<Room>();
-            customers = new Collection<Customer>();
-
-            FillDataSet(sqlLocalBooking, bookingTable);
-            FillDataSet(sqlLocalRoom, roomTable);
-            FillDataSet(sqlLocalCustomer, customerTable);
-
-            AddBookings2Collection();
-            AddRooms2Collection();
-            AddCustomers2Collection();
+            FillDataSet(sqlLocal, table);  // Load bookings from the database
+            AddBookingsToCollection();
         }
         #endregion
 
-        #region Utility Methods
-        public DataSet GetDataSet()
+        #region Property
+        public Collection<Booking> AllBookings
         {
-            return DataSet;
+            get { return bookings; }
+        }
+        #endregion
+
+        #region Private Methods
+
+        // Populate the bookings collection from the dataset
+        private void AddBookingsToCollection()
+        {
+            DataTable dataTable = DataSet.Tables[table];
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                string bookingID = row["BookingID"].ToString();
+                string custID = row["CustID"].ToString();
+                string roomID = row["RoomID"]?.ToString();
+                DateTime checkInDate = DateTime.Parse(row["CheckInDate"].ToString());
+                DateTime checkOutDate = DateTime.Parse(row["CheckOutDate"].ToString());
+                string status = row["Status"].ToString();
+                string requestType = row["RequestType"]?.ToString();
+                string requestDetails = row["RequestDetails"]?.ToString();
+                DateTime requestDate = DateTime.Parse(row["RequestDate"].ToString());
+
+                Booking booking = new Booking(bookingID, custID, checkInDate, checkOutDate, status);
+                booking.AssignRoom(roomID);
+                booking.SetRequest(requestType, requestDetails, requestDate);
+
+                bookings.Add(booking);
+            }
         }
 
-        private void AddBookings2Collection()
+        // Find a DataRow for a specific booking by BookingID
+        private DataRow FindRow(string bookingID)
         {
-            DataRow myRow;
-            foreach (DataRow myRow_loopVariable in DataSet.Tables[bookingTable].Rows)
+            DataTable dataTable = DataSet.Tables[table];
+            DataRow[] rows = dataTable.Select($"BookingID = '{bookingID}'");
+            return rows.Length > 0 ? rows[0] : null;
+        }
+
+        // Fill a DataRow with booking data
+        private void FillDataRow(DataRow row, Booking booking)
+        {
+            row["BookingID"] = booking.BookingID;
+            row["CustID"] = booking.CustID;
+
+            // Handle RoomID: Check for null and assign DBNull.Value if necessary
+            if (string.IsNullOrEmpty(booking.RoomID))
+                row["RoomID"] = DBNull.Value;
+            else
+                row["RoomID"] = booking.RoomID;
+
+            row["CheckInDate"] = booking.CheckInDate;
+            row["CheckOutDate"] = booking.CheckOutDate;
+            row["Status"] = booking.Status;
+
+            // Handle RequestType: Check for null and assign DBNull.Value if necessary
+            if (string.IsNullOrEmpty(booking.RequestType))
+                row["RequestType"] = DBNull.Value;
+            else
+                row["RequestType"] = booking.RequestType;
+
+            // Handle RequestDetails: Check for null and assign DBNull.Value if necessary
+            if (string.IsNullOrEmpty(booking.RequestDetails))
+                row["RequestDetails"] = DBNull.Value;
+            else
+                row["RequestDetails"] = booking.RequestDetails;
+
+            // Handle RequestDate: Assign DBNull if it's the minimum value (means uninitialized)
+            if (booking.RequestDate == DateTime.MinValue)
+                row["RequestDate"] = DBNull.Value;
+            else
+                row["RequestDate"] = booking.RequestDate;
+        }
+
+
+        #endregion
+
+        #region Public Methods
+
+        // Modify the dataset based on the DBOperation (Add, Change, Delete)
+        public void DataSetChange(Booking booking, DBOperation operation)
+        {
+            DataRow row = null;
+
+            switch (operation)
             {
-                myRow = myRow_loopVariable;
-                if (myRow.RowState != DataRowState.Deleted)
-                {
-                    var aBooking = new Booking(
-                        Convert.ToString(myRow["BookingID"]).TrimEnd(),
-                        Convert.ToString(myRow["CustID"]).TrimEnd(),
-                        Convert.ToDateTime(myRow["CheckInDate"]),
-                        Convert.ToDateTime(myRow["CheckOutDate"]),
-                        Convert.ToString(myRow["Status"]).TrimEnd()
-                    )
+                case DBOperation.Add:
+                    row = DataSet.Tables[table].NewRow();
+                    FillDataRow(row, booking);
+                    DataSet.Tables[table].Rows.Add(row);
+                    break;
+
+                case DBOperation.Change:
+                    row = FindRow(booking.BookingID);
+                    if (row != null)
                     {
-                        RoomID = Convert.ToString(myRow["RoomID"]).TrimEnd(),
-                        RequestType = Convert.ToString(myRow["RequestType"]).TrimEnd(),
-                        RequestDetails = Convert.ToString(myRow["RequestDetails"]).TrimEnd(),
-                        RequestDate = Convert.ToDateTime(myRow["RequestDate"])
-                    };
-
-                    bookings.Add(aBooking);
-                }
-            }
-        }
-
-        private void AddRooms2Collection()
-        {
-            DataRow myRow;
-            foreach (DataRow myRow_loopVariable in DataSet.Tables[roomTable].Rows)
-            {
-                myRow = myRow_loopVariable;
-                if (myRow.RowState != DataRowState.Deleted)
-                {
-                    var aRoom = new Room(
-                        Convert.ToString(myRow["RoomID"]).TrimEnd(),
-                        Convert.ToString(myRow["HotelID"]).TrimEnd(),
-                        Convert.ToString(myRow["Status"]).TrimEnd(),
-                        Convert.ToString(myRow["Number"]).TrimEnd(),
-                        Convert.ToString(myRow["Type"]).TrimEnd(),
-                        Convert.ToDecimal(myRow["Rate"])
-                    );
-
-                    rooms.Add(aRoom);
-                }
-            }
-        }
-
-        private void AddCustomers2Collection()
-        {
-            DataRow myRow;
-            foreach (DataRow myRow_loopVariable in DataSet.Tables[customerTable].Rows)
-            {
-                myRow = myRow_loopVariable;
-                if (myRow.RowState != DataRowState.Deleted)
-                {
-                    var aCustomer = new Customer(
-                        Convert.ToString(myRow["CustID"]).TrimEnd(),
-                        Convert.ToString(myRow["Name"]).TrimEnd(),
-                        Convert.ToString(myRow["Surname"]).TrimEnd(),
-                        Convert.ToString(myRow["Phone"]).TrimEnd(),
-                        Convert.ToString(myRow["Email"]).TrimEnd(),
-                        Convert.ToString(myRow["Address"]).TrimEnd(),
-                        Convert.ToString(myRow["Status"]).TrimEnd(),
-                        Convert.ToDecimal(myRow["Balance"])
-                    );
-
-                    customers.Add(aCustomer);
-                }
-            }
-        }
-
-        private void FillBookingRow(DataRow aRow, Booking aBooking, DBOperation operation)
-        {
-            if (operation == DBOperation.Add)
-            {
-                aRow["BookingID"] = aBooking.BookingID;
-                aRow["CustID"] = aBooking.CustID;
-            }
-
-            aRow["RoomID"] = aBooking.RoomID;
-            aRow["CheckInDate"] = aBooking.CheckInDate;
-            aRow["CheckOutDate"] = aBooking.CheckOutDate;
-            aRow["Status"] = aBooking.Status;
-            aRow["RequestType"] = aBooking.RequestType;
-            aRow["RequestDetails"] = aBooking.RequestDetails;
-            aRow["RequestDate"] = aBooking.RequestDate;
-        }
-
-        private void FillRoomRow(DataRow aRow, Room aRoom, DBOperation operation)
-        {
-            if (operation == DBOperation.Add)
-            {
-                aRow["RoomID"] = aRoom.RoomID;
-                aRow["HotelID"] = aRoom.HotelID;
-            }
-
-            aRow["Status"] = aRoom.Status;
-            aRow["Number"] = aRoom.Number;
-            aRow["Type"] = aRoom.Type;
-            aRow["Rate"] = aRoom.Rate;
-        }
-
-        private void FillCustomerRow(DataRow aRow, Customer aCustomer, DBOperation operation)
-        {
-            if (operation == DBOperation.Add)
-            {
-                aRow["CustID"] = aCustomer.CustID;
-            }
-
-            aRow["Name"] = aCustomer.Name;
-            aRow["Surname"] = aCustomer.Surname;
-            aRow["Phone"] = aCustomer.Phone;
-            aRow["Email"] = aCustomer.Email;
-            aRow["Address"] = aCustomer.Address;
-            aRow["Status"] = aCustomer.Status;
-            aRow["Balance"] = aCustomer.Balance;
-        }
-
-        private int FindRow(string id, string table)
-        {
-            int rowIndex = 0;
-            DataRow myRow;
-            int returnValue = -1;
-            string idColumn = table + "ID";
-
-            foreach (DataRow myRow_loopVariable in DataSet.Tables[table].Rows)
-            {
-                myRow = myRow_loopVariable;
-                if (myRow.RowState != DataRowState.Deleted)
-                {
-                    if (id == Convert.ToString(DataSet.Tables[table].Rows[rowIndex][idColumn]))
-                    {
-                        returnValue = rowIndex;
+                        FillDataRow(row, booking);
                     }
-                }
-                rowIndex++;
-            }
-            return returnValue;
-        }
-        #endregion
+                    break;
 
-        #region Database Operations CRUD
-        public void DataSetChange(object entity, DBOperation operation)
+                case DBOperation.Delete:
+                    row = FindRow(booking.BookingID);
+                    if (row != null)
+                    {
+                        row.Delete();
+                    }
+                    break;
+            }
+        }
+
+        // Update the actual database with changes from the dataset
+        public bool UpdateDataSource(Booking booking)
         {
-            DataRow aRow = null;
-            string dataTable = "";
-
-            if (entity is Booking booking)
-            {
-                dataTable = bookingTable;
-                switch (operation)
-                {
-                    case DBOperation.Add:
-                        aRow = DataSet.Tables[dataTable].NewRow();
-                        FillBookingRow(aRow, booking, operation);
-                        DataSet.Tables[dataTable].Rows.Add(aRow);
-                        break;
-                    case DBOperation.Change:
-                        aRow = DataSet.Tables[dataTable].Rows[FindRow(booking.BookingID, dataTable)];
-                        FillBookingRow(aRow, booking, operation);
-                        break;
-                    case DBOperation.Delete:
-                        int rowIndex = FindRow(booking.BookingID, dataTable);
-                        if (rowIndex >= 0)
-                        {
-                            DataSet.Tables[dataTable].Rows.RemoveAt(rowIndex);
-                        }
-                        break;
-                }
-            }
-            else if (entity is Room room)
-            {
-                dataTable = roomTable;
-                switch (operation)
-                {
-                    case DBOperation.Add:
-                        aRow = DataSet.Tables[dataTable].NewRow();
-                        FillRoomRow(aRow, room, operation);
-                        DataSet.Tables[dataTable].Rows.Add(aRow);
-                        break;
-                    case DBOperation.Change:
-                        aRow = DataSet.Tables[dataTable].Rows[FindRow(room.RoomID, dataTable)];
-                        FillRoomRow(aRow, room, operation);
-                        break;
-                    case DBOperation.Delete:
-                        int rowIndex = FindRow(room.RoomID, dataTable);
-                        if (rowIndex >= 0)
-                        {
-                            DataSet.Tables[dataTable].Rows.RemoveAt(rowIndex);
-                        }
-                        break;
-                }
-            }
-            else if (entity is Customer customer)
-            {
-                dataTable = customerTable;
-                switch (operation)
-                {
-                    case DBOperation.Add:
-                        aRow = DataSet.Tables[dataTable].NewRow();
-                        FillCustomerRow(aRow, customer, operation);
-                        DataSet.Tables[dataTable].Rows.Add(aRow);
-                        break;
-                    case DBOperation.Change:
-                        aRow = DataSet.Tables[dataTable].Rows[FindRow(customer.CustID, dataTable)];
-                        FillCustomerRow(aRow, customer, operation);
-                        break;
-                    case DBOperation.Delete:
-                        int rowIndex = FindRow(customer.CustID, dataTable);
-                        if (rowIndex >= 0)
-                        {
-                            DataSet.Tables[dataTable].Rows.RemoveAt(rowIndex);
-                        }
-                        break;
-                }
-            }
+            return UpdateDataSource(sqlLocal, table);
         }
-
-        
-        #endregion
-
-        #region Database Commit
-        public void CommitDataSet()
-        {
-            SqlDataAdapter adapter;
-            SqlCommandBuilder commandBuilder;
-
-            adapter = new SqlDataAdapter("SELECT * FROM " + bookingTable, SqlConnection);
-            commandBuilder = new SqlCommandBuilder(adapter);
-            adapter.Update(DataSet, bookingTable);
-
-            adapter = new SqlDataAdapter("SELECT * FROM " + roomTable, SqlConnection);
-            commandBuilder = new SqlCommandBuilder(adapter);
-            adapter.Update(DataSet, roomTable);
-
-            adapter = new SqlDataAdapter("SELECT * FROM " + customerTable, SqlConnection);
-            commandBuilder = new SqlCommandBuilder(adapter);
-            adapter.Update(DataSet, customerTable);
-        }
-        #endregion
-
-        #region Build Parameters, Create Commands & Update database
-        private void Build_INSERT_Parameters(Booking aBook)
-        {
-            SqlParameter param = default(SqlParameter);
-            param = new SqlParameter("@ID", SqlDbType.NVarChar, 15, "ID");
-            DataAdapter.InsertCommand.Parameters.Add(param);
-
-            param = new SqlParameter("@BookingID", SqlDbType.NVarChar, 10, "BookingID");
-            DataAdapter.InsertCommand.Parameters.Add(param);
-
-            param = new SqlParameter("@Name", SqlDbType.NVarChar, 100, "Name");
-            DataAdapter.InsertCommand.Parameters.Add(param);
-
-            param = new SqlParameter("@Phone", SqlDbType.NVarChar, 15, "Phone");
-            DataAdapter.InsertCommand.Parameters.Add(param);
-
-            param = new SqlParameter(
-
-        }
-
-        private void Build_UPDATE_Parameters(Booking aBook)
-        { }
-
-        private void Create_UPDATE_Command(Booking aBook)
-        { }
-
-        private void Create_INSERT_Command(Booking Book)
-        { }
-
-        public bool UpdateDataSource(Booking aBook)
-        { }
 
         #endregion
     }

@@ -63,7 +63,7 @@ namespace Phumla_System.Business
         {
             for (int i = 0; i < bookings.Count; i++)
             {
-                if (bookings[i].ID == booking.ID)
+                if (bookings[i].BookingID == booking.BookingID)
                 {
                     return i;
                 }

@@ -8,7 +8,7 @@ namespace Phumla_System.Business
     public class CustomerController
     {
         #region Data Members
-        private BookingDB bookingDB;
+        private CustomerDB customerDB;
         private Collection<Customer> customers;
         #endregion
 
@@ -22,8 +22,8 @@ namespace Phumla_System.Business
         #region Constructor
         public CustomerController()
         {
-            bookingDB = new BookingDB();
-            customers = bookingDB.AllCustomers;
+            customerDB = new CustomerDB();
+            customers = customerDB.AllCustomers;
         }
         #endregion
 
@@ -31,7 +31,7 @@ namespace Phumla_System.Business
         public void DataMaintenance(Customer customer, DB.DBOperation operation)
         {
             int index = 0;
-            bookingDB.DataSetChange(customer, operation);
+            customerDB.DataSetChange(customer, operation);
             switch (operation)
             {
                 case DB.DBOperation.Add:
@@ -53,14 +53,14 @@ namespace Phumla_System.Business
 
         public bool FinalizeChanges(Customer customer)
         {
-            return bookingDB.UpdateDataSource(sqlLocalCustomer, tableCustomer);
+            return customerDB.UpdateDataSource();
         }
 
         private int FindIndex(Customer customer)
         {
             for (int i = 0; i < customers.Count; i++)
             {
-                if (customers[i].ID == customer.ID)
+                if (customers[i].CustID == customer.CustID)
                 {
                     return i;
                 }
