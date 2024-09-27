@@ -8,8 +8,7 @@ namespace Phumla_System.Data
 {
     public class DB
     {
-
-        //enum to store operations
+        // Enum to store operations
         public enum DBOperation
         {
             Add = 0,
@@ -34,12 +33,8 @@ namespace Phumla_System.Data
             }
             catch (SystemException e)
             {
-                System.Windows.Forms.MessageBox.Show(e.Message, "ERROR");
-                return;
-
+                MessageBox.Show(e.Message, "ERROR");
             }
-
-
         }
         #endregion
 
@@ -49,15 +44,18 @@ namespace Phumla_System.Data
         {
             try
             {
-                DataAdapter = new SqlDataAdapter(aSQLstring, aTable);
+                // Correctly initialize the SqlDataAdapter with the SQL query
+                DataAdapter = new SqlDataAdapter(aSQLstring, SqlConnection);
                 SqlConnection.Open();
                 DataAdapter.Fill(DataSet, aTable);
-                SqlConnection.Close();
             }
             catch (Exception errObj)
             {
-
                 MessageBox.Show(errObj.Message + " " + errObj.StackTrace);
+            }
+            finally
+            {
+                SqlConnection.Close(); // Ensure connection is closed in finally block
             }
         }
         #endregion
@@ -65,24 +63,26 @@ namespace Phumla_System.Data
         #region Update the Data Source
         protected bool UpdateDataSource(string sqlLocal, string sqlTable)
         {
-            bool success;
+            bool success = false;
             try
             {
                 SqlConnection.Open();
                 DataAdapter.Update(DataSet, sqlTable);
-                SqlConnection.Close();
-                FillDataSet(sqlLocal, sqlTable);
                 success = true;
+
+                // Refresh the dataset after update
+                FillDataSet(sqlLocal, sqlTable);
             }
             catch (Exception errObj)
             {
                 MessageBox.Show(errObj.Message + " " + errObj.StackTrace);
-                success = false;
             }
-            finally { }
+            finally
+            {
+                SqlConnection.Close(); // Ensure connection is closed in finally block
+            }
             return success;
         }
         #endregion
-
     }
 }
