@@ -66,5 +66,25 @@ namespace Phumla_System.Forms
                 RefreshBookingList();
             }
         }
+
+        private void txtBookingID_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstBookings_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BookingTestForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

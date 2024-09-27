@@ -49,6 +49,7 @@
             this.txtBookingID.Name = "txtBookingID";
             this.txtBookingID.Size = new System.Drawing.Size(100, 20);
             this.txtBookingID.TabIndex = 0;
+            this.txtBookingID.TextChanged += new System.EventHandler(this.txtBookingID_TextChanged);
             // 
             // txtCustID
             // 
@@ -81,11 +82,15 @@
             // cmbStatus
             // 
             this.cmbStatus.FormattingEnabled = true;
-            this.cmbStatus.Items.AddRange(new object[] { "Confirmed", "Cancelled", "Completed" });
+            this.cmbStatus.Items.AddRange(new object[] {
+            "Confirmed",
+            "Cancelled",
+            "Completed"});
             this.cmbStatus.Location = new System.Drawing.Point(20, 170);
             this.cmbStatus.Name = "cmbStatus";
             this.cmbStatus.Size = new System.Drawing.Size(121, 21);
             this.cmbStatus.TabIndex = 5;
+            this.cmbStatus.SelectedIndexChanged += new System.EventHandler(this.cmbStatus_SelectedIndexChanged);
             // 
             // txtRequestType
             // 
@@ -143,8 +148,9 @@
             this.lstBookings.FormattingEnabled = true;
             this.lstBookings.Location = new System.Drawing.Point(300, 20);
             this.lstBookings.Name = "lstBookings";
-            this.lstBookings.Size = new System.Drawing.Size(480, 400);
+            this.lstBookings.Size = new System.Drawing.Size(480, 394);
             this.lstBookings.TabIndex = 12;
+            this.lstBookings.SelectedIndexChanged += new System.EventHandler(this.lstBookings_SelectedIndexChanged);
             // 
             // BookingTestForm
             // 
@@ -166,8 +172,10 @@
             this.Controls.Add(this.txtBookingID);
             this.Name = "BookingTestForm";
             this.Text = "Booking Test Form";
+            this.Load += new System.EventHandler(this.BookingTestForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
