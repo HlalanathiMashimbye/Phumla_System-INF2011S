@@ -55,6 +55,10 @@
             this.checkAvail = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.Surname = new System.Windows.Forms.TextBox();
+            this.changeBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cancelBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createNewCustomerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -87,6 +91,9 @@
             // 
             // customerSearchToolStripMenuItem
             // 
+            this.customerSearchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.listToolStripMenuItem,
+            this.createNewCustomerToolStripMenuItem});
             this.customerSearchToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.customerSearchToolStripMenuItem.Name = "customerSearchToolStripMenuItem";
             this.customerSearchToolStripMenuItem.Size = new System.Drawing.Size(197, 34);
@@ -101,6 +108,9 @@
             // 
             // modifyBookingToolStripMenuItem
             // 
+            this.modifyBookingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.changeBookingToolStripMenuItem,
+            this.cancelBookingToolStripMenuItem});
             this.modifyBookingToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.modifyBookingToolStripMenuItem.Name = "modifyBookingToolStripMenuItem";
             this.modifyBookingToolStripMenuItem.Size = new System.Drawing.Size(189, 34);
@@ -321,6 +331,30 @@
             this.Surname.Size = new System.Drawing.Size(343, 26);
             this.Surname.TabIndex = 21;
             // 
+            // changeBookingToolStripMenuItem
+            // 
+            this.changeBookingToolStripMenuItem.Name = "changeBookingToolStripMenuItem";
+            this.changeBookingToolStripMenuItem.Size = new System.Drawing.Size(281, 38);
+            this.changeBookingToolStripMenuItem.Text = "Change Booking";
+            // 
+            // cancelBookingToolStripMenuItem
+            // 
+            this.cancelBookingToolStripMenuItem.Name = "cancelBookingToolStripMenuItem";
+            this.cancelBookingToolStripMenuItem.Size = new System.Drawing.Size(281, 38);
+            this.cancelBookingToolStripMenuItem.Text = "Cancel Booking";
+            // 
+            // listToolStripMenuItem
+            // 
+            this.listToolStripMenuItem.Name = "listToolStripMenuItem";
+            this.listToolStripMenuItem.Size = new System.Drawing.Size(335, 38);
+            this.listToolStripMenuItem.Text = "List";
+            // 
+            // createNewCustomerToolStripMenuItem
+            // 
+            this.createNewCustomerToolStripMenuItem.Name = "createNewCustomerToolStripMenuItem";
+            this.createNewCustomerToolStripMenuItem.Size = new System.Drawing.Size(335, 38);
+            this.createNewCustomerToolStripMenuItem.Text = "Create New Customer";
+            // 
             // CreateBookingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -376,5 +410,9 @@
         private System.Windows.Forms.Button checkAvail;
         private System.Windows.Forms.TextBox Surname;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ToolStripMenuItem listToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createNewCustomerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeBookingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cancelBookingToolStripMenuItem;
     }
 }
