@@ -59,6 +59,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -76,6 +77,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BookingsDatabaseDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="BookingSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BookingSearch.Designer.cs">
+      <DependentUpon>BookingSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="BookingTestForm.cs">
       <SubType>Form</SubType>
@@ -149,6 +156,9 @@
     <Compile Include="ReservationConfirmed.Designer.cs">
       <DependentUpon>ReservationConfirmed.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BookingSearch.resx">
+      <DependentUpon>BookingSearch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BookingTestForm.resx">
       <DependentUpon>BookingTestForm.cs</DependentUpon>
     </EmbeddedResource>
