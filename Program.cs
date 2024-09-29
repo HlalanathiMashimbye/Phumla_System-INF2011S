@@ -19,7 +19,8 @@ namespace Phumla_System
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new MainForm());  # Main form
-            Application.Run(new BookingTestForm());  //Test form, we can comment it out later
+            //Application.Run(new BookingTestForm());
+            Application.Run(new CustomerListing());
         }
     }
 }
