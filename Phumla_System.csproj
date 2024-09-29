@@ -94,6 +94,8 @@
     <Compile Include="Business\BookingController.cs" />
     <Compile Include="Business\Customer.cs" />
     <Compile Include="Business\CustomerController.cs" />
+    <Compile Include="Business\Receptionist.cs" />
+    <Compile Include="Business\ReceptionistController.cs" />
     <Compile Include="Business\RoomController.cs" />
     <Compile Include="CancelBooking.cs">
       <SubType>Form</SubType>
@@ -129,6 +131,7 @@
     <Compile Include="Data\CustomerDB.cs" />
     <Compile Include="Data\DB.cs" />
     <Compile Include="Business\Room.cs" />
+    <Compile Include="Data\ReceptionistDB.cs" />
     <Compile Include="Data\RoomDB.cs" />
     <Compile Include="LogIn.cs">
       <SubType>Form</SubType>
