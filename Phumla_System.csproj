@@ -78,10 +78,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BookingsDatabaseDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="BookingSearch.cs">
+    <Compile Include="Presentation\BookingSearch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookingSearch.Designer.cs">
+    <Compile Include="Presentation\BookingSearch.Designer.cs">
       <DependentUpon>BookingSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="BookingTestForm.cs">
@@ -121,10 +121,10 @@
     <Compile Include="CreateNewCustomer.Designer.cs">
       <DependentUpon>CreateNewCustomer.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomerListing.cs">
+    <Compile Include="Presentation\CustomerListing.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CustomerListing.Designer.cs">
+    <Compile Include="Presentation\CustomerListing.Designer.cs">
       <DependentUpon>CustomerListing.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\BookingDB.cs" />
@@ -133,10 +133,10 @@
     <Compile Include="Business\Room.cs" />
     <Compile Include="Data\ReceptionistDB.cs" />
     <Compile Include="Data\RoomDB.cs" />
-    <Compile Include="LogIn.cs">
+    <Compile Include="Presentation\LogIn.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LogIn.Designer.cs">
+    <Compile Include="Presentation\LogIn.Designer.cs">
       <DependentUpon>LogIn.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
@@ -159,7 +159,7 @@
     <Compile Include="ReservationConfirmed.Designer.cs">
       <DependentUpon>ReservationConfirmed.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="BookingSearch.resx">
+    <EmbeddedResource Include="Presentation\BookingSearch.resx">
       <DependentUpon>BookingSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BookingTestForm.resx">
@@ -177,10 +177,10 @@
     <EmbeddedResource Include="CreateNewCustomer.resx">
       <DependentUpon>CreateNewCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomerListing.resx">
+    <EmbeddedResource Include="Presentation\CustomerListing.resx">
       <DependentUpon>CustomerListing.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogIn.resx">
+    <EmbeddedResource Include="Presentation\LogIn.resx">
       <DependentUpon>LogIn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
@@ -226,9 +226,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Presentation\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
       <Visible>False</Visible>
