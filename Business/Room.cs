@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Phumla_System.Business
 {
@@ -63,7 +59,5 @@ namespace Phumla_System.Business
             return Status == "Available";
         }
         #endregion
-
     }
-
 }

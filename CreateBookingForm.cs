@@ -23,7 +23,7 @@ namespace Phumla_System
         private CustomerController customerController;
         private Collection<Customer> customers;
         public bool createBookingClosed = false;
-        private string bookingID;
+        private int bookingID;
         #endregion
 
         #region Property Methods
@@ -53,7 +53,7 @@ namespace Phumla_System
             else
             {
                 ShowAll(true);
-                bookingID = Guid.NewGuid().ToString(); // Generate a new booking ID
+                bookingID = int.Parse(Guid.NewGuid().ToString()); // Generate a new booking ID
             }
         }
         #endregion
@@ -65,8 +65,8 @@ namespace Phumla_System
             bookingController = aBookingController;
             customerController = aCustomerController;
             customers = customerController.AllCustomers;
-            customer = new Customer();
-            booking = new Booking();
+            //customer = new Customer();   UNCOMMENT WHEN DONE TESTING
+            //booking = new Booking();
             createBookingClosed = false;
         }
         #endregion
@@ -90,7 +90,7 @@ namespace Phumla_System
             checkInDateTimePicker.Visible = value;
             checkOutDateTimePicker.Visible = value;
             //requestTypeTextBox.Visible = value;
-            //requestDetailsTextBox.Visible = value;
+            //requestDetailsTextBox.Visible = value;   UNCOMMENT WHEN DONE TESTING
             requirementsTextBox.Visible = value;
 
             checkAvailButton.Visible = value;
@@ -105,7 +105,7 @@ namespace Phumla_System
             checkInDateTimePicker.Value = DateTime.Now;
             checkOutDateTimePicker.Value = DateTime.Now.AddDays(1);
             //requestTypeTextBox.Text = "";
-            //requestDetailsTextBox.Text = "";
+            //requestDetailsTextBox.Text = "";    UNCOMMENT WHEN DONE TESTING
 
         }
 
@@ -118,11 +118,11 @@ namespace Phumla_System
                 checkOutDateTimePicker.Value,
                 "Confirmed"
             );
-            booking.SetRequest(
-                //requestTypeTextBox.Text,
-                //requestDetailsTextBox.Text,
-                DateTime.Now
-            );
+            // booking.SetRequest(      UNCOMMENT WHEN DONE TESTING
+            // requestTypeTextBox.Text,
+            //requestDetailsTextBox.Text,
+            // DateTime.Now
+            //);
         }
         #endregion
 
@@ -150,7 +150,7 @@ namespace Phumla_System
             if(booking.IsBookingValid())
             {
                 bookingController.DataMaintenance(booking, Data.DB.DBOperation.Add);
-                if (bookingController.FinalizeChanges(booking))
+                if (bookingController.FinalizeChanges())
                 {
                     MessageBox.Show("Booked created successfully.");
                     ClearAll();

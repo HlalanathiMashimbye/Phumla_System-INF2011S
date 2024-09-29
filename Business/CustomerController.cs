@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Phumla_System.Data;
+using static Phumla_System.Data.DB;
 
 namespace Phumla_System.Business
 {
@@ -28,20 +27,23 @@ namespace Phumla_System.Business
         #endregion
 
         #region Database Communication
-        public void DataMaintenance(Customer customer, DB.DBOperation operation)
+        public void DataMaintenance(Customer customer, DBOperation operation)
         {
             int index = 0;
             customerDB.DataSetChange(customer, operation);
             switch (operation)
             {
-                case DB.DBOperation.Add:
+                case DBOperation.Add:
                     customers.Add(customer);
                     break;
-                case DB.DBOperation.Change:
+                case DBOperation.Change:
                     index = FindIndex(customer);
-                    customers[index] = customer;
+                    if (index >= 0)
+                    {
+                        customers[index] = customer;
+                    }
                     break;
-                case DB.DBOperation.Delete:
+                case DBOperation.Delete:
                     index = FindIndex(customer);
                     if (index >= 0)
                     {
@@ -51,7 +53,7 @@ namespace Phumla_System.Business
             }
         }
 
-        public bool FinalizeChanges(Customer customer)
+        public bool FinalizeChanges()
         {
             return customerDB.UpdateDataSource();
         }

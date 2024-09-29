@@ -53,19 +53,17 @@ namespace Phumla_System.Data
 
             foreach (DataRow row in dataTable.Rows)
             {
-                string bookingID = row["BookingID"].ToString();
+                int bookingID = int.Parse(row["BookingID"].ToString());
                 string custID = row["CustID"].ToString();
                 string roomID = row["RoomID"]?.ToString();
                 DateTime checkInDate = DateTime.Parse(row["CheckInDate"].ToString());
                 DateTime checkOutDate = DateTime.Parse(row["CheckOutDate"].ToString());
                 string status = row["Status"].ToString();
-                string requestType = row["RequestType"]?.ToString();
                 string requestDetails = row["RequestDetails"]?.ToString();
-                DateTime requestDate = DateTime.Parse(row["RequestDate"].ToString());
 
                 Booking booking = new Booking(bookingID, custID, checkInDate, checkOutDate, status);
                 booking.AssignRoom(roomID);
-                booking.SetRequest(requestType, requestDetails, requestDate);
+                booking.SetRequest(requestDetails);
 
                 bookings.Add(booking);
             }
@@ -73,7 +71,7 @@ namespace Phumla_System.Data
 
 
         // Find a DataRow for a specific booking by BookingID
-        private DataRow FindRow(string bookingID)
+        private DataRow FindRow(int bookingID)
         {
             DataTable dataTable = DataSet.Tables[table];
             DataRow[] rows = dataTable.Select($"BookingID = '{bookingID}'");

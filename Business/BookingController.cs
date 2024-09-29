@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Phumla_System.Data;
-
 
 namespace Phumla_System.Business
 {
@@ -40,7 +38,10 @@ namespace Phumla_System.Business
                     break;
                 case DB.DBOperation.Change:
                     index = FindIndex(booking);
-                    bookings[index] = booking;
+                    if (index >= 0) // Ensure index is valid before updating
+                    {
+                        bookings[index] = booking;
+                    }
                     break;
                 case DB.DBOperation.Delete:
                     index = FindIndex(booking);
@@ -52,9 +53,16 @@ namespace Phumla_System.Business
             }
         }
 
-        public bool FinalizeChanges(Booking booking)
+        public bool FinalizeChanges()
         {
-            return bookingDB.UpdateDataSource(booking);
+            foreach (var booking in bookings)
+            {
+                if (!bookingDB.UpdateDataSource(booking))
+                {
+                    return false; // Return false if any update fails
+                }
+            }
+            return true; // All updates successful
         }
 
         #endregion

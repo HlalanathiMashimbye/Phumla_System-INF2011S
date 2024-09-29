@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Phumla_System.Business
 {
@@ -10,7 +6,7 @@ namespace Phumla_System.Business
     {
         // Properties for the Booking class
         #region Property Methods
-        public string BookingID { get; set; }
+        public int BookingID { get; set; }  // Changed to int
         public string CustID { get; set; }
         public string RoomID { get; set; } // Nullable
         public DateTime CheckInDate { get; set; }
@@ -23,9 +19,9 @@ namespace Phumla_System.Business
 
         // Constructor for creating a Booking
         #region Constructor
-        public Booking(string bookingID, string custID, DateTime checkInDate, DateTime checkOutDate, string status)
+        public Booking(int bookingID, string custID, DateTime checkInDate, DateTime checkOutDate, string status)
         {
-            BookingID = bookingID;
+            BookingID = bookingID; // Updated to int
             CustID = custID;
             CheckInDate = checkInDate;
             CheckOutDate = checkOutDate;
@@ -43,11 +39,10 @@ namespace Phumla_System.Business
         }
 
         // Method to set request details
-        public void SetRequest(string requestType, string requestDetails, DateTime requestDate)
+        public void SetRequest(string requestDetails)
         {
-            RequestType = requestType;
             RequestDetails = requestDetails;
-            RequestDate = requestDate;
+            
         }
 
         // Method to change booking status

@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Phumla_System.Properties;
 using Phumla_System.Business;
 
 namespace Phumla_System.Data
@@ -35,7 +28,7 @@ namespace Phumla_System.Data
         {
             customers = new Collection<Customer>();
             FillDataSet(sqlLocalCustomer, customerTable);
-            AddCustomers2Collection(customerTable);
+            AddCustomersToCollection();
         }
         #endregion
 
@@ -45,7 +38,7 @@ namespace Phumla_System.Data
             return DataSet;
         }
 
-        private void AddCustomers2Collection(string sqlTable)
+        private void AddCustomersToCollection()
         {
             DataRow myRow;
             foreach (DataRow myRow_loopVariable in DataSet.Tables[customerTable].Rows)
@@ -102,12 +95,18 @@ namespace Phumla_System.Data
                 case DBOperation.Change:
                     strIndex = customer.CustID;
                     customerRow = DataSet.Tables[customerTable].Rows.Find(strIndex);
-                    FillRow(customerRow, customer, operation);
+                    if (customerRow != null)
+                    {
+                        FillRow(customerRow, customer, operation);
+                    }
                     break;
                 case DBOperation.Delete:
                     strIndex = customer.CustID;
                     customerRow = DataSet.Tables[customerTable].Rows.Find(strIndex);
-                    customerRow.Delete();
+                    if (customerRow != null)
+                    {
+                        customerRow.Delete();
+                    }
                     break;
             }
         }
@@ -116,10 +115,6 @@ namespace Phumla_System.Data
         {
             return UpdateDataSource(sqlLocalCustomer, customerTable);
         }
-        #endregion
-
-        #region Build Parameters, Create Commands & Update database
-        // This region is empty in the original code
         #endregion
     }
 }

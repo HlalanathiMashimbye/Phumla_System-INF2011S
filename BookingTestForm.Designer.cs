@@ -29,12 +29,10 @@
         private void InitializeComponent()
         {
             this.lstBookings = new System.Windows.Forms.ListBox();
-            this.dtpRequestDate = new System.Windows.Forms.DateTimePicker();
             this.cmbStatus = new System.Windows.Forms.ComboBox();
             this.txtRequestDetails = new System.Windows.Forms.TextBox();
             this.dtpCheckIn = new System.Windows.Forms.DateTimePicker();
             this.dtpCheckOut = new System.Windows.Forms.DateTimePicker();
-            this.txtRequestType = new System.Windows.Forms.TextBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -47,9 +45,8 @@
             this.lblCheckIn = new System.Windows.Forms.Label();
             this.lblCheckOut = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
-            this.lblRequestType = new System.Windows.Forms.Label();
             this.lblRequestDetails = new System.Windows.Forms.Label();
-            this.lblRequestDate = new System.Windows.Forms.Label();
+            
             this.SuspendLayout();
             // 
             // lstBookings
@@ -60,13 +57,6 @@
             this.lstBookings.Size = new System.Drawing.Size(480, 394);
             this.lstBookings.TabIndex = 12;
             this.lstBookings.SelectedIndexChanged += new System.EventHandler(this.lstBookings_SelectedIndexChanged);
-            // 
-            // dtpRequestDate
-            // 
-            this.dtpRequestDate.Location = new System.Drawing.Point(20, 328);
-            this.dtpRequestDate.Name = "dtpRequestDate";
-            this.dtpRequestDate.Size = new System.Drawing.Size(200, 20);
-            this.dtpRequestDate.TabIndex = 8;
             // 
             // cmbStatus
             // 
@@ -101,14 +91,7 @@
             this.dtpCheckOut.Name = "dtpCheckOut";
             this.dtpCheckOut.Size = new System.Drawing.Size(200, 20);
             this.dtpCheckOut.TabIndex = 4;
-            // 
-            // txtRequestType
-            // 
-            this.txtRequestType.Location = new System.Drawing.Point(20, 250);
-            this.txtRequestType.Name = "txtRequestType";
-            this.txtRequestType.Size = new System.Drawing.Size(200, 20);
-            this.txtRequestType.TabIndex = 6;
-            // 
+            //  
             // btnDelete
             // 
             this.btnDelete.Location = new System.Drawing.Point(182, 370);
@@ -223,16 +206,6 @@
             this.lblStatus.TabIndex = 18;
             this.lblStatus.Text = "Status";
             // 
-            // lblRequestType
-            // 
-            this.lblRequestType.AutoSize = true;
-            this.lblRequestType.Location = new System.Drawing.Point(17, 234);
-            this.lblRequestType.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblRequestType.Name = "lblRequestType";
-            this.lblRequestType.Size = new System.Drawing.Size(74, 13);
-            this.lblRequestType.TabIndex = 19;
-            this.lblRequestType.Text = "Request Type";
-            // 
             // lblRequestDetails
             // 
             this.lblRequestDetails.AutoSize = true;
@@ -243,24 +216,12 @@
             this.lblRequestDetails.TabIndex = 20;
             this.lblRequestDetails.Text = "Request Details";
             // 
-            // lblRequestDate
-            // 
-            this.lblRequestDate.AutoSize = true;
-            this.lblRequestDate.Location = new System.Drawing.Point(20, 312);
-            this.lblRequestDate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblRequestDate.Name = "lblRequestDate";
-            this.lblRequestDate.Size = new System.Drawing.Size(73, 13);
-            this.lblRequestDate.TabIndex = 21;
-            this.lblRequestDate.Text = "Request Date";
-            // 
             // BookingTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.lblRequestDate);
             this.Controls.Add(this.lblRequestDetails);
-            this.Controls.Add(this.lblRequestType);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblCheckOut);
             this.Controls.Add(this.lblCheckIn);
@@ -273,15 +234,14 @@
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.txtRequestType);
             this.Controls.Add(this.dtpCheckOut);
             this.Controls.Add(this.dtpCheckIn);
             this.Controls.Add(this.txtRequestDetails);
             this.Controls.Add(this.cmbStatus);
-            this.Controls.Add(this.dtpRequestDate);
             this.Controls.Add(this.lstBookings);
             this.Name = "BookingTestForm";
             this.Text = "Booking Management";
+            this.Load += new System.EventHandler(this.BookingTestForm_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -290,12 +250,10 @@
         #endregion
 
         private System.Windows.Forms.ListBox lstBookings;
-        private System.Windows.Forms.DateTimePicker dtpRequestDate;
         private System.Windows.Forms.ComboBox cmbStatus;
         private System.Windows.Forms.TextBox txtRequestDetails;
         private System.Windows.Forms.DateTimePicker dtpCheckIn;
         private System.Windows.Forms.DateTimePicker dtpCheckOut;
-        private System.Windows.Forms.TextBox txtRequestType;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnAdd;
@@ -308,8 +266,7 @@
         private System.Windows.Forms.Label lblCheckIn;
         private System.Windows.Forms.Label lblCheckOut;
         private System.Windows.Forms.Label lblStatus;
-        private System.Windows.Forms.Label lblRequestType;
         private System.Windows.Forms.Label lblRequestDetails;
-        private System.Windows.Forms.Label lblRequestDate;
+        
     }
 }

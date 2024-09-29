@@ -182,7 +182,7 @@
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox1);
-            this.Name = "CreateNewCustomer";
+           // this.Name = "CreateNewCustomer";   UNCOMMENT
             this.Text = "CreateNewCustomer";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

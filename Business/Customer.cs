@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Phumla_System.Business
 {
@@ -56,7 +52,7 @@ namespace Phumla_System.Business
         }
         #endregion
 
-        #region add balance amount
+        #region Add balance amount
         public void AddBalance(decimal amount)
         {
             if (amount < 0)
@@ -67,7 +63,7 @@ namespace Phumla_System.Business
         }
         #endregion
 
-        #region subtract balance amount
+        #region Subtract balance amount
         public void DeductBalance(decimal amount)
         {
             if (amount < 0)

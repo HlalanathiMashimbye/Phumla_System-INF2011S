@@ -38,8 +38,22 @@ namespace Phumla_System.Forms
 
         private Booking GetBookingFromForm()
         {
+            // Validate the check-in and check-out dates
+            if (dtpCheckIn.Value >= dtpCheckOut.Value)
+            {
+                MessageBox.Show("Check-in date must be earlier than the check-out date.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null; // Prevent further processing
+            }
+
+            // Ensure BookingID is parsed as int
+            if (!int.TryParse(txtBookingID.Text, out int bookingID))
+            {
+                MessageBox.Show("Invalid Booking ID. Please enter a valid integer.", "Invalid ID", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+
             Booking booking = new Booking(
-                txtBookingID.Text,
+                bookingID, // Use parsed integer
                 txtCustID.Text,
                 dtpCheckIn.Value,
                 dtpCheckOut.Value,
@@ -47,7 +61,7 @@ namespace Phumla_System.Forms
             );
 
             booking.AssignRoom(txtRoomID.Text);
-            booking.SetRequest(txtRequestType.Text, txtRequestDetails.Text, dtpRequestDate.Value);
+            booking.SetRequest(txtRequestDetails.Text);
 
             return booking;
         }
@@ -55,15 +69,21 @@ namespace Phumla_System.Forms
         private void btnAdd_Click(object sender, EventArgs e)
         {
             Booking newBooking = GetBookingFromForm();
-            bookingController.DataMaintenance(newBooking, DB.DBOperation.Add);
-            RefreshBookingList();
+            if (newBooking != null)
+            {
+                bookingController.DataMaintenance(newBooking, DB.DBOperation.Add);
+                RefreshBookingList();
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             Booking updatedBooking = GetBookingFromForm();
-            bookingController.DataMaintenance(updatedBooking, DB.DBOperation.Change);
-            RefreshBookingList();
+            if (updatedBooking != null)
+            {
+                bookingController.DataMaintenance(updatedBooking, DB.DBOperation.Change);
+                RefreshBookingList();
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -71,7 +91,7 @@ namespace Phumla_System.Forms
             if (lstBookings.SelectedItem != null)
             {
                 string selectedBookingId = lstBookings.SelectedItem.ToString().Split('-')[0].Trim().Split(' ')[1];
-                Booking bookingToDelete = bookingController.AllBookings.First(b => b.BookingID == selectedBookingId);
+                Booking bookingToDelete = bookingController.AllBookings.First(b => b.BookingID.ToString() == selectedBookingId); // Convert to string for comparison
                 bookingController.DataMaintenance(bookingToDelete, DB.DBOperation.Delete);
                 RefreshBookingList();
             }
@@ -79,37 +99,42 @@ namespace Phumla_System.Forms
 
         private void txtBookingID_TextChanged(object sender, EventArgs e)
         {
-
+            // Placeholder for future functionality, if needed
         }
 
         private void lstBookings_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            // Placeholder for future functionality, if needed
         }
 
         private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            // Placeholder for future functionality, if needed
         }
 
         private void BookingTestForm_Load(object sender, EventArgs e)
         {
-
+            // Placeholder for future functionality, if needed
         }
 
         private void dtpCheckIn_ValueChanged(object sender, EventArgs e)
         {
-
+            // Placeholder for future functionality, if needed
         }
 
         private void lblBookingID_Click(object sender, EventArgs e)
         {
-
+            // Placeholder for future functionality, if needed
         }
 
         private void lblCustID_Click(object sender, EventArgs e)
         {
+            // Placeholder for future functionality, if needed
+        }
 
+        private void BookingTestForm_Load_1(object sender, EventArgs e)
+        {
+            // Placeholder for future functionality, if needed
         }
     }
 }
