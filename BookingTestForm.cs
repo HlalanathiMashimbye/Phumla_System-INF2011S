@@ -9,11 +9,15 @@ namespace Phumla_System.Forms
     public partial class BookingTestForm : Form
     {
         private BookingController bookingController;
+        private CustomerController customerController;
+        private RoomController roomController;
 
         public BookingTestForm()
         {
             InitializeComponent();
             bookingController = new BookingController();
+            customerController = new CustomerController();
+            roomController = new RoomController();
             RefreshBookingList();
         }
 
@@ -22,7 +26,13 @@ namespace Phumla_System.Forms
             lstBookings.Items.Clear();
             foreach (var booking in bookingController.AllBookings)
             {
-                lstBookings.Items.Add($"{booking.BookingID} - {booking.CustID} - {booking.Status}");
+                var customer = customerController.AllCustomers.FirstOrDefault(c => c.CustID == booking.CustID);
+                var room = roomController.AllRooms.FirstOrDefault(r => r.RoomID == booking.RoomID);
+
+                string customerInfo = customer != null ? $"{customer.Name} {customer.Surname}" : "Unknown Customer";
+                string roomInfo = room != null ? $"Room {room.RoomID}" : "Unknown Room";
+
+                lstBookings.Items.Add($"Booking {booking.BookingID} - {customerInfo} - {roomInfo} - {booking.CheckInDate.ToShortDateString()} to {booking.CheckOutDate.ToShortDateString()} - {booking.Status}");
             }
         }
 
@@ -60,7 +70,7 @@ namespace Phumla_System.Forms
         {
             if (lstBookings.SelectedItem != null)
             {
-                string selectedBookingId = lstBookings.SelectedItem.ToString().Split('-')[0].Trim();
+                string selectedBookingId = lstBookings.SelectedItem.ToString().Split('-')[0].Trim().Split(' ')[1];
                 Booking bookingToDelete = bookingController.AllBookings.First(b => b.BookingID == selectedBookingId);
                 bookingController.DataMaintenance(bookingToDelete, DB.DBOperation.Delete);
                 RefreshBookingList();
@@ -88,6 +98,16 @@ namespace Phumla_System.Forms
         }
 
         private void dtpCheckIn_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblBookingID_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblCustID_Click(object sender, EventArgs e)
         {
 
         }

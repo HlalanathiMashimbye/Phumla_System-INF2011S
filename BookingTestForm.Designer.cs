@@ -41,25 +41,31 @@
             this.txtRoomID = new System.Windows.Forms.TextBox();
             this.txtCustID = new System.Windows.Forms.TextBox();
             this.txtBookingID = new System.Windows.Forms.TextBox();
+            this.lblBookingID = new System.Windows.Forms.Label();
+            this.lblCustID = new System.Windows.Forms.Label();
+            this.lblRoomID = new System.Windows.Forms.Label();
+            this.lblCheckIn = new System.Windows.Forms.Label();
+            this.lblCheckOut = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.lblRequestType = new System.Windows.Forms.Label();
+            this.lblRequestDetails = new System.Windows.Forms.Label();
+            this.lblRequestDate = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lstBookings
             // 
             this.lstBookings.FormattingEnabled = true;
-            this.lstBookings.ItemHeight = 20;
-            this.lstBookings.Location = new System.Drawing.Point(450, 31);
-            this.lstBookings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lstBookings.Location = new System.Drawing.Point(300, 20);
             this.lstBookings.Name = "lstBookings";
-            this.lstBookings.Size = new System.Drawing.Size(718, 604);
+            this.lstBookings.Size = new System.Drawing.Size(480, 394);
             this.lstBookings.TabIndex = 12;
             this.lstBookings.SelectedIndexChanged += new System.EventHandler(this.lstBookings_SelectedIndexChanged);
             // 
             // dtpRequestDate
             // 
-            this.dtpRequestDate.Location = new System.Drawing.Point(30, 400);
-            this.dtpRequestDate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dtpRequestDate.Location = new System.Drawing.Point(20, 328);
             this.dtpRequestDate.Name = "dtpRequestDate";
-            this.dtpRequestDate.Size = new System.Drawing.Size(298, 26);
+            this.dtpRequestDate.Size = new System.Drawing.Size(200, 20);
             this.dtpRequestDate.TabIndex = 8;
             // 
             // cmbStatus
@@ -69,51 +75,45 @@
             "Confirmed",
             "Cancelled",
             "Completed"});
-            this.cmbStatus.Location = new System.Drawing.Point(30, 262);
-            this.cmbStatus.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cmbStatus.Location = new System.Drawing.Point(20, 210);
             this.cmbStatus.Name = "cmbStatus";
-            this.cmbStatus.Size = new System.Drawing.Size(180, 28);
+            this.cmbStatus.Size = new System.Drawing.Size(121, 21);
             this.cmbStatus.TabIndex = 5;
             this.cmbStatus.SelectedIndexChanged += new System.EventHandler(this.cmbStatus_SelectedIndexChanged);
             // 
             // txtRequestDetails
             // 
-            this.txtRequestDetails.Location = new System.Drawing.Point(30, 354);
-            this.txtRequestDetails.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtRequestDetails.Location = new System.Drawing.Point(20, 289);
             this.txtRequestDetails.Name = "txtRequestDetails";
-            this.txtRequestDetails.Size = new System.Drawing.Size(148, 26);
+            this.txtRequestDetails.Size = new System.Drawing.Size(200, 20);
             this.txtRequestDetails.TabIndex = 7;
             // 
             // dtpCheckIn
             // 
-            this.dtpCheckIn.Location = new System.Drawing.Point(30, 169);
-            this.dtpCheckIn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dtpCheckIn.Location = new System.Drawing.Point(20, 132);
             this.dtpCheckIn.Name = "dtpCheckIn";
-            this.dtpCheckIn.Size = new System.Drawing.Size(298, 26);
+            this.dtpCheckIn.Size = new System.Drawing.Size(200, 20);
             this.dtpCheckIn.TabIndex = 3;
             // 
             // dtpCheckOut
             // 
-            this.dtpCheckOut.Location = new System.Drawing.Point(30, 215);
-            this.dtpCheckOut.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dtpCheckOut.Location = new System.Drawing.Point(20, 171);
             this.dtpCheckOut.Name = "dtpCheckOut";
-            this.dtpCheckOut.Size = new System.Drawing.Size(298, 26);
+            this.dtpCheckOut.Size = new System.Drawing.Size(200, 20);
             this.dtpCheckOut.TabIndex = 4;
             // 
             // txtRequestType
             // 
-            this.txtRequestType.Location = new System.Drawing.Point(30, 308);
-            this.txtRequestType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtRequestType.Location = new System.Drawing.Point(20, 250);
             this.txtRequestType.Name = "txtRequestType";
-            this.txtRequestType.Size = new System.Drawing.Size(148, 26);
+            this.txtRequestType.Size = new System.Drawing.Size(200, 20);
             this.txtRequestType.TabIndex = 6;
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(270, 446);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnDelete.Location = new System.Drawing.Point(182, 370);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(112, 35);
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 11;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -121,10 +121,9 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(150, 446);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnUpdate.Location = new System.Drawing.Point(101, 370);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(112, 35);
+            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnUpdate.TabIndex = 10;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -132,10 +131,9 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(30, 446);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAdd.Location = new System.Drawing.Point(20, 370);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(112, 35);
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 9;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -143,51 +141,147 @@
             // 
             // txtRoomID
             // 
-            this.txtRoomID.Location = new System.Drawing.Point(30, 123);
-            this.txtRoomID.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtRoomID.Location = new System.Drawing.Point(20, 93);
             this.txtRoomID.Name = "txtRoomID";
-            this.txtRoomID.Size = new System.Drawing.Size(148, 26);
+            this.txtRoomID.Size = new System.Drawing.Size(100, 20);
             this.txtRoomID.TabIndex = 2;
             // 
             // txtCustID
             // 
-            this.txtCustID.Location = new System.Drawing.Point(30, 77);
-            this.txtCustID.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtCustID.Location = new System.Drawing.Point(20, 57);
             this.txtCustID.Name = "txtCustID";
-            this.txtCustID.Size = new System.Drawing.Size(148, 26);
+            this.txtCustID.Size = new System.Drawing.Size(100, 20);
             this.txtCustID.TabIndex = 1;
             // 
             // txtBookingID
             // 
-            this.txtBookingID.Location = new System.Drawing.Point(30, 31);
-            this.txtBookingID.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtBookingID.Location = new System.Drawing.Point(20, 25);
             this.txtBookingID.Name = "txtBookingID";
-            this.txtBookingID.Size = new System.Drawing.Size(148, 26);
+            this.txtBookingID.Size = new System.Drawing.Size(100, 20);
             this.txtBookingID.TabIndex = 0;
             this.txtBookingID.TextChanged += new System.EventHandler(this.txtBookingID_TextChanged);
             // 
+            // lblBookingID
+            // 
+            this.lblBookingID.AutoSize = true;
+            this.lblBookingID.Location = new System.Drawing.Point(20, 9);
+            this.lblBookingID.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblBookingID.Name = "lblBookingID";
+            this.lblBookingID.Size = new System.Drawing.Size(60, 13);
+            this.lblBookingID.TabIndex = 13;
+            this.lblBookingID.Text = "Booking ID";
+            this.lblBookingID.Click += new System.EventHandler(this.lblBookingID_Click);
+            // 
+            // lblCustID
+            // 
+            this.lblCustID.AutoSize = true;
+            this.lblCustID.Location = new System.Drawing.Point(20, 47);
+            this.lblCustID.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCustID.Name = "lblCustID";
+            this.lblCustID.Size = new System.Drawing.Size(65, 13);
+            this.lblCustID.TabIndex = 14;
+            this.lblCustID.Text = "Customer ID";
+            this.lblCustID.Click += new System.EventHandler(this.lblCustID_Click);
+            // 
+            // lblRoomID
+            // 
+            this.lblRoomID.AutoSize = true;
+            this.lblRoomID.Location = new System.Drawing.Point(20, 80);
+            this.lblRoomID.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblRoomID.Name = "lblRoomID";
+            this.lblRoomID.Size = new System.Drawing.Size(49, 13);
+            this.lblRoomID.TabIndex = 15;
+            this.lblRoomID.Text = "Room ID";
+            // 
+            // lblCheckIn
+            // 
+            this.lblCheckIn.AutoSize = true;
+            this.lblCheckIn.Location = new System.Drawing.Point(20, 116);
+            this.lblCheckIn.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCheckIn.Name = "lblCheckIn";
+            this.lblCheckIn.Size = new System.Drawing.Size(50, 13);
+            this.lblCheckIn.TabIndex = 16;
+            this.lblCheckIn.Text = "Check In";
+            // 
+            // lblCheckOut
+            // 
+            this.lblCheckOut.AutoSize = true;
+            this.lblCheckOut.Location = new System.Drawing.Point(20, 155);
+            this.lblCheckOut.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCheckOut.Name = "lblCheckOut";
+            this.lblCheckOut.Size = new System.Drawing.Size(58, 13);
+            this.lblCheckOut.TabIndex = 17;
+            this.lblCheckOut.Text = "Check Out";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(17, 194);
+            this.lblStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(37, 13);
+            this.lblStatus.TabIndex = 18;
+            this.lblStatus.Text = "Status";
+            // 
+            // lblRequestType
+            // 
+            this.lblRequestType.AutoSize = true;
+            this.lblRequestType.Location = new System.Drawing.Point(17, 234);
+            this.lblRequestType.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblRequestType.Name = "lblRequestType";
+            this.lblRequestType.Size = new System.Drawing.Size(74, 13);
+            this.lblRequestType.TabIndex = 19;
+            this.lblRequestType.Text = "Request Type";
+            // 
+            // lblRequestDetails
+            // 
+            this.lblRequestDetails.AutoSize = true;
+            this.lblRequestDetails.Location = new System.Drawing.Point(20, 273);
+            this.lblRequestDetails.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblRequestDetails.Name = "lblRequestDetails";
+            this.lblRequestDetails.Size = new System.Drawing.Size(82, 13);
+            this.lblRequestDetails.TabIndex = 20;
+            this.lblRequestDetails.Text = "Request Details";
+            // 
+            // lblRequestDate
+            // 
+            this.lblRequestDate.AutoSize = true;
+            this.lblRequestDate.Location = new System.Drawing.Point(20, 312);
+            this.lblRequestDate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblRequestDate.Name = "lblRequestDate";
+            this.lblRequestDate.Size = new System.Drawing.Size(73, 13);
+            this.lblRequestDate.TabIndex = 21;
+            this.lblRequestDate.Text = "Request Date";
+            // 
             // BookingTestForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 692);
-            this.Controls.Add(this.lstBookings);
-            this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnUpdate);
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblRequestDate);
+            this.Controls.Add(this.lblRequestDetails);
+            this.Controls.Add(this.lblRequestType);
+            this.Controls.Add(this.lblStatus);
+            this.Controls.Add(this.lblCheckOut);
+            this.Controls.Add(this.lblCheckIn);
+            this.Controls.Add(this.lblRoomID);
+            this.Controls.Add(this.lblCustID);
+            this.Controls.Add(this.lblBookingID);
+            this.Controls.Add(this.txtBookingID);
+            this.Controls.Add(this.txtCustID);
+            this.Controls.Add(this.txtRoomID);
             this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.dtpRequestDate);
-            this.Controls.Add(this.txtRequestDetails);
+            this.Controls.Add(this.btnUpdate);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.txtRequestType);
-            this.Controls.Add(this.cmbStatus);
             this.Controls.Add(this.dtpCheckOut);
             this.Controls.Add(this.dtpCheckIn);
-            this.Controls.Add(this.txtRoomID);
-            this.Controls.Add(this.txtCustID);
-            this.Controls.Add(this.txtBookingID);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Controls.Add(this.txtRequestDetails);
+            this.Controls.Add(this.cmbStatus);
+            this.Controls.Add(this.dtpRequestDate);
+            this.Controls.Add(this.lstBookings);
             this.Name = "BookingTestForm";
-            this.Text = "Booking Test Form";
-            this.Load += new System.EventHandler(this.BookingTestForm_Load);
+            this.Text = "Booking Management";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,5 +302,14 @@
         private System.Windows.Forms.TextBox txtRoomID;
         private System.Windows.Forms.TextBox txtCustID;
         private System.Windows.Forms.TextBox txtBookingID;
+        private System.Windows.Forms.Label lblBookingID;
+        private System.Windows.Forms.Label lblCustID;
+        private System.Windows.Forms.Label lblRoomID;
+        private System.Windows.Forms.Label lblCheckIn;
+        private System.Windows.Forms.Label lblCheckOut;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label lblRequestType;
+        private System.Windows.Forms.Label lblRequestDetails;
+        private System.Windows.Forms.Label lblRequestDate;
     }
 }
