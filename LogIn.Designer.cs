@@ -63,9 +63,9 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(93, 93);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(357, 202);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
@@ -75,12 +75,13 @@
             // 
             this.signInButton.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.signInButton.Location = new System.Drawing.Point(166, 168);
-            this.signInButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.signInButton.Margin = new System.Windows.Forms.Padding(2);
             this.signInButton.Name = "signInButton";
             this.signInButton.Size = new System.Drawing.Size(74, 23);
             this.signInButton.TabIndex = 6;
             this.signInButton.Text = "Sign in";
             this.signInButton.UseVisualStyleBackColor = false;
+            this.signInButton.Click += new System.EventHandler(this.signInButton_Click);
             // 
             // forgotPassword
             // 
@@ -99,7 +100,7 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox1.Location = new System.Drawing.Point(166, 116);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(110, 19);
             this.checkBox1.TabIndex = 4;
@@ -109,7 +110,7 @@
             // enterPassword
             // 
             this.enterPassword.Location = new System.Drawing.Point(158, 81);
-            this.enterPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.enterPassword.Margin = new System.Windows.Forms.Padding(2);
             this.enterPassword.Name = "enterPassword";
             this.enterPassword.Size = new System.Drawing.Size(175, 24);
             this.enterPassword.TabIndex = 3;
@@ -117,10 +118,11 @@
             // enterEmail
             // 
             this.enterEmail.Location = new System.Drawing.Point(158, 44);
-            this.enterEmail.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.enterEmail.Margin = new System.Windows.Forms.Padding(2);
             this.enterEmail.Name = "enterEmail";
             this.enterEmail.Size = new System.Drawing.Size(175, 24);
             this.enterEmail.TabIndex = 2;
+            //this.enterEmail.TextChanged += new System.EventHandler(this.enterEmail_TextChanged);
             // 
             // label3
             // 
@@ -150,7 +152,7 @@
             this.ClientSize = new System.Drawing.Size(575, 343);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LogIn";
             this.Text = "LogIn";
             this.Load += new System.EventHandler(this.LogIn_Load);
