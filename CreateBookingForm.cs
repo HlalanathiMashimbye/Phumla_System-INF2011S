@@ -177,5 +177,35 @@ namespace Phumla_System
             createBookingClosed = true;
         }
         #endregion
+
+        private void listToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CustomerListing customerListingForm = new CustomerListing();
+            customerListingForm.Show();
+        }
+
+        private void createNewCustomerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateNewCustomer createNewCustomerForm = new CreateNewCustomer();
+            createNewCustomerForm.Show();
+        }
+
+        private void newBookingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BookingSearch bookingSearchForm = new BookingSearch();
+            bookingSearchForm.Show();
+        }
+
+        private void changeBookingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeBooking changeBookingForm = new ChangeBooking();
+            changeBookingForm.Show();
+        }
+
+        private void cancelBookingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CancelBooking cancelBookingForm = new CancelBooking();
+            cancelBookingForm.Show();
+        }
     }
 }

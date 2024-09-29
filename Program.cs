@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Phumla_System.Business;
 
 
 namespace Phumla_System
@@ -18,9 +19,12 @@ namespace Phumla_System
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new MainForm());  # Main form
-            //Application.Run(new BookingTestForm());
-            Application.Run(new CustomerListing());
+
+            // Assuming you have instances of BookingController and CustomerController
+            BookingController bookingController = new BookingController();
+            CustomerController customerController = new CustomerController();
+
+            Application.Run(new CreateBookingForm(bookingController, customerController));
         }
     }
 }
