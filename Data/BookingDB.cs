@@ -16,14 +16,13 @@ namespace Phumla_System.Data
             SELECT b.BookingID, b.CustID, c.Name, b.RoomID, b.CheckInDate, 
                    b.CheckOutDate, b.Status, b.RequestDetails
             FROM Booking b
-            INNER JOIN Customer c ON b.CustID = c.CustID";  // SQL query with join
+            INNER JOIN Customer c ON b.CustID = c.CustID";
         #endregion
 
         #region Constructor
         public BookingDB() : base()
         {
             bookings = new Collection<Booking>();
-            // Use FillDataSet to load bookings from the database
             FillDataSet(sqlLocal, table);
             AddBookingsToCollection();
         }
@@ -37,44 +36,73 @@ namespace Phumla_System.Data
         #endregion
 
         #region Private Methods
-
-        // Fill the DataSet by executing the SQL query
         protected override void FillDataSet(string sqlQuery, string tableName)
         {
-            using (SqlConnection connection = new SqlConnection(Settings.Default.BookingsDatabaseConnectionString))
+            using (SqlConnection connection = new SqlConnection(strConn))
             {
-                SqlDataAdapter adapter = new SqlDataAdapter(sqlQuery, connection);
+                DataAdapter = new SqlDataAdapter(sqlQuery, connection);
                 connection.Open();
 
                 try
                 {
-                    adapter.Fill(DataSet, tableName);  // Fill DataSet with results from query
+                    DataAdapter.Fill(DataSet, tableName);
+
+                    // Manually create the UpdateCommand
+                    CreateUpdateCommand((SqlDataAdapter)DataAdapter);
                 }
                 catch (Exception ex)
                 {
-                    // Handle any exceptions, e.g., log error
                     throw new Exception("Error filling DataSet: " + ex.Message);
                 }
             }
         }
 
+        private void CreateUpdateCommand(SqlDataAdapter adapter)
+        {
+            string updateSQL = @"
+                UPDATE Booking 
+                SET CustID = @CustID, 
+                    RoomID = @RoomID, 
+                    CheckInDate = @CheckInDate, 
+                    CheckOutDate = @CheckOutDate, 
+                    Status = @Status, 
+                    RequestDetails = @RequestDetails
+                WHERE BookingID = @BookingID";
 
-        // Populate the bookings collection from the DataSet
+            adapter.UpdateCommand = new SqlCommand(updateSQL, SqlConnection);
+
+            adapter.UpdateCommand.Parameters.Add("@CustID", SqlDbType.NVarChar, 50, "CustID");
+            adapter.UpdateCommand.Parameters.Add("@RoomID", SqlDbType.NVarChar, 50, "RoomID");
+            adapter.UpdateCommand.Parameters.Add("@CheckInDate", SqlDbType.DateTime, 0, "CheckInDate");
+            adapter.UpdateCommand.Parameters.Add("@CheckOutDate", SqlDbType.DateTime, 0, "CheckOutDate");
+            adapter.UpdateCommand.Parameters.Add("@Status", SqlDbType.NVarChar, 50, "Status");
+            adapter.UpdateCommand.Parameters.Add("@RequestDetails", SqlDbType.NVarChar, -1, "RequestDetails");
+            adapter.UpdateCommand.Parameters.Add("@BookingID", SqlDbType.Int, 0, "BookingID");
+
+            // Optimistic concurrency: assume the row hasn't changed since it was retrieved
+            adapter.UpdateCommand.Parameters.Add("@Original_BookingID", SqlDbType.Int, 0, "BookingID").SourceVersion = DataRowVersion.Original;
+        }
+
         private void AddBookingsToCollection()
         {
-            if (!DataSet.Tables.Contains(table))
-            {
-                throw new InvalidOperationException($"The specified table '{table}' does not exist in the DataSet.");
-            }
-
             DataTable dataTable = DataSet.Tables[table];
 
             foreach (DataRow row in dataTable.Rows)
             {
-                int bookingID = int.Parse(row["BookingID"].ToString());
+                // Safely parse BookingID
+                if (!int.TryParse(row["BookingID"]?.ToString(), out int bookingID))
+                {
+                    // Log an error or skip if parsing fails
+                    Console.WriteLine($"Invalid BookingID found: {row["BookingID"]}");
+                    continue;
+                }
+
                 string custID = row["CustID"].ToString();
-                string customerName = row["Name"].ToString();  // Fetch customer name
-                string roomID = row["RoomID"]?.ToString();
+                string customerName = row["Name"].ToString();
+
+                // Safely parse RoomID if it's nullable
+                int roomID = row["RoomID"] != DBNull.Value ? int.Parse(row["RoomID"].ToString()) : -1;
+
                 DateTime checkInDate = DateTime.Parse(row["CheckInDate"].ToString());
                 DateTime checkOutDate = DateTime.Parse(row["CheckOutDate"].ToString());
                 string status = row["Status"].ToString();
@@ -82,16 +110,21 @@ namespace Phumla_System.Data
 
                 Booking booking = new Booking(bookingID, custID, checkInDate, checkOutDate, status)
                 {
-                    CustomerName = customerName  // Assign the customer name
+                    CustomerName = customerName
                 };
-                booking.AssignRoom(roomID);
+
+                if (roomID != -1) // Only assign room if it is valid
+                {
+                    booking.AssignRoom(roomID);
+                }
+
                 booking.SetRequest(requestDetails);
 
                 bookings.Add(booking);
             }
         }
 
-        // Find DataRow for a specific booking by BookingID
+
         private DataRow FindRow(int bookingID)
         {
             DataTable dataTable = DataSet.Tables[table];
@@ -99,34 +132,19 @@ namespace Phumla_System.Data
             return rows.Length > 0 ? rows[0] : null;
         }
 
-        // Fill DataRow with booking data for updates
         private void FillDataRow(DataRow row, Booking booking)
         {
             row["BookingID"] = booking.BookingID;
             row["CustID"] = booking.CustID;
-
-            if (string.IsNullOrEmpty(booking.RoomID))
-                row["RoomID"] = DBNull.Value;
-            else
-                row["RoomID"] = booking.RoomID;
-
+            row["RoomID"] = booking.RoomID ;
             row["CheckInDate"] = booking.CheckInDate;
             row["CheckOutDate"] = booking.CheckOutDate;
             row["Status"] = booking.Status;
-
-            if (string.IsNullOrEmpty(booking.RequestDetails))
-                row["RequestDetails"] = DBNull.Value;
-            else
-                row["RequestDetails"] = booking.RequestDetails;
-
-
+            row["RequestDetails"] = booking.RequestDetails ?? (object)DBNull.Value;
         }
-
         #endregion
 
         #region Public Methods
-
-        // Modify the dataset based on the DBOperation (Add, Change, Delete)
         public void DataSetChange(Booking booking, DBOperation operation)
         {
             DataRow row = null;
@@ -157,12 +175,25 @@ namespace Phumla_System.Data
             }
         }
 
-        // Update the actual database with changes from the dataset
         public bool UpdateDataSource(Booking booking)
         {
-            return UpdateDataSource(sqlLocal, table);
-        }
+            if (DataAdapter == null || ((SqlDataAdapter)DataAdapter).UpdateCommand == null)
+            {
+                // Re-initialize DataAdapter if it's null or UpdateCommand is not set
+                FillDataSet(sqlLocal, table);
+            }
 
+            // Find the row to update
+            DataRow[] rows = DataSet.Tables[table].Select($"BookingID = {booking.BookingID}");
+            if (rows.Length > 0)
+            {
+                DataRow row = rows[0];
+                // Update the row with new values
+                FillDataRow(row, booking);
+            }
+
+            return base.UpdateDataSource(sqlLocal, table);
+        }
         #endregion
     }
 }

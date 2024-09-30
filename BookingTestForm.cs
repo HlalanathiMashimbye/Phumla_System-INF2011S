@@ -60,7 +60,7 @@ namespace Phumla_System.Forms
                 cmbStatus.SelectedItem.ToString()
             );
 
-            booking.AssignRoom(txtRoomID.Text);
+            //booking.AssignRoom(txtRoomID.Text);
             booking.SetRequest(txtRequestDetails.Text);
 
             return booking;

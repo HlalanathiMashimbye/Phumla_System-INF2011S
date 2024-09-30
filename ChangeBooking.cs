@@ -77,7 +77,7 @@ namespace Phumla_System
             txtBookingID.Text = currentBooking.BookingID.ToString();
             //txtCustomerID.Text = currentBooking.CustID;
             //txtCustomerName.Text = currentBooking.CustomerName;
-            txtRoomID.Text = currentBooking.RoomID;
+            txtRoomID.Text = currentBooking.RoomID.ToString();
             dtpCheckInDate.Value = currentBooking.CheckInDate;
             dtpCheckOutDate.Value = currentBooking.CheckOutDate;
             //cmbStatus.SelectedItem = currentBooking.Status;
@@ -167,7 +167,16 @@ namespace Phumla_System
 
             try
             {
-                currentBooking.RoomID = txtRoomID.Text;
+                if (int.TryParse(txtRoomID.Text, out int roomID))
+                {
+                    currentBooking.RoomID = roomID;
+                }
+                else
+                {
+                    MessageBox.Show("Invalid Room ID. Please enter a valid number.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 currentBooking.CheckInDate = dtpCheckInDate.Value;
                 currentBooking.CheckOutDate = dtpCheckOutDate.Value;
                 currentBooking.Status = cmbStatus.SelectedItem?.ToString() ?? currentBooking.Status;
@@ -182,6 +191,7 @@ namespace Phumla_System
                 MessageBox.Show($"Error updating booking: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void WireUpEventHandlers()
         {

@@ -5,7 +5,7 @@ namespace Phumla_System.Business
     public class Room
     {
         #region Fields
-        public string RoomID { get; set; }
+        public int RoomID { get; set; }
         public string HotelID { get; set; }
         public string Status { get; set; } // 'Available', 'Occupied', 'Maintenance'
         public string Number { get; set; }
@@ -14,7 +14,7 @@ namespace Phumla_System.Business
         #endregion
 
         #region Constructor
-        public Room(string roomID, string hotelID, string status, string number, string type, decimal rate)
+        public Room(int roomID, string hotelID, string status, string number, string type, decimal rate)
         {
             RoomID = roomID;
             HotelID = hotelID;

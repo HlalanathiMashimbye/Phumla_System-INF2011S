@@ -51,7 +51,7 @@ namespace Phumla_System
                 if (ValidateReceptionist(email, password))
                 {
                     // Cancel booking (Set room to null and status to 'Cancelled')
-                    //selectedBooking.RoomID = null;
+                    selectedBooking.RoomID = 0;
                     selectedBooking.Status = "Cancelled";
 
                     // Update booking in database

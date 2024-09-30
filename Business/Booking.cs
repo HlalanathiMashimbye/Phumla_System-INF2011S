@@ -8,7 +8,7 @@ namespace Phumla_System.Business
         #region Property Methods
         public int BookingID { get; set; }  // Changed to int
         public string CustID { get; set; }
-        public string RoomID { get; set; } // Nullable
+        public int RoomID { get; set; } // Nullable
         public string CustomerName { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
@@ -30,7 +30,7 @@ namespace Phumla_System.Business
         #endregion
 
         // Method to update the room allocation (optional for your system)
-        public void AssignRoom(string roomID)
+        public void AssignRoom(int roomID)
         {
             RoomID = roomID;
         }

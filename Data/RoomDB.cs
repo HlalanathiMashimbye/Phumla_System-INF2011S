@@ -48,7 +48,7 @@ namespace Phumla_System.Data
                 if (myRow.RowState != DataRowState.Deleted)
                 {
                     var aRoom = new Room(
-                        Convert.ToString(myRow["RoomID"]).TrimEnd(),
+                        Convert.ToInt32(myRow["RoomID"]),
                         Convert.ToString(myRow["HotelID"]).TrimEnd(),
                         Convert.ToString(myRow["Status"]).TrimEnd(),
                         Convert.ToString(myRow["Number"]).TrimEnd(),
@@ -80,7 +80,7 @@ namespace Phumla_System.Data
         public void DataSetChange(Room room, DBOperation operation)
         {
             DataRow roomRow = null;
-            string strIndex;
+            int strIndex;
 
             switch (operation)
             {

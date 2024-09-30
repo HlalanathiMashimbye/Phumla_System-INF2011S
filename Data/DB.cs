@@ -1,8 +1,8 @@
 ﻿using System;
-using Phumla_System.Properties;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using Phumla_System.Properties;
 
 namespace Phumla_System.Data
 {
@@ -44,7 +44,6 @@ namespace Phumla_System.Data
         {
             try
             {
-                // Correctly initialize the SqlDataAdapter with the SQL query
                 DataAdapter = new SqlDataAdapter(aSQLstring, SqlConnection);
                 SqlConnection.Open();
                 DataAdapter.Fill(DataSet, aTable);
@@ -55,10 +54,9 @@ namespace Phumla_System.Data
             }
             finally
             {
-                SqlConnection.Close(); // Ensure connection is closed in finally block
+                SqlConnection.Close();
             }
         }
-
         #endregion
 
         #region Update the Data Source
@@ -67,20 +65,43 @@ namespace Phumla_System.Data
             bool success = false;
             try
             {
+                if (DataAdapter == null)
+                {
+                    throw new InvalidOperationException("DataAdapter is not initialized.");
+                }
+
+                if (((SqlDataAdapter)DataAdapter).UpdateCommand == null)
+                {
+                    throw new InvalidOperationException("UpdateCommand is not set for the DataAdapter.");
+                }
+
+                // Ensure the connection string is set
+                if (string.IsNullOrEmpty(SqlConnection.ConnectionString))
+                {
+                    SqlConnection.ConnectionString = strConn;
+                }
+
+                // Ensure the UpdateCommand has a valid connection
+                if (((SqlDataAdapter)DataAdapter).UpdateCommand.Connection == null ||
+                    string.IsNullOrEmpty(((SqlDataAdapter)DataAdapter).UpdateCommand.Connection.ConnectionString))
+                {
+                    ((SqlDataAdapter)DataAdapter).UpdateCommand.Connection = SqlConnection;
+                }
+
                 SqlConnection.Open();
-                DataAdapter.Update(DataSet, sqlTable);
-                success = true;
+                int rowsAffected = DataAdapter.Update(DataSet, sqlTable);
+                success = rowsAffected > 0;
 
                 // Refresh the dataset after update
                 FillDataSet(sqlLocal, sqlTable);
             }
             catch (Exception errObj)
             {
-                MessageBox.Show(errObj.Message + " " + errObj.StackTrace);
+                MessageBox.Show($"Error updating data source: {errObj.Message}\n\nStack Trace: {errObj.StackTrace}");
             }
             finally
             {
-                SqlConnection.Close(); // Ensure connection is closed in finally block
+                SqlConnection.Close();
             }
             return success;
         }
