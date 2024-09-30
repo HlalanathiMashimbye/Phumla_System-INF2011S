@@ -1,105 +1,89 @@
-﻿namespace Phumla_System
+﻿using System.Drawing;
+using System.Windows.Forms;
+using System;
+
+namespace Phumla_System
 {
-    partial class CancelBooking
+    public partial class CancelBooking : Form
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private DataGridView dataGridViewBookings;
+        private Button btnCancelBooking;
+        private TextBox txtPassword;
+        private TextBox txtEmail;   // Added email TextBox
+        private Label lblPassword;
+        private Label lblEmail;     // Added email Label
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.confirmButton = new System.Windows.Forms.Button();
-            this.exitButton = new System.Windows.Forms.Button();
+            this.dataGridViewBookings = new DataGridView();
+            this.btnCancelBooking = new Button();
+            this.txtPassword = new TextBox();
+            this.txtEmail = new TextBox();  // Initialize email TextBox
+            this.lblPassword = new Label();
+            this.lblEmail = new Label();    // Initialize email Label
+
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.MediumVioletRed;
-            this.label1.Location = new System.Drawing.Point(413, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(316, 46);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Cancel Booking";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.MediumVioletRed;
-            this.label2.Location = new System.Drawing.Point(799, 691);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 46);
-            this.label2.TabIndex = 2;
-            // 
-            // confirmButton
-            // 
-            this.confirmButton.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.confirmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.confirmButton.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.confirmButton.Location = new System.Drawing.Point(1006, 756);
-            this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(134, 40);
-            this.confirmButton.TabIndex = 3;
-            this.confirmButton.Text = "Confirm";
-            this.confirmButton.UseVisualStyleBackColor = false;
-            // 
-            // exitButton
-            // 
-            this.exitButton.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.exitButton.Location = new System.Drawing.Point(38, 743);
-            this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(102, 44);
-            this.exitButton.TabIndex = 21;
-            this.exitButton.Text = "Exit";
-            this.exitButton.UseVisualStyleBackColor = false;
-            // 
-            // CancelBooking
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1167, 808);
-            this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.confirmButton);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+
+            // dataGridViewBookings
+            this.dataGridViewBookings.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewBookings.Location = new Point(12, 12);
+            this.dataGridViewBookings.Name = "dataGridViewBookings";
+            this.dataGridViewBookings.Size = new Size(776, 300);
+            this.dataGridViewBookings.TabIndex = 0;
+
+            // lblEmail
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Location = new Point(12, 320);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new Size(35, 13);
+            this.lblEmail.TabIndex = 4;
+            this.lblEmail.Text = "Email:";
+
+            // txtEmail
+            this.txtEmail.Location = new Point(74, 317);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new Size(200, 20);
+            this.txtEmail.TabIndex = 5;
+
+            // lblPassword
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Location = new Point(12, 350);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new Size(56, 13);
+            this.lblPassword.TabIndex = 1;
+            this.lblPassword.Text = "Password:";
+
+            // txtPassword
+            this.txtPassword.Location = new Point(74, 347);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';  // Mask the password input
+            this.txtPassword.Size = new Size(200, 20);
+            this.txtPassword.TabIndex = 2;
+
+            // btnCancelBooking
+            this.btnCancelBooking.Location = new Point(12, 380);
+            this.btnCancelBooking.Name = "btnCancelBooking";
+            this.btnCancelBooking.Size = new Size(776, 23);
+            this.btnCancelBooking.TabIndex = 3;
+            this.btnCancelBooking.Text = "Cancel Booking";
+            this.btnCancelBooking.UseVisualStyleBackColor = true;
+            this.btnCancelBooking.Click += new EventHandler(this.btnCancelBooking_Click);
+
+            // CancelBooking Form
+            this.AutoScaleDimensions = new SizeF(6F, 13F);
+            this.AutoScaleMode = AutoScaleMode.Font;
+            this.ClientSize = new Size(800, 450);
+            this.Controls.Add(this.lblEmail);  // Add email Label to form
+            this.Controls.Add(this.txtEmail);  // Add email TextBox to form
+            this.Controls.Add(this.lblPassword);
+            this.Controls.Add(this.txtPassword);
+            this.Controls.Add(this.btnCancelBooking);
+            this.Controls.Add(this.dataGridViewBookings);
             this.Name = "CancelBooking";
-            this.Text = "CancelBooking";
+            this.Text = "Cancel Booking";
+            this.Load += new EventHandler(this.CancelBooking_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
-
-        #endregion
-
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button confirmButton;
-        private System.Windows.Forms.Button exitButton;
     }
 }

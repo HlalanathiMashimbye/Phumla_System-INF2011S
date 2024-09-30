@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.SqlClient;
 using Phumla_System.Business;
 using Phumla_System.Properties;
-using System.Windows.Forms;
 
 namespace Phumla_System.Data
 {
@@ -12,15 +11,20 @@ namespace Phumla_System.Data
     {
         #region Data Members
         private Collection<Booking> bookings;
-        private string table = "Booking";  // Table name in the database
-        private string sqlLocal = "SELECT * FROM Booking";  // SQL query to load the bookings
+        private string table = "Booking";
+        private string sqlLocal = @"
+            SELECT b.BookingID, b.CustID, c.Name, b.RoomID, b.CheckInDate, 
+                   b.CheckOutDate, b.Status, b.RequestDetails
+            FROM Booking b
+            INNER JOIN Customer c ON b.CustID = c.CustID";  // SQL query with join
         #endregion
 
         #region Constructor
         public BookingDB() : base()
         {
             bookings = new Collection<Booking>();
-            FillDataSet(sqlLocal, table);  // Load bookings from the database
+            // Use FillDataSet to load bookings from the database
+            FillDataSet(sqlLocal, table);
             AddBookingsToCollection();
         }
         #endregion
@@ -34,7 +38,27 @@ namespace Phumla_System.Data
 
         #region Private Methods
 
-        // Populate the bookings collection from the dataset
+        // Fill the DataSet by executing the SQL query
+        private new void FillDataSet(string sqlQuery, string tableName)
+        {
+            using (SqlConnection connection = new SqlConnection(Settings.Default.BookingsDatabaseConnectionString))
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter(sqlQuery, connection);
+                connection.Open();
+
+                try
+                {
+                    adapter.Fill(DataSet, tableName);  // Fill DataSet with results from query
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions, e.g., log error
+                    throw new Exception("Error filling DataSet: " + ex.Message);
+                }
+            }
+        }
+
+        // Populate the bookings collection from the DataSet
         private void AddBookingsToCollection()
         {
             if (!DataSet.Tables.Contains(table))
@@ -43,25 +67,22 @@ namespace Phumla_System.Data
             }
 
             DataTable dataTable = DataSet.Tables[table];
-            
-
-            if (dataTable == null)
-            {
-                // Handle the error, e.g., log it or throw an exception
-                throw new InvalidOperationException("The specified table does not exist in the DataSet.");
-            }
 
             foreach (DataRow row in dataTable.Rows)
             {
                 int bookingID = int.Parse(row["BookingID"].ToString());
                 string custID = row["CustID"].ToString();
+                string customerName = row["Name"].ToString();  // Fetch customer name
                 string roomID = row["RoomID"]?.ToString();
                 DateTime checkInDate = DateTime.Parse(row["CheckInDate"].ToString());
                 DateTime checkOutDate = DateTime.Parse(row["CheckOutDate"].ToString());
                 string status = row["Status"].ToString();
                 string requestDetails = row["RequestDetails"]?.ToString();
 
-                Booking booking = new Booking(bookingID, custID, checkInDate, checkOutDate, status);
+                Booking booking = new Booking(bookingID, custID, checkInDate, checkOutDate, status)
+                {
+                    CustomerName = customerName  // Assign the customer name
+                };
                 booking.AssignRoom(roomID);
                 booking.SetRequest(requestDetails);
 
@@ -69,8 +90,7 @@ namespace Phumla_System.Data
             }
         }
 
-
-        // Find a DataRow for a specific booking by BookingID
+        // Find DataRow for a specific booking by BookingID
         private DataRow FindRow(int bookingID)
         {
             DataTable dataTable = DataSet.Tables[table];
@@ -78,13 +98,12 @@ namespace Phumla_System.Data
             return rows.Length > 0 ? rows[0] : null;
         }
 
-        // Fill a DataRow with booking data
+        // Fill DataRow with booking data for updates
         private void FillDataRow(DataRow row, Booking booking)
         {
             row["BookingID"] = booking.BookingID;
             row["CustID"] = booking.CustID;
 
-            // Handle RoomID: Check for null and assign DBNull.Value if necessary
             if (string.IsNullOrEmpty(booking.RoomID))
                 row["RoomID"] = DBNull.Value;
             else
@@ -94,25 +113,13 @@ namespace Phumla_System.Data
             row["CheckOutDate"] = booking.CheckOutDate;
             row["Status"] = booking.Status;
 
-            // Handle RequestType: Check for null and assign DBNull.Value if necessary
-            if (string.IsNullOrEmpty(booking.RequestType))
-                row["RequestType"] = DBNull.Value;
-            else
-                row["RequestType"] = booking.RequestType;
-
-            // Handle RequestDetails: Check for null and assign DBNull.Value if necessary
             if (string.IsNullOrEmpty(booking.RequestDetails))
                 row["RequestDetails"] = DBNull.Value;
             else
                 row["RequestDetails"] = booking.RequestDetails;
 
-            // Handle RequestDate: Assign DBNull if it's the minimum value (means uninitialized)
-            if (booking.RequestDate == DateTime.MinValue)
-                row["RequestDate"] = DBNull.Value;
-            else
-                row["RequestDate"] = booking.RequestDate;
-        }
 
+        }
 
         #endregion
 

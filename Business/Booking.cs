@@ -9,6 +9,7 @@ namespace Phumla_System.Business
         public int BookingID { get; set; }  // Changed to int
         public string CustID { get; set; }
         public string RoomID { get; set; } // Nullable
+        public string CustomerName { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public string Status { get; set; } // 'Confirmed', 'Cancelled', 'Completed'

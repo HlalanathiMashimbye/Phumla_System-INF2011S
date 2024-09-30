@@ -77,7 +77,7 @@
             this.signInButton.Location = new System.Drawing.Point(166, 168);
             this.signInButton.Margin = new System.Windows.Forms.Padding(2);
             this.signInButton.Name = "signInButton";
-            this.signInButton.Size = new System.Drawing.Size(74, 23);
+            this.signInButton.Size = new System.Drawing.Size(74, 30);
             this.signInButton.TabIndex = 6;
             this.signInButton.Text = "Sign in";
             this.signInButton.UseVisualStyleBackColor = false;
@@ -122,7 +122,6 @@
             this.enterEmail.Name = "enterEmail";
             this.enterEmail.Size = new System.Drawing.Size(175, 24);
             this.enterEmail.TabIndex = 2;
-            //this.enterEmail.TextChanged += new System.EventHandler(this.enterEmail_TextChanged);
             // 
             // label3
             // 
