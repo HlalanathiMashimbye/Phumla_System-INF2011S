@@ -25,7 +25,7 @@ namespace Phumla_System
             CustomerController customerController = new CustomerController();
 
             Application.Run(new LogIn());
-            //Application.Run(new CancelBooking()); //Use this to debug cancel booking
+            
         }
     }
 }

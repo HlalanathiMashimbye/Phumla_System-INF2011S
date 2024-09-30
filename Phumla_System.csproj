@@ -96,12 +96,6 @@
     <Compile Include="Presentation\BookingSearch.Designer.cs">
       <DependentUpon>BookingSearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="BookingTestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BookingTestForm.Designer.cs">
-      <DependentUpon>BookingTestForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Business\Booking.cs" />
     <Compile Include="Business\BookingController.cs" />
     <Compile Include="Business\Customer.cs" />
@@ -109,10 +103,10 @@
     <Compile Include="Business\Receptionist.cs" />
     <Compile Include="Business\ReceptionistController.cs" />
     <Compile Include="Business\RoomController.cs" />
-    <Compile Include="CancelBooking.cs">
+    <Compile Include="Presentation\CancelBooking.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CancelBooking.Designer.cs">
+    <Compile Include="Presentation\CancelBooking.Designer.cs">
       <DependentUpon>CancelBooking.cs</DependentUpon>
     </Compile>
     <Compile Include="ChangeBooking.cs">
@@ -177,10 +171,7 @@
     <EmbeddedResource Include="Presentation\BookingSearch.resx">
       <DependentUpon>BookingSearch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BookingTestForm.resx">
-      <DependentUpon>BookingTestForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CancelBooking.resx">
+    <EmbeddedResource Include="Presentation\CancelBooking.resx">
       <DependentUpon>CancelBooking.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChangeBooking.resx">
