@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Data.SqlClient;
 using Phumla_System.Business;
 
 namespace Phumla_System.Data
@@ -29,6 +30,9 @@ namespace Phumla_System.Data
             customers = new Collection<Customer>();
             FillDataSet(sqlLocalCustomer, customerTable);
             AddCustomersToCollection();
+
+            // Create commands for Insert, Update, and Delete
+            CreateCommands();
         }
         #endregion
 
@@ -40,10 +44,8 @@ namespace Phumla_System.Data
 
         private void AddCustomersToCollection()
         {
-            DataRow myRow;
-            foreach (DataRow myRow_loopVariable in DataSet.Tables[customerTable].Rows)
+            foreach (DataRow myRow in DataSet.Tables[customerTable].Rows)
             {
-                myRow = myRow_loopVariable;
                 if (myRow.RowState != DataRowState.Deleted)
                 {
                     var aCustomer = new Customer(
@@ -76,6 +78,48 @@ namespace Phumla_System.Data
             aRow["Address"] = aCustomer.Address;
             aRow["Status"] = aCustomer.Status;
             aRow["Balance"] = aCustomer.Balance;
+        }
+        #endregion
+
+        #region Create Commands for DataAdapter
+        private void CreateCommands()
+        {
+            // Assuming SqlConnection is inherited from DB class
+            SqlDataAdapter adapter = (SqlDataAdapter)DataAdapter;
+
+            // InsertCommand
+            string insertSQL = @"
+                INSERT INTO Customer (CustID, Name, Surname, Phone, Email, Address, Status, Balance)
+                VALUES (@CustID, @Name, @Surname, @Phone, @Email, @Address, @Status, @Balance)";
+            adapter.InsertCommand = new SqlCommand(insertSQL, SqlConnection);
+            AddCustomerParameters(adapter.InsertCommand);
+
+            // UpdateCommand
+            string updateSQL = @"
+                UPDATE Customer 
+                SET Name = @Name, Surname = @Surname, Phone = @Phone, 
+                    Email = @Email, Address = @Address, Status = @Status, Balance = @Balance
+                WHERE CustID = @CustID";
+            adapter.UpdateCommand = new SqlCommand(updateSQL, SqlConnection);
+            AddCustomerParameters(adapter.UpdateCommand);
+
+            // DeleteCommand
+            string deleteSQL = @"
+                DELETE FROM Customer WHERE CustID = @CustID";
+            adapter.DeleteCommand = new SqlCommand(deleteSQL, SqlConnection);
+            adapter.DeleteCommand.Parameters.Add("@CustID", SqlDbType.Char, 13, "CustID");
+        }
+
+        private void AddCustomerParameters(SqlCommand command)
+        {
+            command.Parameters.Add("@CustID", SqlDbType.Char, 13, "CustID");
+            command.Parameters.Add("@Name", SqlDbType.NVarChar, 100, "Name");
+            command.Parameters.Add("@Surname", SqlDbType.NVarChar, 100, "Surname");
+            command.Parameters.Add("@Phone", SqlDbType.NVarChar, 20, "Phone");
+            command.Parameters.Add("@Email", SqlDbType.NVarChar, 100, "Email");
+            command.Parameters.Add("@Address", SqlDbType.Text, -1, "Address");
+            command.Parameters.Add("@Status", SqlDbType.NVarChar, 20, "Status");
+            command.Parameters.Add("@Balance", SqlDbType.Decimal).SourceColumn = "Balance";
         }
         #endregion
 

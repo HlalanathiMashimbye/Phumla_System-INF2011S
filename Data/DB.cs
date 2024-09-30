@@ -45,7 +45,13 @@ namespace Phumla_System.Data
             try
             {
                 DataAdapter = new SqlDataAdapter(aSQLstring, SqlConnection);
-                SqlConnection.Open();
+
+                // Check if connection is already open
+                if (SqlConnection.State != ConnectionState.Open)
+                {
+                    SqlConnection.Open();
+                }
+
                 DataAdapter.Fill(DataSet, aTable);
             }
             catch (Exception errObj)
@@ -54,7 +60,10 @@ namespace Phumla_System.Data
             }
             finally
             {
-                SqlConnection.Close();
+                if (SqlConnection.State == ConnectionState.Open)
+                {
+                    SqlConnection.Close();
+                }
             }
         }
         #endregion

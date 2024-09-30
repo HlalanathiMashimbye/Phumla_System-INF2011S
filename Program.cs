@@ -1,5 +1,4 @@
-﻿using Phumla_System.Forms;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +24,7 @@ namespace Phumla_System
             CustomerController customerController = new CustomerController();
 
             Application.Run(new LogIn());
+            //Application.Run(new CreateNewCustomer());
             
         }
     }

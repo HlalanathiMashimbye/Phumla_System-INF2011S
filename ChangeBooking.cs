@@ -221,6 +221,9 @@ namespace Phumla_System
             Console.WriteLine($"Items manually added. Count: {cmbStatus.Items.Count}");
         }
 
+        private void cmbNumGuests_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }

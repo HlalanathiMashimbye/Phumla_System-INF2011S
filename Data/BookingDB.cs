@@ -14,7 +14,7 @@ namespace Phumla_System.Data
         private string table = "Booking";
         private string sqlLocal = @"
             SELECT b.BookingID, b.CustID, c.Name, b.RoomID, b.CheckInDate, 
-                   b.CheckOutDate, b.Status, b.RequestDetails
+                   b.CheckOutDate, b.Status, b.RequestDetails, b.NumberOfGuests
             FROM Booking b
             INNER JOIN Customer c ON b.CustID = c.CustID";
         #endregion
@@ -66,17 +66,19 @@ namespace Phumla_System.Data
                     CheckInDate = @CheckInDate, 
                     CheckOutDate = @CheckOutDate, 
                     Status = @Status, 
-                    RequestDetails = @RequestDetails
+                    RequestDetails = @RequestDetails,
+                    NumberOfGuests = @NumberOfGuests
                 WHERE BookingID = @BookingID";
 
             adapter.UpdateCommand = new SqlCommand(updateSQL, SqlConnection);
 
             adapter.UpdateCommand.Parameters.Add("@CustID", SqlDbType.NVarChar, 50, "CustID");
-            adapter.UpdateCommand.Parameters.Add("@RoomID", SqlDbType.NVarChar, 50, "RoomID");
+            adapter.UpdateCommand.Parameters.Add("@RoomID", SqlDbType.Int, 0, "RoomID"); // Changed to Int for RoomID
             adapter.UpdateCommand.Parameters.Add("@CheckInDate", SqlDbType.DateTime, 0, "CheckInDate");
             adapter.UpdateCommand.Parameters.Add("@CheckOutDate", SqlDbType.DateTime, 0, "CheckOutDate");
             adapter.UpdateCommand.Parameters.Add("@Status", SqlDbType.NVarChar, 50, "Status");
             adapter.UpdateCommand.Parameters.Add("@RequestDetails", SqlDbType.NVarChar, -1, "RequestDetails");
+            adapter.UpdateCommand.Parameters.Add("@NumberOfGuests", SqlDbType.NVarChar, -1, "NumberOfGuests");
             adapter.UpdateCommand.Parameters.Add("@BookingID", SqlDbType.Int, 0, "BookingID");
 
             // Optimistic concurrency: assume the row hasn't changed since it was retrieved
@@ -101,21 +103,22 @@ namespace Phumla_System.Data
                 string customerName = row["Name"].ToString();
 
                 // Safely parse RoomID if it's nullable
-                int roomID = row["RoomID"] != DBNull.Value ? int.Parse(row["RoomID"].ToString()) : -1;
+                int? roomID = row["RoomID"] != DBNull.Value ? (int?)int.Parse(row["RoomID"].ToString()) : null;
 
                 DateTime checkInDate = DateTime.Parse(row["CheckInDate"].ToString());
                 DateTime checkOutDate = DateTime.Parse(row["CheckOutDate"].ToString());
                 string status = row["Status"].ToString();
                 string requestDetails = row["RequestDetails"]?.ToString();
+                string numberOfGuests = row["NumberOfGuests"]?.ToString(); // New property for number of guests
 
-                Booking booking = new Booking(bookingID, custID, checkInDate, checkOutDate, status)
+                Booking booking = new Booking(bookingID, custID, checkInDate, checkOutDate, status, numberOfGuests)
                 {
                     CustomerName = customerName
                 };
 
-                if (roomID != -1) // Only assign room if it is valid
+                if (roomID.HasValue) // Only assign room if it is valid
                 {
-                    booking.AssignRoom(roomID);
+                    booking.AssignRoom(roomID.Value);
                 }
 
                 booking.SetRequest(requestDetails);
@@ -123,7 +126,6 @@ namespace Phumla_System.Data
                 bookings.Add(booking);
             }
         }
-
 
         private DataRow FindRow(int bookingID)
         {
@@ -136,11 +138,12 @@ namespace Phumla_System.Data
         {
             row["BookingID"] = booking.BookingID;
             row["CustID"] = booking.CustID;
-            row["RoomID"] = booking.RoomID ;
+            row["RoomID"] = booking.RoomID;
             row["CheckInDate"] = booking.CheckInDate;
             row["CheckOutDate"] = booking.CheckOutDate;
             row["Status"] = booking.Status;
             row["RequestDetails"] = booking.RequestDetails ?? (object)DBNull.Value;
+            row["NumberOfGuests"] = booking.NumberOfGuests ?? (object)DBNull.Value; // Fill NumberOfGuests
         }
         #endregion
 

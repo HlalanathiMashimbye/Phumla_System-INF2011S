@@ -8,17 +8,18 @@ namespace Phumla_System.Business
         #region Property Methods
         public int BookingID { get; set; }  // Changed to int
         public string CustID { get; set; }
-        public int RoomID { get; set; } // Nullable
+        public int? RoomID { get; set; } // Made RoomID nullable
         public string CustomerName { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public string Status { get; set; } // 'Confirmed', 'Cancelled', 'Completed'
         public string RequestDetails { get; set; } // Details of the request
+        public string NumberOfGuests { get; set; } // New property for number of guests
         #endregion
 
         // Constructor for creating a Booking
         #region Constructor
-        public Booking(int bookingID, string custID, DateTime checkInDate, DateTime checkOutDate, string status)
+        public Booking(int bookingID, string custID, DateTime checkInDate, DateTime checkOutDate, string status, string numberOfGuests)
         {
             BookingID = bookingID; // Updated to int
             CustID = custID;
@@ -26,6 +27,7 @@ namespace Phumla_System.Business
             CheckOutDate = checkOutDate;
             Status = status;
             RequestDetails = null;
+            NumberOfGuests = numberOfGuests; // Initialize number of guests
         }
         #endregion
 
@@ -39,13 +41,12 @@ namespace Phumla_System.Business
         public void SetRequest(string requestDetails)
         {
             RequestDetails = requestDetails;
-            
         }
 
         // Method to change booking status
         public void UpdateStatus(string newStatus)
         {
-            if (newStatus == "Confirmed" || newStatus == "Cancelled" || newStatus == "Completed")
+            if (newStatus == "Confirmed" || newStatus == "Cancelled" || newStatus == "Completed" || newStatus == "Changed")
             {
                 Status = newStatus;
             }

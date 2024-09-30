@@ -116,7 +116,8 @@ namespace Phumla_System
                 custIDTextBox.Text,
                 checkInDateTimePicker.Value,
                 checkOutDateTimePicker.Value,
-                "Confirmed"
+                "Confirmed", // Status to bambisa
+                "1" // Room ID to bambisa
             );
             // booking.SetRequest(      UNCOMMENT WHEN DONE TESTING
             // requestTypeTextBox.Text,
