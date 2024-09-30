@@ -207,5 +207,23 @@ namespace Phumla_System
             CancelBooking cancelBookingForm = new CancelBooking();
             cancelBookingForm.Show();
         }
+
+        private void occupancyLevelReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OccupancyLevelReport occupancyLevelReport = new OccupancyLevelReport();
+            occupancyLevelReport.Show();
+        }
+
+        private void notificationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void occupancyLevelReportToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+    
+        }
+
+
     }
 }

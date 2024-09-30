@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.bookingsDatabaseDataSet = new Phumla_System.BookingsDatabaseDataSet();
             this.bookingBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -38,17 +39,16 @@
             this.tableAdapterManager = new Phumla_System.BookingsDatabaseDataSetTableAdapters.TableAdapterManager();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.customerSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.modifyBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.notificationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createNewCustomerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createNewBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modifyBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.adjustHotelOccupancyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notificationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.occupancyLevelReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bookingsDatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookingBindingSource)).BeginInit();
@@ -67,6 +67,11 @@
             this.statusStrip.Size = new System.Drawing.Size(1180, 28);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "StatusStrip";
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 20);
             // 
             // bookingsDatabaseDataSet
             // 
@@ -104,8 +109,7 @@
             this.customerSearchToolStripMenuItem,
             this.newBookingToolStripMenuItem,
             this.modifyBookingToolStripMenuItem,
-            this.notificationsToolStripMenuItem,
-            this.adjustHotelOccupancyToolStripMenuItem});
+            this.notificationsToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Size = new System.Drawing.Size(1180, 38);
@@ -122,32 +126,6 @@
             this.customerSearchToolStripMenuItem.Size = new System.Drawing.Size(197, 34);
             this.customerSearchToolStripMenuItem.Text = "Customer Search";
             // 
-            // newBookingToolStripMenuItem
-            // 
-            this.newBookingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createNewBookingToolStripMenuItem});
-            this.newBookingToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newBookingToolStripMenuItem.Name = "newBookingToolStripMenuItem";
-            this.newBookingToolStripMenuItem.Size = new System.Drawing.Size(164, 34);
-            this.newBookingToolStripMenuItem.Text = "New Booking";
-            // 
-            // modifyBookingToolStripMenuItem
-            // 
-            this.modifyBookingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.changeBookingToolStripMenuItem,
-            this.cancelBookingToolStripMenuItem});
-            this.modifyBookingToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.modifyBookingToolStripMenuItem.Name = "modifyBookingToolStripMenuItem";
-            this.modifyBookingToolStripMenuItem.Size = new System.Drawing.Size(189, 34);
-            this.modifyBookingToolStripMenuItem.Text = "Modify Booking";
-            // 
-            // notificationsToolStripMenuItem
-            // 
-            this.notificationsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.notificationsToolStripMenuItem.Name = "notificationsToolStripMenuItem";
-            this.notificationsToolStripMenuItem.Size = new System.Drawing.Size(147, 34);
-            this.notificationsToolStripMenuItem.Text = "Get Reports";
-            // 
             // listToolStripMenuItem
             // 
             this.listToolStripMenuItem.Name = "listToolStripMenuItem";
@@ -160,11 +138,30 @@
             this.createNewCustomerToolStripMenuItem.Size = new System.Drawing.Size(335, 38);
             this.createNewCustomerToolStripMenuItem.Text = "Create New Customer";
             // 
+            // newBookingToolStripMenuItem
+            // 
+            this.newBookingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createNewBookingToolStripMenuItem});
+            this.newBookingToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.newBookingToolStripMenuItem.Name = "newBookingToolStripMenuItem";
+            this.newBookingToolStripMenuItem.Size = new System.Drawing.Size(164, 34);
+            this.newBookingToolStripMenuItem.Text = "New Booking";
+            // 
             // createNewBookingToolStripMenuItem
             // 
             this.createNewBookingToolStripMenuItem.Name = "createNewBookingToolStripMenuItem";
             this.createNewBookingToolStripMenuItem.Size = new System.Drawing.Size(322, 38);
             this.createNewBookingToolStripMenuItem.Text = "Create New Booking";
+            // 
+            // modifyBookingToolStripMenuItem
+            // 
+            this.modifyBookingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.changeBookingToolStripMenuItem,
+            this.cancelBookingToolStripMenuItem});
+            this.modifyBookingToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modifyBookingToolStripMenuItem.Name = "modifyBookingToolStripMenuItem";
+            this.modifyBookingToolStripMenuItem.Size = new System.Drawing.Size(189, 34);
+            this.modifyBookingToolStripMenuItem.Text = "Modify Booking";
             // 
             // changeBookingToolStripMenuItem
             // 
@@ -178,12 +175,14 @@
             this.cancelBookingToolStripMenuItem.Size = new System.Drawing.Size(281, 38);
             this.cancelBookingToolStripMenuItem.Text = "Cancel Booking";
             // 
-            // adjustHotelOccupancyToolStripMenuItem
+            // notificationsToolStripMenuItem
             // 
-            this.adjustHotelOccupancyToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adjustHotelOccupancyToolStripMenuItem.Name = "adjustHotelOccupancyToolStripMenuItem";
-            this.adjustHotelOccupancyToolStripMenuItem.Size = new System.Drawing.Size(268, 34);
-            this.adjustHotelOccupancyToolStripMenuItem.Text = "Adjust Hotel Occupancy";
+            this.notificationsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.occupancyLevelReportToolStripMenuItem});
+            this.notificationsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.notificationsToolStripMenuItem.Name = "notificationsToolStripMenuItem";
+            this.notificationsToolStripMenuItem.Size = new System.Drawing.Size(147, 34);
+            this.notificationsToolStripMenuItem.Text = "Get Reports";
             // 
             // pictureBox1
             // 
@@ -195,10 +194,11 @@
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
             // 
-            // toolStripProgressBar1
+            // occupancyLevelReportToolStripMenuItem
             // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 20);
+            this.occupancyLevelReportToolStripMenuItem.Name = "occupancyLevelReportToolStripMenuItem";
+            this.occupancyLevelReportToolStripMenuItem.Size = new System.Drawing.Size(356, 38);
+            this.occupancyLevelReportToolStripMenuItem.Text = "Occupancy Level Report";
             // 
             // MainForm
             // 
@@ -242,9 +242,9 @@
         private System.Windows.Forms.ToolStripMenuItem createNewBookingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changeBookingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cancelBookingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem adjustHotelOccupancyToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.ToolStripMenuItem occupancyLevelReportToolStripMenuItem;
     }
 }
 
