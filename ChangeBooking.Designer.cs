@@ -29,25 +29,24 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkOut = new System.Windows.Forms.DateTimePicker();
-            this.checkIn = new System.Windows.Forms.DateTimePicker();
-            this.requirements = new System.Windows.Forms.TextBox();
-            this.guestDescription = new System.Windows.Forms.TextBox();
-            this.noOfRooms = new System.Windows.Forms.TextBox();
-            this.noOfGuests = new System.Windows.Forms.TextBox();
-            this.bookingID = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.lblBookingID = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.exitButton = new System.Windows.Forms.Button();
-            this.updateButton = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblCheckOutDate = new System.Windows.Forms.Label();
+            this.lblRequestDetails = new System.Windows.Forms.Label();
+            this.lblCheckInDate = new System.Windows.Forms.Label();
+            this.txtBookingID = new System.Windows.Forms.TextBox();
+            this.dtpCheckInDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpCheckOutDate = new System.Windows.Forms.DateTimePicker();
+            this.lblRoomID = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtRoomID = new System.Windows.Forms.TextBox();
+            this.txtRequestDetails = new System.Windows.Forms.TextBox();
+            this.cmbStatus = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -61,183 +60,171 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Edit Booking";
             // 
-            // groupBox1
+            // btnCancel
             // 
-            this.groupBox1.Controls.Add(this.checkOut);
-            this.groupBox1.Controls.Add(this.checkIn);
-            this.groupBox1.Controls.Add(this.requirements);
-            this.groupBox1.Controls.Add(this.guestDescription);
-            this.groupBox1.Controls.Add(this.noOfRooms);
-            this.groupBox1.Controls.Add(this.noOfGuests);
-            this.groupBox1.Controls.Add(this.bookingID);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Location = new System.Drawing.Point(60, 90);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1026, 519);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
+            this.btnCancel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnCancel.Location = new System.Drawing.Point(60, 661);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(102, 44);
+            this.btnCancel.TabIndex = 20;
+            this.btnCancel.Text = "Exit";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // checkOut
+            // btnSave
             // 
-            this.checkOut.Location = new System.Drawing.Point(273, 378);
-            this.checkOut.Name = "checkOut";
-            this.checkOut.Size = new System.Drawing.Size(343, 26);
-            this.checkOut.TabIndex = 19;
-            this.checkOut.Value = new System.DateTime(2024, 12, 18, 23, 22, 0, 0);
+            this.btnSave.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnSave.Location = new System.Drawing.Point(884, 659);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(226, 46);
+            this.btnSave.TabIndex = 21;
+            this.btnSave.Text = "Update Booking";
+            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // checkIn
+            // lblStatus
             // 
-            this.checkIn.Location = new System.Drawing.Point(273, 327);
-            this.checkIn.Name = "checkIn";
-            this.checkIn.Size = new System.Drawing.Size(343, 26);
-            this.checkIn.TabIndex = 18;
-            this.checkIn.Value = new System.DateTime(2024, 12, 13, 23, 22, 0, 0);
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.Location = new System.Drawing.Point(176, 522);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(74, 26);
+            this.lblStatus.TabIndex = 21;
+            this.lblStatus.Text = "Status";
             // 
-            // requirements
+            // lblBookingID
             // 
-            this.requirements.Location = new System.Drawing.Point(273, 435);
-            this.requirements.Name = "requirements";
-            this.requirements.Size = new System.Drawing.Size(338, 26);
-            this.requirements.TabIndex = 17;
-            // 
-            // guestDescription
-            // 
-            this.guestDescription.Location = new System.Drawing.Point(273, 268);
-            this.guestDescription.Name = "guestDescription";
-            this.guestDescription.Size = new System.Drawing.Size(343, 26);
-            this.guestDescription.TabIndex = 16;
-            // 
-            // noOfRooms
-            // 
-            this.noOfRooms.Location = new System.Drawing.Point(273, 206);
-            this.noOfRooms.Name = "noOfRooms";
-            this.noOfRooms.Size = new System.Drawing.Size(343, 26);
-            this.noOfRooms.TabIndex = 13;
-            // 
-            // noOfGuests
-            // 
-            this.noOfGuests.Location = new System.Drawing.Point(273, 156);
-            this.noOfGuests.Name = "noOfGuests";
-            this.noOfGuests.Size = new System.Drawing.Size(343, 26);
-            this.noOfGuests.TabIndex = 12;
-            // 
-            // bookingID
-            // 
-            this.bookingID.Location = new System.Drawing.Point(273, 97);
-            this.bookingID.Name = "bookingID";
-            this.bookingID.Size = new System.Drawing.Size(343, 26);
-            this.bookingID.TabIndex = 11;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(28, 327);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(146, 26);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "Check-in date";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(28, 441);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(226, 26);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "Special Requirements";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(28, 383);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(159, 26);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "Check-out date";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(27, 268);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(185, 26);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Guest Description";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(28, 209);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(146, 26);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "No. of Rooms";
+            this.lblBookingID.AutoSize = true;
+            this.lblBookingID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBookingID.Location = new System.Drawing.Point(133, 140);
+            this.lblBookingID.Name = "lblBookingID";
+            this.lblBookingID.Size = new System.Drawing.Size(119, 26);
+            this.lblBookingID.TabIndex = 4;
+            this.lblBookingID.Text = "Booking ID";
+            this.lblBookingID.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(27, 156);
+            this.label3.Location = new System.Drawing.Point(107, 189);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(145, 26);
             this.label3.TabIndex = 5;
             this.label3.Text = "No. of Guests";
             // 
-            // label2
+            // label4
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(28, 97);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(119, 26);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Booking ID";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(104, 238);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(146, 26);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "No. of Rooms";
             // 
-            // label9
+            // lblCheckOutDate
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(326, 22);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(0, 37);
-            this.label9.TabIndex = 3;
+            this.lblCheckOutDate.AutoSize = true;
+            this.lblCheckOutDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCheckOutDate.Location = new System.Drawing.Point(93, 401);
+            this.lblCheckOutDate.Name = "lblCheckOutDate";
+            this.lblCheckOutDate.Size = new System.Drawing.Size(159, 26);
+            this.lblCheckOutDate.TabIndex = 8;
+            this.lblCheckOutDate.Text = "Check-out date";
             // 
-            // exitButton
+            // lblRequestDetails
             // 
-            this.exitButton.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.exitButton.Location = new System.Drawing.Point(60, 661);
-            this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(102, 44);
-            this.exitButton.TabIndex = 20;
-            this.exitButton.Text = "Exit";
-            this.exitButton.UseVisualStyleBackColor = false;
+            this.lblRequestDetails.AutoSize = true;
+            this.lblRequestDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRequestDetails.Location = new System.Drawing.Point(84, 460);
+            this.lblRequestDetails.Name = "lblRequestDetails";
+            this.lblRequestDetails.Size = new System.Drawing.Size(166, 26);
+            this.lblRequestDetails.TabIndex = 9;
+            this.lblRequestDetails.Text = "Request Details";
             // 
-            // updateButton
+            // lblCheckInDate
             // 
-            this.updateButton.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.updateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.updateButton.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.updateButton.Location = new System.Drawing.Point(884, 659);
-            this.updateButton.Name = "updateButton";
-            this.updateButton.Size = new System.Drawing.Size(226, 46);
-            this.updateButton.TabIndex = 21;
-            this.updateButton.Text = "Update Booking";
-            this.updateButton.UseVisualStyleBackColor = false;
+            this.lblCheckInDate.AutoSize = true;
+            this.lblCheckInDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCheckInDate.Location = new System.Drawing.Point(104, 342);
+            this.lblCheckInDate.Name = "lblCheckInDate";
+            this.lblCheckInDate.Size = new System.Drawing.Size(146, 26);
+            this.lblCheckInDate.TabIndex = 10;
+            this.lblCheckInDate.Text = "Check-in date";
+            // 
+            // txtBookingID
+            // 
+            this.txtBookingID.Location = new System.Drawing.Point(323, 142);
+            this.txtBookingID.Name = "txtBookingID";
+            this.txtBookingID.Size = new System.Drawing.Size(343, 26);
+            this.txtBookingID.TabIndex = 11;
+            // 
+            // dtpCheckInDate
+            // 
+            this.dtpCheckInDate.Location = new System.Drawing.Point(323, 342);
+            this.dtpCheckInDate.Name = "dtpCheckInDate";
+            this.dtpCheckInDate.Size = new System.Drawing.Size(343, 26);
+            this.dtpCheckInDate.TabIndex = 18;
+            this.dtpCheckInDate.Value = new System.DateTime(2024, 12, 13, 23, 22, 0, 0);
+            // 
+            // dtpCheckOutDate
+            // 
+            this.dtpCheckOutDate.Location = new System.Drawing.Point(323, 401);
+            this.dtpCheckOutDate.Name = "dtpCheckOutDate";
+            this.dtpCheckOutDate.Size = new System.Drawing.Size(343, 26);
+            this.dtpCheckOutDate.TabIndex = 19;
+            this.dtpCheckOutDate.Value = new System.DateTime(2024, 12, 18, 23, 22, 0, 0);
+            // 
+            // lblRoomID
+            // 
+            this.lblRoomID.AutoSize = true;
+            this.lblRoomID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRoomID.Location = new System.Drawing.Point(151, 288);
+            this.lblRoomID.Name = "lblRoomID";
+            this.lblRoomID.Size = new System.Drawing.Size(99, 26);
+            this.lblRoomID.TabIndex = 20;
+            this.lblRoomID.Text = "Room ID";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(323, 189);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(343, 26);
+            this.textBox1.TabIndex = 22;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(323, 240);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(343, 26);
+            this.textBox2.TabIndex = 23;
+            // 
+            // txtRoomID
+            // 
+            this.txtRoomID.Location = new System.Drawing.Point(323, 290);
+            this.txtRoomID.Name = "txtRoomID";
+            this.txtRoomID.Size = new System.Drawing.Size(343, 26);
+            this.txtRoomID.TabIndex = 24;
+            // 
+            // txtRequestDetails
+            // 
+            this.txtRequestDetails.Location = new System.Drawing.Point(323, 462);
+            this.txtRequestDetails.Name = "txtRequestDetails";
+            this.txtRequestDetails.Size = new System.Drawing.Size(343, 26);
+            this.txtRequestDetails.TabIndex = 25;
+            // 
+            // cmbStatus
+            // 
+            this.cmbStatus.FormattingEnabled = true;
+            this.cmbStatus.Location = new System.Drawing.Point(323, 522);
+            this.cmbStatus.Name = "cmbStatus";
+            this.cmbStatus.Size = new System.Drawing.Size(343, 28);
+            this.cmbStatus.TabIndex = 26;
             // 
             // ChangeBooking
             // 
@@ -245,14 +232,27 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ClientSize = new System.Drawing.Size(1147, 726);
-            this.Controls.Add(this.updateButton);
-            this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.cmbStatus);
+            this.Controls.Add(this.txtRequestDetails);
+            this.Controls.Add(this.txtRoomID);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lblStatus);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.dtpCheckOutDate);
+            this.Controls.Add(this.lblRoomID);
+            this.Controls.Add(this.dtpCheckInDate);
+            this.Controls.Add(this.txtBookingID);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblRequestDetails);
+            this.Controls.Add(this.lblCheckOutDate);
+            this.Controls.Add(this.lblCheckInDate);
+            this.Controls.Add(this.lblBookingID);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label4);
             this.Name = "ChangeBooking";
             this.Text = "ChangeBooking";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,23 +261,23 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DateTimePicker checkOut;
-        private System.Windows.Forms.DateTimePicker checkIn;
-        private System.Windows.Forms.TextBox requirements;
-        private System.Windows.Forms.TextBox guestDescription;
-        private System.Windows.Forms.TextBox noOfRooms;
-        private System.Windows.Forms.TextBox noOfGuests;
-        private System.Windows.Forms.TextBox bookingID;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label lblBookingID;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button exitButton;
-        private System.Windows.Forms.Button updateButton;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblCheckOutDate;
+        private System.Windows.Forms.Label lblRequestDetails;
+        private System.Windows.Forms.Label lblCheckInDate;
+        private System.Windows.Forms.TextBox txtBookingID;
+        private System.Windows.Forms.DateTimePicker dtpCheckInDate;
+        private System.Windows.Forms.DateTimePicker dtpCheckOutDate;
+        private System.Windows.Forms.Label lblRoomID;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtRoomID;
+        private System.Windows.Forms.TextBox txtRequestDetails;
+        private System.Windows.Forms.ComboBox cmbStatus;
     }
 }

@@ -68,9 +68,9 @@
             // 
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStrip1.Location = new System.Drawing.Point(0, 38);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 40);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1134, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1134, 36);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -86,7 +86,7 @@
             this.notificationsToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(1134, 38);
+            this.menuStrip2.Size = new System.Drawing.Size(1134, 40);
             this.menuStrip2.TabIndex = 1;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -236,7 +236,7 @@
             // 
             // checkInDateTimePicker
             // 
-            this.checkInDateTimePicker.Location = new System.Drawing.Point(286, 369);
+            this.checkInDateTimePicker.Location = new System.Drawing.Point(286, 356);
             this.checkInDateTimePicker.Name = "checkInDateTimePicker";
             this.checkInDateTimePicker.Size = new System.Drawing.Size(343, 26);
             this.checkInDateTimePicker.TabIndex = 18;
@@ -251,7 +251,7 @@
             // 
             // noOfGuestsTextBox
             // 
-            this.noOfGuestsTextBox.Location = new System.Drawing.Point(286, 312);
+            this.noOfGuestsTextBox.Location = new System.Drawing.Point(286, 299);
             this.noOfGuestsTextBox.Name = "noOfGuestsTextBox";
             this.noOfGuestsTextBox.Size = new System.Drawing.Size(343, 26);
             this.noOfGuestsTextBox.TabIndex = 16;
@@ -281,7 +281,7 @@
             // 
             this.checkInLabel.AutoSize = true;
             this.checkInLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkInLabel.Location = new System.Drawing.Point(28, 369);
+            this.checkInLabel.Location = new System.Drawing.Point(28, 356);
             this.checkInLabel.Name = "checkInLabel";
             this.checkInLabel.Size = new System.Drawing.Size(146, 26);
             this.checkInLabel.TabIndex = 10;
@@ -311,7 +311,7 @@
             // 
             this.noOfGuestsLabel.AutoSize = true;
             this.noOfGuestsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.noOfGuestsLabel.Location = new System.Drawing.Point(28, 312);
+            this.noOfGuestsLabel.Location = new System.Drawing.Point(29, 297);
             this.noOfGuestsLabel.Name = "noOfGuestsLabel";
             this.noOfGuestsLabel.Size = new System.Drawing.Size(145, 26);
             this.noOfGuestsLabel.TabIndex = 7;
