@@ -73,12 +73,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookingEnquiry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BookingEnquiry.Designer.cs">
-      <DependentUpon>BookingEnquiry.cs</DependentUpon>
-    </Compile>
     <Compile Include="BookingsDatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -159,12 +153,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReservationConfirmed.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ReservationConfirmed.Designer.cs">
-      <DependentUpon>ReservationConfirmed.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Presentation\OccupancyLevelReport.resx">
       <DependentUpon>OccupancyLevelReport.cs</DependentUpon>
     </EmbeddedResource>
@@ -204,9 +192,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ReservationConfirmed.resx">
-      <DependentUpon>ReservationConfirmed.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="BookingsDatabaseDataSet.xsc">
       <DependentUpon>BookingsDatabaseDataSet.xsd</DependentUpon>
     </None>
