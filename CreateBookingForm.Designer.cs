@@ -38,6 +38,7 @@
             this.changeBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notificationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.occupancyLevelReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.crtBookingTitle = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -59,7 +60,6 @@
             this.nameLabel = new System.Windows.Forms.Label();
             this.exitButton = new System.Windows.Forms.Button();
             this.checkAvailButton = new System.Windows.Forms.Button();
-            this.occupancyLevelReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -70,7 +70,6 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Location = new System.Drawing.Point(0, 38);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(1134, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
@@ -87,7 +86,6 @@
             this.notificationsToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
             this.menuStrip2.Size = new System.Drawing.Size(1134, 38);
             this.menuStrip2.TabIndex = 1;
             this.menuStrip2.Text = "menuStrip2";
@@ -157,6 +155,13 @@
             this.notificationsToolStripMenuItem.Size = new System.Drawing.Size(147, 34);
             this.notificationsToolStripMenuItem.Text = "Get Reports";
             this.notificationsToolStripMenuItem.Click += new System.EventHandler(this.notificationsToolStripMenuItem_Click);
+            // 
+            // occupancyLevelReportToolStripMenuItem
+            // 
+            this.occupancyLevelReportToolStripMenuItem.Name = "occupancyLevelReportToolStripMenuItem";
+            this.occupancyLevelReportToolStripMenuItem.Size = new System.Drawing.Size(356, 38);
+            this.occupancyLevelReportToolStripMenuItem.Text = "Occupancy Level Report";
+            this.occupancyLevelReportToolStripMenuItem.Click += new System.EventHandler(this.occupancyLevelReportToolStripMenuItem_Click);
             // 
             // crtBookingTitle
             // 
@@ -347,9 +352,9 @@
             this.exitButton.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitButton.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.exitButton.Location = new System.Drawing.Point(770, 637);
+            this.exitButton.Location = new System.Drawing.Point(767, 630);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(76, 32);
+            this.exitButton.Size = new System.Drawing.Size(79, 40);
             this.exitButton.TabIndex = 5;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = false;
@@ -359,19 +364,12 @@
             this.checkAvailButton.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.checkAvailButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkAvailButton.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.checkAvailButton.Location = new System.Drawing.Point(880, 637);
+            this.checkAvailButton.Location = new System.Drawing.Point(903, 630);
             this.checkAvailButton.Name = "checkAvailButton";
-            this.checkAvailButton.Size = new System.Drawing.Size(218, 32);
+            this.checkAvailButton.Size = new System.Drawing.Size(219, 39);
             this.checkAvailButton.TabIndex = 6;
             this.checkAvailButton.Text = "Check Availability";
             this.checkAvailButton.UseVisualStyleBackColor = false;
-            // 
-            // occupancyLevelReportToolStripMenuItem
-            // 
-            this.occupancyLevelReportToolStripMenuItem.Name = "occupancyLevelReportToolStripMenuItem";
-            this.occupancyLevelReportToolStripMenuItem.Size = new System.Drawing.Size(356, 38);
-            this.occupancyLevelReportToolStripMenuItem.Text = "Occupancy Level Report";
-            this.occupancyLevelReportToolStripMenuItem.Click += new System.EventHandler(this.occupancyLevelReportToolStripMenuItem_Click);
             // 
             // CreateBookingForm
             // 

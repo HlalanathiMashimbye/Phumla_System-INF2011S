@@ -110,6 +110,7 @@
             this.btnGenerateReport.TabIndex = 6;
             this.btnGenerateReport.Text = "Generate Report";
             this.btnGenerateReport.UseVisualStyleBackColor = false;
+            this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click_1);
             // 
             // dataGridViewReport
             // 

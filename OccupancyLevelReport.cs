@@ -19,23 +19,7 @@ namespace Phumla_System
             InitializeComponent();
         }
 
-        private BookingController bookingController;
-        private RoomController roomController;
 
-        private void btnGenerateReport_Click(object sender, EventArgs e)
-        {
-            DateTime startDate = dateTimePickerStart.Value;
-            DateTime endDate = dateTimePickerEnd.Value;
-
-            if (endDate < startDate )
-            {
-                MessageBox.Show("End date cannot be before start date.");
-                return;
-            }
-
-            DataTable occupancyData = GetOccupancyData(startDate, endDate); 
-            dataGridViewReport.DataSource = occupancyData;
-        }
 
         private DataTable GetOccupancyData(DateTime startDate, DateTime endDate)
         {
@@ -52,6 +36,10 @@ namespace Phumla_System
             {
                 BookingDB bookingDB = new BookingDB();
                 RoomDB roomDB = new RoomDB();
+
+                //debugging purposes
+                Console.WriteLine($"Total bookings: {bookingDB.AllBookings.Count}");
+                Console.WriteLine($"Total rooms: {roomDB.AllRooms.Count}");
 
                 foreach (Booking booking in bookingDB.AllBookings)
                 {
@@ -74,12 +62,30 @@ namespace Phumla_System
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error fetching occupancy data: " + ex.Message);
+                MessageBox.Show($"Error fetching occupancy data: {ex.Message}\n\nStack Trace: {ex.StackTrace}");
             }
 
             return occupancyData;
         }
 
+        private void btnGenerateReport_Click_1(object sender, EventArgs e)
+        {
+            DateTime startDate = dateTimePickerStart.Value;
+            DateTime endDate = dateTimePickerEnd.Value;
+
+            if (endDate < startDate)
+            {
+                MessageBox.Show("End date cannot be before start date.");
+                return;
+            }
+
+            DataTable occupancyData = GetOccupancyData(startDate, endDate);
+            dataGridViewReport.DataSource = occupancyData;
+
+            //debugging
+            Console.WriteLine($"Rows in occupancyData: {occupancyData.Rows.Count}");
+            Console.WriteLine($"Rows in dataGridViewReport: {dataGridViewReport.Rows.Count}");
+        }
     }
 }
 

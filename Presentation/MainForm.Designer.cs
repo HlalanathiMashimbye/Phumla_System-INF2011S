@@ -47,8 +47,8 @@
             this.changeBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notificationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.occupancyLevelReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bookingsDatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookingBindingSource)).BeginInit();
@@ -184,6 +184,12 @@
             this.notificationsToolStripMenuItem.Size = new System.Drawing.Size(147, 34);
             this.notificationsToolStripMenuItem.Text = "Get Reports";
             // 
+            // occupancyLevelReportToolStripMenuItem
+            // 
+            this.occupancyLevelReportToolStripMenuItem.Name = "occupancyLevelReportToolStripMenuItem";
+            this.occupancyLevelReportToolStripMenuItem.Size = new System.Drawing.Size(356, 38);
+            this.occupancyLevelReportToolStripMenuItem.Text = "Occupancy Level Report";
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
@@ -193,12 +199,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
-            // 
-            // occupancyLevelReportToolStripMenuItem
-            // 
-            this.occupancyLevelReportToolStripMenuItem.Name = "occupancyLevelReportToolStripMenuItem";
-            this.occupancyLevelReportToolStripMenuItem.Size = new System.Drawing.Size(356, 38);
-            this.occupancyLevelReportToolStripMenuItem.Text = "Occupancy Level Report";
             // 
             // MainForm
             // 
