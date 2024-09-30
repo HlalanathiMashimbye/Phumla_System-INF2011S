@@ -37,10 +37,6 @@ namespace Phumla_System
                 BookingDB bookingDB = new BookingDB();
                 RoomDB roomDB = new RoomDB();
 
-                //debugging purposes
-                Console.WriteLine($"Total bookings: {bookingDB.AllBookings.Count}");
-                Console.WriteLine($"Total rooms: {roomDB.AllRooms.Count}");
-
                 foreach (Booking booking in bookingDB.AllBookings)
                 {
                     if ((booking.CheckInDate <= endDate) && (booking.CheckOutDate >= startDate))
@@ -62,7 +58,7 @@ namespace Phumla_System
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error fetching occupancy data: {ex.Message}\n\nStack Trace: {ex.StackTrace}");
+                MessageBox.Show("Error fetching occupancy data" + ex.Message);
             }
 
             return occupancyData;

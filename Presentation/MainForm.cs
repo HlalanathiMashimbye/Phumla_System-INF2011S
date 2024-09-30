@@ -118,5 +118,11 @@ namespace Phumla_System
             this.bookingTableAdapter.Fill(this.bookingsDatabaseDataSet.Booking);
 
         }
+
+        private void occupancyLevelReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OccupancyLevelReport occupancyLevelReport = new OccupancyLevelReport();
+            occupancyLevelReport.Show();
+        }
     }
 }

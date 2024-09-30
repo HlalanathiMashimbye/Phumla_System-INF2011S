@@ -84,10 +84,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BookingsDatabaseDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="OccupancyLevelReport.cs">
+    <Compile Include="Presentation\OccupancyLevelReport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OccupancyLevelReport.Designer.cs">
+    <Compile Include="Presentation\OccupancyLevelReport.Designer.cs">
       <DependentUpon>OccupancyLevelReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\BookingSearch.cs">
@@ -171,7 +171,7 @@
     <Compile Include="ReservationConfirmed.Designer.cs">
       <DependentUpon>ReservationConfirmed.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="OccupancyLevelReport.resx">
+    <EmbeddedResource Include="Presentation\OccupancyLevelReport.resx">
       <DependentUpon>OccupancyLevelReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentation\BookingSearch.resx">
