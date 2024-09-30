@@ -9,12 +9,11 @@ namespace Phumla_System.Business
         public int BookingID { get; set; }  // Changed to int
         public string CustID { get; set; }
         public string RoomID { get; set; } // Nullable
+        public string CustomerName { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public string Status { get; set; } // 'Confirmed', 'Cancelled', 'Completed'
-        public string RequestType { get; set; } // RequestType as per your updated design
         public string RequestDetails { get; set; } // Details of the request
-        public DateTime RequestDate { get; set; } // Date of the request
         #endregion
 
         // Constructor for creating a Booking
@@ -26,9 +25,7 @@ namespace Phumla_System.Business
             CheckInDate = checkInDate;
             CheckOutDate = checkOutDate;
             Status = status;
-            RequestType = null;
             RequestDetails = null;
-            RequestDate = DateTime.MinValue;
         }
         #endregion
 

@@ -40,7 +40,7 @@ namespace Phumla_System.Data
 
         #region Populate the DataSet
         // Filling the Dataset with fresh table from a specific query
-        protected void FillDataSet(string aSQLstring, string aTable)
+        protected virtual void FillDataSet(string aSQLstring, string aTable)
         {
             try
             {
@@ -58,6 +58,7 @@ namespace Phumla_System.Data
                 SqlConnection.Close(); // Ensure connection is closed in finally block
             }
         }
+
         #endregion
 
         #region Update the Data Source

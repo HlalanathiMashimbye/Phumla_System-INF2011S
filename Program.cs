@@ -20,12 +20,12 @@ namespace Phumla_System
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Assuming you have instances of BookingController and CustomerController
+
             BookingController bookingController = new BookingController();
             CustomerController customerController = new CustomerController();
 
-            //Application.Run(new CreateBookingForm(bookingController, customerController));
             Application.Run(new LogIn());
+            //Application.Run(new CancelBooking()); //Use this to debug cancel booking
         }
     }
 }
