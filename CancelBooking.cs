@@ -27,14 +27,15 @@ namespace Phumla_System
             dataGridViewBookings.DataSource = bookings;
 
             // Optionally hide irrelevant columns
-            dataGridViewBookings.Columns["BookingID"].Visible = false;
-            dataGridViewBookings.Columns["custID"].Visible = false;
+            dataGridViewBookings.Columns["BookingID"].Visible = false; // BookingID should be hidden
+            dataGridViewBookings.Columns["CustID"].Visible = false; // Ensure CustID matches column name
 
-            // Show CustomerName instead of CustomerID
+            // Show CustomerName instead of CustID
             dataGridViewBookings.Columns["CustomerName"].HeaderText = "Customer Name";
             dataGridViewBookings.Columns["RoomID"].HeaderText = "Room Number";
             dataGridViewBookings.Columns["Status"].HeaderText = "Status";
         }
+
 
         private void btnCancelBooking_Click(object sender, EventArgs e)
         {
@@ -50,7 +51,7 @@ namespace Phumla_System
                 if (ValidateReceptionist(email, password))
                 {
                     // Cancel booking (Set room to null and status to 'Cancelled')
-                    selectedBooking.RoomID = null;
+                    //selectedBooking.RoomID = null;
                     selectedBooking.Status = "Cancelled";
 
                     // Update booking in database
@@ -82,6 +83,11 @@ namespace Phumla_System
         {
             // Validate credentials using the ReceptionistController
             return receptionistController.ValidateCredentials(email, password);
+        }
+
+        private void dataGridViewBookings_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

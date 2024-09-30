@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using Phumla_System.Data;
 using static Phumla_System.Data.DB;
 
@@ -69,6 +70,12 @@ namespace Phumla_System.Business
             }
             return -1;
         }
+
+        public bool CustomerExists(string custID)
+        {
+            return customers.Any(c => c.CustID == custID);
+        }
+
         #endregion
     }
 }

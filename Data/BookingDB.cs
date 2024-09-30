@@ -39,7 +39,7 @@ namespace Phumla_System.Data
         #region Private Methods
 
         // Fill the DataSet by executing the SQL query
-        private new void FillDataSet(string sqlQuery, string tableName)
+        protected override void FillDataSet(string sqlQuery, string tableName)
         {
             using (SqlConnection connection = new SqlConnection(Settings.Default.BookingsDatabaseConnectionString))
             {
@@ -57,6 +57,7 @@ namespace Phumla_System.Data
                 }
             }
         }
+
 
         // Populate the bookings collection from the DataSet
         private void AddBookingsToCollection()
