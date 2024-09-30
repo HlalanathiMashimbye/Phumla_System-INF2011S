@@ -256,6 +256,8 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
+            this.Load += ChangeBooking_Load;
+
         }
 
         #endregion

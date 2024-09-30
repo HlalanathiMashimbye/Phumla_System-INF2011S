@@ -26,18 +26,41 @@ namespace Phumla_System
 
         public ChangeBooking(int bookingID)
         {
+            Console.WriteLine("ChangeBooking constructor called");
+            InitializeComponent();
+            Console.WriteLine("InitializeComponent called");
+
             bookingDB = new BookingDB();
             LoadBooking(bookingID);
             SetupStatusComboBox();
             WireUpEventHandlers();
         }
 
+
         private void SetupStatusComboBox()
         {
-            if (cmbStatus != null)
+            Console.WriteLine("SetupStatusComboBox method called");
+            if (cmbStatus == null)
             {
-                cmbStatus.Items.Clear();
-                cmbStatus.Items.AddRange(new string[] { "Confirmed", "Cancelled", "Completed" });
+                Console.WriteLine("cmbStatus is null");
+                return;
+            }
+
+            cmbStatus.Items.Clear();
+            Console.WriteLine("Items cleared");
+
+            cmbStatus.Items.AddRange(new string[] { "Confirmed", "Cancelled", "Completed" });
+            Console.WriteLine($"Items added. Count: {cmbStatus.Items.Count}");
+
+            if (currentBooking != null && !string.IsNullOrEmpty(currentBooking.Status))
+            {
+                cmbStatus.SelectedItem = currentBooking.Status;
+                Console.WriteLine($"Selected item set to: {currentBooking.Status}");
+            }
+            else
+            {
+                cmbStatus.SelectedIndex = 0;
+                Console.WriteLine("Selected index set to 0");
             }
         }
 
@@ -46,7 +69,7 @@ namespace Phumla_System
             currentBooking = bookingDB.AllBookings.FirstOrDefault(b => b.BookingID == bookingID);
             if (currentBooking == null )
             {
-                MessageBox.Show("Booking not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Booking with ID {bookingID} not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
                 return;
             }
@@ -57,7 +80,7 @@ namespace Phumla_System
             txtRoomID.Text = currentBooking.RoomID;
             dtpCheckInDate.Value = currentBooking.CheckInDate;
             dtpCheckOutDate.Value = currentBooking.CheckOutDate;
-            cmbStatus.SelectedItem = currentBooking.Status;
+            //cmbStatus.SelectedItem = currentBooking.Status;
             txtRequestDetails.Text = currentBooking.RequestDetails;
 
             // Make BookingID and CustomerName read-only
@@ -74,23 +97,35 @@ namespace Phumla_System
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (currentBooking == null)
+            {
+                MessageBox.Show("No booking is currently loaded. Unable to save changes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (ValidateInput())
             {
-                UpdateBooking();
-                bookingDB.DataSetChange(currentBooking, DBOperation.Change);
-                if (bookingDB.UpdateDataSource(currentBooking))
+                try
                 {
-                    MessageBox.Show("Booking updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+                    UpdateBooking();
+                    bookingDB.DataSetChange(currentBooking, DBOperation.Change);
+                    if (bookingDB.UpdateDataSource(currentBooking))
+                    {
+                        MessageBox.Show("Booking updated successfully in the database.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to update booking in the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Failed to update booking.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error saving booking: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
@@ -124,18 +159,56 @@ namespace Phumla_System
 
         private void UpdateBooking()
         {
-            //currentBooking.CustID = txtCustomerID.Text;
-            currentBooking.RoomID = txtRoomID.Text;
-            currentBooking.CheckInDate = dtpCheckInDate.Value;
-            currentBooking.CheckOutDate = dtpCheckOutDate.Value;
-            currentBooking.Status = cmbStatus.SelectedItem.ToString();
-            currentBooking.RequestDetails = txtRequestDetails.Text;
+            if (currentBooking == null)
+            {
+                MessageBox.Show("No booking is currently loaded. Unable to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                currentBooking.RoomID = txtRoomID.Text;
+                currentBooking.CheckInDate = dtpCheckInDate.Value;
+                currentBooking.CheckOutDate = dtpCheckOutDate.Value;
+                currentBooking.Status = cmbStatus.SelectedItem?.ToString() ?? currentBooking.Status;
+                currentBooking.RequestDetails = txtRequestDetails.Text;
+
+                // If you need to update other fields, do so here
+
+                MessageBox.Show("Booking updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating booking: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void WireUpEventHandlers()
         {
             btnSave.Click += btnSave_Click;
             btnCancel.Click += btnCancel_Click;
+        }
+
+        private void ChangeBooking_Load(object sender, EventArgs e)
+        {
+            Console.WriteLine("ChangeBooking_Load event fired");
+            ManuallyPopulateStatusComboBox();
+        }
+
+        private void ManuallyPopulateStatusComboBox()
+        {
+            Console.WriteLine("ManuallyPopulateStatusComboBox called");
+            if (cmbStatus == null)
+            {
+                Console.WriteLine("cmbStatus is null in ManuallyPopulateStatusComboBox");
+                return;
+            }
+
+            cmbStatus.Items.Clear();
+            cmbStatus.Items.Add("Confirmed");
+            cmbStatus.Items.Add("Cancelled");
+            cmbStatus.Items.Add("Completed");
+            Console.WriteLine($"Items manually added. Count: {cmbStatus.Items.Count}");
         }
 
 
