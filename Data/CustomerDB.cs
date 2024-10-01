@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Phumla_System.Business;
+using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
-using Phumla_System.Business;
+using System.Windows.Forms;
 
 namespace Phumla_System.Data
 {
@@ -30,18 +31,11 @@ namespace Phumla_System.Data
             customers = new Collection<Customer>();
             FillDataSet(sqlLocalCustomer, customerTable);
             AddCustomersToCollection();
-
-            // Create commands for Insert, Update, and Delete
-            CreateCommands();
+            CreateCommands(); // Create commands for database operations
         }
         #endregion
 
         #region Utility Methods
-        public DataSet GetDataSet()
-        {
-            return DataSet;
-        }
-
         private void AddCustomersToCollection()
         {
             foreach (DataRow myRow in DataSet.Tables[customerTable].Rows)
@@ -84,30 +78,41 @@ namespace Phumla_System.Data
         #region Create Commands for DataAdapter
         private void CreateCommands()
         {
-            // Assuming SqlConnection is inherited from DB class
-            SqlDataAdapter adapter = (SqlDataAdapter)DataAdapter;
+            try
+            {
+                if (DataAdapter == null)
+                {
+                    throw new InvalidOperationException("DataAdapter is not initialized.");
+                }
 
-            // InsertCommand
-            string insertSQL = @"
-                INSERT INTO Customer (CustID, Name, Surname, Phone, Email, Address, Status, Balance)
-                VALUES (@CustID, @Name, @Surname, @Phone, @Email, @Address, @Status, @Balance)";
-            adapter.InsertCommand = new SqlCommand(insertSQL, SqlConnection);
-            AddCustomerParameters(adapter.InsertCommand);
+                SqlDataAdapter adapter = (SqlDataAdapter)DataAdapter;
 
-            // UpdateCommand
-            string updateSQL = @"
-                UPDATE Customer 
-                SET Name = @Name, Surname = @Surname, Phone = @Phone, 
-                    Email = @Email, Address = @Address, Status = @Status, Balance = @Balance
-                WHERE CustID = @CustID";
-            adapter.UpdateCommand = new SqlCommand(updateSQL, SqlConnection);
-            AddCustomerParameters(adapter.UpdateCommand);
+                // InsertCommand
+                string insertSQL = @"
+                    INSERT INTO Customer (CustID, Name, Surname, Phone, Email, Address, Status, Balance)
+                    VALUES (@CustID, @Name, @Surname, @Phone, @Email, @Address, @Status, @Balance)";
+                adapter.InsertCommand = new SqlCommand(insertSQL, SqlConnection);
+                AddCustomerParameters(adapter.InsertCommand);
 
-            // DeleteCommand
-            string deleteSQL = @"
-                DELETE FROM Customer WHERE CustID = @CustID";
-            adapter.DeleteCommand = new SqlCommand(deleteSQL, SqlConnection);
-            adapter.DeleteCommand.Parameters.Add("@CustID", SqlDbType.Char, 13, "CustID");
+                // UpdateCommand
+                string updateSQL = @"
+                    UPDATE Customer 
+                    SET Name = @Name, Surname = @Surname, Phone = @Phone, 
+                        Email = @Email, Address = @Address, Status = @Status, Balance = @Balance
+                    WHERE CustID = @CustID";
+                adapter.UpdateCommand = new SqlCommand(updateSQL, SqlConnection);
+                AddCustomerParameters(adapter.UpdateCommand);
+
+                // DeleteCommand
+                string deleteSQL = @"
+                    DELETE FROM Customer WHERE CustID = @CustID";
+                adapter.DeleteCommand = new SqlCommand(deleteSQL, SqlConnection);
+                adapter.DeleteCommand.Parameters.Add("@CustID", SqlDbType.Char, 13, "CustID");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error in CreateCommands: {ex.Message}\n\nStack Trace: {ex.StackTrace}");
+            }
         }
 
         private void AddCustomerParameters(SqlCommand command)

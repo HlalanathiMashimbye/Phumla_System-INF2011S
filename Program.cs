@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Phumla_System.Business;
 
-
 namespace Phumla_System
 {
     public static class Program
@@ -19,13 +18,11 @@ namespace Phumla_System
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-
             BookingController bookingController = new BookingController();
             CustomerController customerController = new CustomerController();
 
-            Application.Run(new LogIn());
-            //Application.Run(new CreateNewCustomer());
-            
+            //Application.Run(new LogIn());
+            Application.Run(new CreateBookingForm(bookingController, customerController));
         }
     }
 }

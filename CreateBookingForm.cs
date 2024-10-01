@@ -1,21 +1,13 @@
 ﻿using Phumla_System.Business;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Collections.ObjectModel;
-using System.Xml;
+using System.Windows.Forms;
 
 namespace Phumla_System
 {
     public partial class CreateBookingForm : Form
     {
-
         #region Data Members
         private BookingController bookingController;
         private Booking booking;
@@ -23,39 +15,6 @@ namespace Phumla_System
         private CustomerController customerController;
         private Collection<Customer> customers;
         public bool createBookingClosed = false;
-        private int bookingID;
-        #endregion
-
-        #region Property Methods
-        public Customer FindCustomer()
-        {
-            foreach (Customer cust in customers)
-            {
-                if (cust.CustID == custIDTextBox.Text)
-                {
-                    nameTextBox.Text = cust.Name;
-                    surnameTextBox.Text = cust.Surname;
-                    //phoneTextBox.Text = cust.Phone;
-                    //emailTextBox.Text = cust.Email;
-                    return cust;
-                }
-            }
-            return null;
-        }
-
-        private void findCustomerButton_Click(object sender, EventArgs e)
-        {
-            customer = FindCustomer();
-            if (customer == null)
-            {
-                MessageBox.Show("Customer not found. Please enter a valid Customer ID."); // need to program it to create a new customer
-            }
-            else
-            {
-                ShowAll(true);
-                bookingID = int.Parse(Guid.NewGuid().ToString()); // Generate a new booking ID
-            }
-        }
         #endregion
 
         #region Constructor
@@ -65,9 +24,24 @@ namespace Phumla_System
             bookingController = aBookingController;
             customerController = aCustomerController;
             customers = customerController.AllCustomers;
-            //customer = new Customer();   UNCOMMENT WHEN DONE TESTING
-            //booking = new Booking();
             createBookingClosed = false;
+        }
+        #endregion
+
+        #region Form Events
+        private void CreateBookingForm_Load(object sender, EventArgs e)
+        {
+            ShowAll(false);
+        }
+
+        private void CreateBookingForm_Activated(object sender, EventArgs e)
+        {
+            ShowAll(false);
+        }
+
+        private void CreateBookingForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            createBookingClosed = true;
         }
         #endregion
 
@@ -75,22 +49,15 @@ namespace Phumla_System
         private void ShowAll(bool value)
         {
             custIDLabel.Visible = value;
-            nameLabel.Visible = value;
-            surnameLabel.Visible = value;
+            noOfGuestsLabel.Visible = value;
             checkInLabel.Visible = value;
             checkOutLabel.Visible = value;
-            //requestTypeLabel.Visible = value; //FIGURE OUT???
-            //requestDetailsLabel.Visible = value; //???
             requirementsLabel.Visible = value;
-            
 
             custIDTextBox.Visible = value;
-            nameTextBox.Visible = value;
-            surnameTextBox.Visible = value;
+            noOfGuestsTextBox.Visible = value;
             checkInDateTimePicker.Visible = value;
             checkOutDateTimePicker.Visible = value;
-            //requestTypeTextBox.Visible = value;
-            //requestDetailsTextBox.Visible = value;   UNCOMMENT WHEN DONE TESTING
             requirementsTextBox.Visible = value;
 
             checkAvailButton.Visible = value;
@@ -100,67 +67,63 @@ namespace Phumla_System
         private void ClearAll()
         {
             custIDTextBox.Text = "";
-            nameTextBox.Text = "";
-            surnameTextBox.Text = "";
+            noOfGuestsTextBox.Text = "";
             checkInDateTimePicker.Value = DateTime.Now;
             checkOutDateTimePicker.Value = DateTime.Now.AddDays(1);
-            //requestTypeTextBox.Text = "";
-            //requestDetailsTextBox.Text = "";    UNCOMMENT WHEN DONE TESTING
-
+            requirementsTextBox.Text = "";
         }
 
         private void PopulateObject()
         {
             booking = new Booking(
-                bookingID,
                 custIDTextBox.Text,
                 checkInDateTimePicker.Value,
                 checkOutDateTimePicker.Value,
-                "Confirmed", // Status to bambisa
-                "1" // Room ID to bambisa
+                "Confirmed",
+                noOfGuestsTextBox.Text,
+                requirementsTextBox.Text
             );
-            // booking.SetRequest(      UNCOMMENT WHEN DONE TESTING
-            // requestTypeTextBox.Text,
-            //requestDetailsTextBox.Text,
-            // DateTime.Now
-            //);
+        }
+
+        private bool CustomerHasBooking(string custID)
+        {
+            // Check if customer has any booking
+            return bookingController.CustomerHasBooking(custID);
         }
         #endregion
 
-        #region Form Events
-        private void CreateBooking_Load(object sender, EventArgs e)
+        #region Button Click Events
+        private void checkAvailButton_Click_1(object sender, EventArgs e)
         {
-            ShowAll(false);
-        }
-
-        private void CreateBooking_Activated(object sender, EventArgs e)
-        {
-            ShowAll(false);
-        }
-
-        private void checkAvailButton_Click(object sender, EventArgs e)
-        {
-            if (customer == null)
+            // Ensure the customer ID is not empty
+            if (string.IsNullOrWhiteSpace(custIDTextBox.Text) || custIDTextBox.Text.Length != 13)
             {
-                MessageBox.Show("Please find a valid customer first.");
+                MessageBox.Show("Please enter a valid customer ID.");
                 return;
             }
 
+            string custID = custIDTextBox.Text;
+
+            // Check if the customer exists
+            if (!customerController.CustomerExists(custID))
+            {
+                // If the customer does not exist, open the CreateNewCustomer form
+                CreateNewCustomer createNewCustomerForm = new CreateNewCustomer();
+                createNewCustomerForm.CustomerCreated += OnCustomerCreated; // Subscribe to the event
+                createNewCustomerForm.ShowDialog(); // Show the form as a dialog
+                return; // Exit the method
+            }
+
+            // Check if the customer has an existing booking
+  
+
+            // If no booking exists, proceed with the new booking
             PopulateObject();
 
-            if(booking.IsBookingValid())
+            if (booking.IsBookingValid())
             {
-                bookingController.DataMaintenance(booking, Data.DB.DBOperation.Add);
-                if (bookingController.FinalizeChanges())
-                {
-                    MessageBox.Show("Booked created successfully.");
-                    ClearAll();
-                    ShowAll(false);
-                }
-                else
-                {
-                    MessageBox.Show("Failed to create booking. Please try again");
-                }
+                // Check room availability and assign a room or handle waitlist
+                AssignRoomBasedOnAvailability();
             }
             else
             {
@@ -168,17 +131,81 @@ namespace Phumla_System
             }
         }
 
+        private void OnCustomerCreated()
+        {
+            // Refresh the customer list
+            customers = customerController.AllCustomers;
+        }
+
+
+        // Method to check room availability and assign a room
+        private void AssignRoomBasedOnAvailability()
+        {
+            DateTime checkInDate = booking.CheckInDate;
+            DateTime checkOutDate = booking.CheckOutDate;
+
+            // Get available rooms for the date range
+            var availableRooms = bookingController.GetAvailableRoomsForDateRange(checkInDate, checkOutDate);
+
+            if (availableRooms.Count > 0)
+            {
+                // Assign a random available room
+                Random rand = new Random();
+                int randomIndex = rand.Next(availableRooms.Count);
+                int assignedRoomID = availableRooms[randomIndex].RoomID;
+
+                // Assign the room to the booking
+                booking.AssignRoom(assignedRoomID);
+                bookingController.DataMaintenance(booking, Data.DB.DBOperation.Add);
+
+                if (bookingController.FinalizeChanges(booking))
+                {
+                    MessageBox.Show($"Room {assignedRoomID} has been assigned to the booking.", "Room Assigned", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearAll();
+                    ShowAll(false);
+                }
+                else
+                {
+                    MessageBox.Show("Failed to create booking. Please try again.");
+                }
+            }
+            else
+            {
+                // No rooms available, prompt the receptionist
+                DialogResult result = MessageBox.Show("No rooms are available for the selected date range. Do you want to assign to the waitlist (Room 0) or choose another date?", "No Rooms Available", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Assign to waitlist (Room 0)
+                    booking.AssignRoom(0);
+                    bookingController.DataMaintenance(booking, Data.DB.DBOperation.Add);
+
+                    if (bookingController.FinalizeChanges(booking))
+                    {
+                        MessageBox.Show("Booking has been added to the waitlist (Room 0).", "Waitlist", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ClearAll();
+                        ShowAll(false);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to create booking. Please try again.");
+                    }
+                }
+                else
+                {
+                    // Allow receptionist to choose a new date
+                    MessageBox.Show("Please choose another date range.", "Choose New Date", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
         private void exitButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-        private void CreateBookingForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            createBookingClosed = true;
-        }
         #endregion
 
+        #region Menu Item Click Events
         private void listToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CustomerListing customerListingForm = new CustomerListing();
@@ -188,6 +215,7 @@ namespace Phumla_System
         private void createNewCustomerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateNewCustomer createNewCustomerForm = new CreateNewCustomer();
+            createNewCustomerForm.CustomerCreated += OnCustomerCreated; // Subscribe to the event
             createNewCustomerForm.Show();
         }
 
@@ -217,14 +245,24 @@ namespace Phumla_System
 
         private void notificationsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            // Notifications logic can be added here
         }
 
-        private void occupancyLevelReportToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void exitButton_Click_1(object sender, EventArgs e)
         {
-    
+            this.Close();
         }
 
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+            // Additional logic can be added if needed
+        }
 
+        #endregion
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

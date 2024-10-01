@@ -9,27 +9,25 @@ namespace Phumla_System
     {
         private CustomerController customerController;
 
+        // Event to notify that a customer was created
+        public event Action CustomerCreated;
+
         public CreateNewCustomer()
         {
             InitializeComponent();
-            customerController = new CustomerController();  // Initialize controller
-        }
-
-        private void CreateNewCustomer_Load(object sender, EventArgs e)
-        {
-            
+            customerController = new CustomerController();
         }
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            string custID = CustomerID.Text.Trim();  // Get CustID from the CustomerID TextBox
-            string name = CustomerName.Text.Trim();   // Get Customer Name from the CustomerName TextBox
+            string custID = CustomerID.Text.Trim();
+            string name = CustomerName.Text.Trim();
             string surname = Surname.Text.Trim();
             string phone = Telephone.Text.Trim();
             string email = EmailAddress.Text.Trim();
             string address = Address.Text.Trim();
-            string status = Status.SelectedItem?.ToString();  // Get the selected status
-            decimal balance = Balance.Value;  // Get the balance value
+            string status = Status.SelectedItem?.ToString();
+            decimal balance = Balance.Value;
 
             // Check if the customer already exists
             if (customerController.CustomerExists(custID))
@@ -48,6 +46,10 @@ namespace Phumla_System
                 if (customerController.FinalizeChanges())
                 {
                     MessageBox.Show("New customer added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Trigger the event to notify that a customer was created
+                    CustomerCreated?.Invoke();
+
                     this.Close();  // Close the form after success
                 }
                 else
@@ -55,31 +57,6 @@ namespace Phumla_System
                     MessageBox.Show("Failed to add new customer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-
-        private void Name_TextChanged(object sender, EventArgs e)
-        {
-            // This method can be removed if not used
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-            // This method can be removed if not used
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-            // This method can be removed if not used
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-            // This method can be removed if not used
-        }
-
-        private void groupBox1_Enter_1(object sender, EventArgs e)
-        {
-            // This method can be removed if not used
         }
     }
 }

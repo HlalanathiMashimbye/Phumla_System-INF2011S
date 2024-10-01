@@ -1,4 +1,6 @@
-﻿namespace Phumla_System
+﻿using System;
+
+namespace Phumla_System
 {
     partial class CreateNewCustomer
     {
@@ -63,7 +65,6 @@
             this.groupBox1.Size = new System.Drawing.Size(694, 350);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter_1);
             // 
             // Surname
             // 
@@ -255,6 +256,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CreateNewCustomer";
             this.Text = "Create New Customer";
+            this.Load += new System.EventHandler(this.CreateNewCustomer_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Balance)).EndInit();
@@ -281,5 +283,10 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button confirmButton;
+
+        private void CreateNewCustomer_Load(object sender, EventArgs e)
+        {
+            // Add any initialization code here
+        }
     }
 }

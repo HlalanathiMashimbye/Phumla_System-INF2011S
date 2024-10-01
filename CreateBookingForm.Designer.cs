@@ -42,22 +42,16 @@
             this.crtBookingTitle = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.surnameTextBox = new System.Windows.Forms.TextBox();
-            this.surnameLabel = new System.Windows.Forms.Label();
             this.checkOutDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.checkInDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.requirementsTextBox = new System.Windows.Forms.TextBox();
             this.noOfGuestsTextBox = new System.Windows.Forms.TextBox();
-            this.noOfRooms = new System.Windows.Forms.TextBox();
             this.custIDTextBox = new System.Windows.Forms.TextBox();
-            this.nameTextBox = new System.Windows.Forms.TextBox();
             this.checkInLabel = new System.Windows.Forms.Label();
             this.requirementsLabel = new System.Windows.Forms.Label();
             this.checkOutLabel = new System.Windows.Forms.Label();
             this.noOfGuestsLabel = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.custIDLabel = new System.Windows.Forms.Label();
-            this.nameLabel = new System.Windows.Forms.Label();
             this.exitButton = new System.Windows.Forms.Button();
             this.checkAvailButton = new System.Windows.Forms.Button();
             this.menuStrip2.SuspendLayout();
@@ -66,18 +60,17 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStrip1.Location = new System.Drawing.Point(0, 40);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 26);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1134, 36);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
+            this.menuStrip1.Size = new System.Drawing.Size(756, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // menuStrip2
             // 
             this.menuStrip2.BackColor = System.Drawing.Color.Thistle;
-            this.menuStrip2.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.customerSearchToolStripMenuItem,
@@ -86,7 +79,8 @@
             this.notificationsToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(1134, 40);
+            this.menuStrip2.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
+            this.menuStrip2.Size = new System.Drawing.Size(756, 26);
             this.menuStrip2.TabIndex = 1;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -97,20 +91,20 @@
             this.createNewCustomerToolStripMenuItem});
             this.customerSearchToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.customerSearchToolStripMenuItem.Name = "customerSearchToolStripMenuItem";
-            this.customerSearchToolStripMenuItem.Size = new System.Drawing.Size(197, 34);
+            this.customerSearchToolStripMenuItem.Size = new System.Drawing.Size(136, 24);
             this.customerSearchToolStripMenuItem.Text = "Customer Search";
             // 
             // listToolStripMenuItem
             // 
             this.listToolStripMenuItem.Name = "listToolStripMenuItem";
-            this.listToolStripMenuItem.Size = new System.Drawing.Size(335, 38);
+            this.listToolStripMenuItem.Size = new System.Drawing.Size(226, 24);
             this.listToolStripMenuItem.Text = "List";
             this.listToolStripMenuItem.Click += new System.EventHandler(this.listToolStripMenuItem_Click);
             // 
             // createNewCustomerToolStripMenuItem
             // 
             this.createNewCustomerToolStripMenuItem.Name = "createNewCustomerToolStripMenuItem";
-            this.createNewCustomerToolStripMenuItem.Size = new System.Drawing.Size(335, 38);
+            this.createNewCustomerToolStripMenuItem.Size = new System.Drawing.Size(226, 24);
             this.createNewCustomerToolStripMenuItem.Text = "Create New Customer";
             this.createNewCustomerToolStripMenuItem.Click += new System.EventHandler(this.createNewCustomerToolStripMenuItem_Click);
             // 
@@ -118,7 +112,7 @@
             // 
             this.newBookingToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newBookingToolStripMenuItem.Name = "newBookingToolStripMenuItem";
-            this.newBookingToolStripMenuItem.Size = new System.Drawing.Size(184, 34);
+            this.newBookingToolStripMenuItem.Size = new System.Drawing.Size(128, 24);
             this.newBookingToolStripMenuItem.Text = "Booking Search";
             this.newBookingToolStripMenuItem.Click += new System.EventHandler(this.newBookingToolStripMenuItem_Click);
             // 
@@ -129,20 +123,20 @@
             this.cancelBookingToolStripMenuItem});
             this.modifyBookingToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.modifyBookingToolStripMenuItem.Name = "modifyBookingToolStripMenuItem";
-            this.modifyBookingToolStripMenuItem.Size = new System.Drawing.Size(189, 34);
+            this.modifyBookingToolStripMenuItem.Size = new System.Drawing.Size(131, 24);
             this.modifyBookingToolStripMenuItem.Text = "Modify Booking";
             // 
             // changeBookingToolStripMenuItem
             // 
             this.changeBookingToolStripMenuItem.Name = "changeBookingToolStripMenuItem";
-            this.changeBookingToolStripMenuItem.Size = new System.Drawing.Size(281, 38);
+            this.changeBookingToolStripMenuItem.Size = new System.Drawing.Size(191, 24);
             this.changeBookingToolStripMenuItem.Text = "Change Booking";
             this.changeBookingToolStripMenuItem.Click += new System.EventHandler(this.changeBookingToolStripMenuItem_Click);
             // 
             // cancelBookingToolStripMenuItem
             // 
             this.cancelBookingToolStripMenuItem.Name = "cancelBookingToolStripMenuItem";
-            this.cancelBookingToolStripMenuItem.Size = new System.Drawing.Size(281, 38);
+            this.cancelBookingToolStripMenuItem.Size = new System.Drawing.Size(191, 24);
             this.cancelBookingToolStripMenuItem.Text = "Cancel Booking";
             this.cancelBookingToolStripMenuItem.Click += new System.EventHandler(this.cancelBookingToolStripMenuItem_Click);
             // 
@@ -152,14 +146,14 @@
             this.occupancyLevelReportToolStripMenuItem});
             this.notificationsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.notificationsToolStripMenuItem.Name = "notificationsToolStripMenuItem";
-            this.notificationsToolStripMenuItem.Size = new System.Drawing.Size(147, 34);
+            this.notificationsToolStripMenuItem.Size = new System.Drawing.Size(100, 24);
             this.notificationsToolStripMenuItem.Text = "Get Reports";
             this.notificationsToolStripMenuItem.Click += new System.EventHandler(this.notificationsToolStripMenuItem_Click);
             // 
             // occupancyLevelReportToolStripMenuItem
             // 
             this.occupancyLevelReportToolStripMenuItem.Name = "occupancyLevelReportToolStripMenuItem";
-            this.occupancyLevelReportToolStripMenuItem.Size = new System.Drawing.Size(356, 38);
+            this.occupancyLevelReportToolStripMenuItem.Size = new System.Drawing.Size(242, 24);
             this.occupancyLevelReportToolStripMenuItem.Text = "Occupancy Level Report";
             this.occupancyLevelReportToolStripMenuItem.Click += new System.EventHandler(this.occupancyLevelReportToolStripMenuItem_Click);
             // 
@@ -168,9 +162,10 @@
             this.crtBookingTitle.AutoSize = true;
             this.crtBookingTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.crtBookingTitle.ForeColor = System.Drawing.Color.MediumVioletRed;
-            this.crtBookingTitle.Location = new System.Drawing.Point(362, 78);
+            this.crtBookingTitle.Location = new System.Drawing.Point(241, 51);
+            this.crtBookingTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.crtBookingTitle.Name = "crtBookingTitle";
-            this.crtBookingTitle.Size = new System.Drawing.Size(440, 46);
+            this.crtBookingTitle.Size = new System.Drawing.Size(305, 31);
             this.crtBookingTitle.TabIndex = 2;
             this.crtBookingTitle.Text = "Create a New Booking";
             // 
@@ -178,112 +173,86 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(326, 22);
+            this.label1.Location = new System.Drawing.Point(217, 14);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(401, 37);
+            this.label1.Size = new System.Drawing.Size(284, 26);
             this.label1.TabIndex = 3;
             this.label1.Text = "Enter Reservation Details";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.surnameTextBox);
-            this.groupBox1.Controls.Add(this.surnameLabel);
             this.groupBox1.Controls.Add(this.checkOutDateTimePicker);
             this.groupBox1.Controls.Add(this.checkInDateTimePicker);
             this.groupBox1.Controls.Add(this.requirementsTextBox);
             this.groupBox1.Controls.Add(this.noOfGuestsTextBox);
-            this.groupBox1.Controls.Add(this.noOfRooms);
             this.groupBox1.Controls.Add(this.custIDTextBox);
-            this.groupBox1.Controls.Add(this.nameTextBox);
             this.groupBox1.Controls.Add(this.checkInLabel);
             this.groupBox1.Controls.Add(this.requirementsLabel);
             this.groupBox1.Controls.Add(this.checkOutLabel);
             this.groupBox1.Controls.Add(this.noOfGuestsLabel);
-            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.custIDLabel);
-            this.groupBox1.Controls.Add(this.nameLabel);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(56, 128);
+            this.groupBox1.Location = new System.Drawing.Point(37, 83);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1026, 492);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(684, 320);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
-            // 
-            // surnameTextBox
-            // 
-            this.surnameTextBox.Location = new System.Drawing.Point(286, 146);
-            this.surnameTextBox.Name = "surnameTextBox";
-            this.surnameTextBox.Size = new System.Drawing.Size(343, 26);
-            this.surnameTextBox.TabIndex = 21;
-            // 
-            // surnameLabel
-            // 
-            this.surnameLabel.AutoSize = true;
-            this.surnameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.surnameLabel.Location = new System.Drawing.Point(28, 145);
-            this.surnameLabel.Name = "surnameLabel";
-            this.surnameLabel.Size = new System.Drawing.Size(101, 26);
-            this.surnameLabel.TabIndex = 20;
-            this.surnameLabel.Text = "Surname";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // checkOutDateTimePicker
             // 
-            this.checkOutDateTimePicker.Location = new System.Drawing.Point(286, 409);
+            this.checkOutDateTimePicker.Location = new System.Drawing.Point(191, 266);
+            this.checkOutDateTimePicker.Margin = new System.Windows.Forms.Padding(2);
             this.checkOutDateTimePicker.Name = "checkOutDateTimePicker";
-            this.checkOutDateTimePicker.Size = new System.Drawing.Size(343, 26);
+            this.checkOutDateTimePicker.Size = new System.Drawing.Size(230, 20);
             this.checkOutDateTimePicker.TabIndex = 19;
             this.checkOutDateTimePicker.Value = new System.DateTime(2024, 12, 18, 23, 22, 0, 0);
             // 
             // checkInDateTimePicker
             // 
-            this.checkInDateTimePicker.Location = new System.Drawing.Point(286, 356);
+            this.checkInDateTimePicker.Location = new System.Drawing.Point(191, 231);
+            this.checkInDateTimePicker.Margin = new System.Windows.Forms.Padding(2);
             this.checkInDateTimePicker.Name = "checkInDateTimePicker";
-            this.checkInDateTimePicker.Size = new System.Drawing.Size(343, 26);
+            this.checkInDateTimePicker.Size = new System.Drawing.Size(230, 20);
             this.checkInDateTimePicker.TabIndex = 18;
             this.checkInDateTimePicker.Value = new System.DateTime(2024, 12, 13, 23, 22, 0, 0);
             // 
             // requirementsTextBox
             // 
-            this.requirementsTextBox.Location = new System.Drawing.Point(292, 463);
+            this.requirementsTextBox.Location = new System.Drawing.Point(195, 301);
+            this.requirementsTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.requirementsTextBox.Name = "requirementsTextBox";
-            this.requirementsTextBox.Size = new System.Drawing.Size(338, 26);
+            this.requirementsTextBox.Size = new System.Drawing.Size(227, 20);
             this.requirementsTextBox.TabIndex = 17;
             // 
             // noOfGuestsTextBox
             // 
-            this.noOfGuestsTextBox.Location = new System.Drawing.Point(286, 299);
+            this.noOfGuestsTextBox.Location = new System.Drawing.Point(191, 194);
+            this.noOfGuestsTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.noOfGuestsTextBox.Name = "noOfGuestsTextBox";
-            this.noOfGuestsTextBox.Size = new System.Drawing.Size(343, 26);
+            this.noOfGuestsTextBox.Size = new System.Drawing.Size(230, 20);
             this.noOfGuestsTextBox.TabIndex = 16;
-            // 
-            // noOfRooms
-            // 
-            this.noOfRooms.Location = new System.Drawing.Point(286, 252);
-            this.noOfRooms.Name = "noOfRooms";
-            this.noOfRooms.Size = new System.Drawing.Size(343, 26);
-            this.noOfRooms.TabIndex = 13;
             // 
             // custIDTextBox
             // 
-            this.custIDTextBox.Location = new System.Drawing.Point(286, 195);
+            this.custIDTextBox.Location = new System.Drawing.Point(191, 127);
+            this.custIDTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.custIDTextBox.Name = "custIDTextBox";
-            this.custIDTextBox.Size = new System.Drawing.Size(343, 26);
+            this.custIDTextBox.Size = new System.Drawing.Size(230, 20);
             this.custIDTextBox.TabIndex = 12;
-            // 
-            // nameTextBox
-            // 
-            this.nameTextBox.Location = new System.Drawing.Point(286, 98);
-            this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(343, 26);
-            this.nameTextBox.TabIndex = 11;
             // 
             // checkInLabel
             // 
             this.checkInLabel.AutoSize = true;
             this.checkInLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkInLabel.Location = new System.Drawing.Point(28, 356);
+            this.checkInLabel.Location = new System.Drawing.Point(19, 231);
+            this.checkInLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.checkInLabel.Name = "checkInLabel";
-            this.checkInLabel.Size = new System.Drawing.Size(146, 26);
+            this.checkInLabel.Size = new System.Drawing.Size(99, 18);
             this.checkInLabel.TabIndex = 10;
             this.checkInLabel.Text = "Check-in date";
             // 
@@ -291,9 +260,10 @@
             // 
             this.requirementsLabel.AutoSize = true;
             this.requirementsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.requirementsLabel.Location = new System.Drawing.Point(28, 463);
+            this.requirementsLabel.Location = new System.Drawing.Point(19, 301);
+            this.requirementsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.requirementsLabel.Name = "requirementsLabel";
-            this.requirementsLabel.Size = new System.Drawing.Size(226, 26);
+            this.requirementsLabel.Size = new System.Drawing.Size(152, 18);
             this.requirementsLabel.TabIndex = 9;
             this.requirementsLabel.Text = "Special Requirements";
             // 
@@ -301,9 +271,10 @@
             // 
             this.checkOutLabel.AutoSize = true;
             this.checkOutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkOutLabel.Location = new System.Drawing.Point(28, 409);
+            this.checkOutLabel.Location = new System.Drawing.Point(19, 266);
+            this.checkOutLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.checkOutLabel.Name = "checkOutLabel";
-            this.checkOutLabel.Size = new System.Drawing.Size(159, 26);
+            this.checkOutLabel.Size = new System.Drawing.Size(109, 18);
             this.checkOutLabel.TabIndex = 8;
             this.checkOutLabel.Text = "Check-out date";
             // 
@@ -311,72 +282,58 @@
             // 
             this.noOfGuestsLabel.AutoSize = true;
             this.noOfGuestsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.noOfGuestsLabel.Location = new System.Drawing.Point(29, 297);
+            this.noOfGuestsLabel.Location = new System.Drawing.Point(19, 193);
+            this.noOfGuestsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.noOfGuestsLabel.Name = "noOfGuestsLabel";
-            this.noOfGuestsLabel.Size = new System.Drawing.Size(145, 26);
+            this.noOfGuestsLabel.Size = new System.Drawing.Size(101, 18);
             this.noOfGuestsLabel.TabIndex = 7;
             this.noOfGuestsLabel.Text = "No. of Guests";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(28, 249);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(146, 26);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "No. of Rooms";
             // 
             // custIDLabel
             // 
             this.custIDLabel.AutoSize = true;
             this.custIDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.custIDLabel.Location = new System.Drawing.Point(28, 194);
+            this.custIDLabel.Location = new System.Drawing.Point(19, 126);
+            this.custIDLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.custIDLabel.Name = "custIDLabel";
-            this.custIDLabel.Size = new System.Drawing.Size(135, 26);
+            this.custIDLabel.Size = new System.Drawing.Size(92, 18);
             this.custIDLabel.TabIndex = 5;
             this.custIDLabel.Text = "Customer ID";
-            // 
-            // nameLabel
-            // 
-            this.nameLabel.AutoSize = true;
-            this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameLabel.Location = new System.Drawing.Point(28, 97);
-            this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(71, 26);
-            this.nameLabel.TabIndex = 4;
-            this.nameLabel.Text = "Name";
             // 
             // exitButton
             // 
             this.exitButton.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitButton.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.exitButton.Location = new System.Drawing.Point(767, 630);
+            this.exitButton.Location = new System.Drawing.Point(511, 410);
+            this.exitButton.Margin = new System.Windows.Forms.Padding(2);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(79, 40);
+            this.exitButton.Size = new System.Drawing.Size(53, 26);
             this.exitButton.TabIndex = 5;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = false;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click_1);
             // 
             // checkAvailButton
             // 
             this.checkAvailButton.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.checkAvailButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkAvailButton.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.checkAvailButton.Location = new System.Drawing.Point(903, 630);
+            this.checkAvailButton.Location = new System.Drawing.Point(602, 410);
+            this.checkAvailButton.Margin = new System.Windows.Forms.Padding(2);
             this.checkAvailButton.Name = "checkAvailButton";
-            this.checkAvailButton.Size = new System.Drawing.Size(219, 39);
+            this.checkAvailButton.Size = new System.Drawing.Size(146, 25);
             this.checkAvailButton.TabIndex = 6;
             this.checkAvailButton.Text = "Check Availability";
             this.checkAvailButton.UseVisualStyleBackColor = false;
+            this.checkAvailButton.Click += new System.EventHandler(this.checkAvailButton_Click_1);
             // 
             // CreateBookingForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ClientSize = new System.Drawing.Size(1134, 682);
+            this.ClientSize = new System.Drawing.Size(756, 443);
             this.Controls.Add(this.checkAvailButton);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.groupBox1);
@@ -385,6 +342,7 @@
             this.Controls.Add(this.menuStrip2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CreateBookingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CreateBookingForm";
@@ -412,20 +370,14 @@
         private System.Windows.Forms.Label requirementsLabel;
         private System.Windows.Forms.Label checkOutLabel;
         private System.Windows.Forms.Label noOfGuestsLabel;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label custIDLabel;
-        private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.DateTimePicker checkInDateTimePicker;
         private System.Windows.Forms.TextBox requirementsTextBox;
         private System.Windows.Forms.TextBox noOfGuestsTextBox;
-        private System.Windows.Forms.TextBox noOfRooms;
         private System.Windows.Forms.TextBox custIDTextBox;
-        private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.DateTimePicker checkOutDateTimePicker;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button checkAvailButton;
-        private System.Windows.Forms.TextBox surnameTextBox;
-        private System.Windows.Forms.Label surnameLabel;
         private System.Windows.Forms.ToolStripMenuItem listToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createNewCustomerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changeBookingToolStripMenuItem;
