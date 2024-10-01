@@ -35,7 +35,7 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.customerID = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -43,6 +43,8 @@
             this.expiryDate = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.confirmButton = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.totalTxtbox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -105,18 +107,18 @@
             this.textBox1.Size = new System.Drawing.Size(268, 26);
             this.textBox1.TabIndex = 5;
             // 
-            // textBox2
+            // customerID
             // 
-            this.textBox2.Location = new System.Drawing.Point(44, 345);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(268, 26);
-            this.textBox2.TabIndex = 6;
+            this.customerID.Location = new System.Drawing.Point(44, 345);
+            this.customerID.Name = "customerID";
+            this.customerID.Size = new System.Drawing.Size(268, 26);
+            this.customerID.TabIndex = 6;
             // 
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(44, 512);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(144, 26);
+            this.textBox3.Size = new System.Drawing.Size(204, 26);
             this.textBox3.TabIndex = 7;
             // 
             // label3
@@ -124,33 +126,33 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(43, 249);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(101, 20);
+            this.label3.Size = new System.Drawing.Size(175, 20);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Card number";
+            this.label3.Text = "Card number (16-digits)";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(43, 322);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(108, 20);
+            this.label4.Size = new System.Drawing.Size(209, 20);
             this.label4.TabIndex = 9;
-            this.label4.Text = "Name on card";
+            this.label4.Text = "Name on card (customer ID)";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(43, 489);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(140, 20);
+            this.label5.Size = new System.Drawing.Size(205, 20);
             this.label5.TabIndex = 10;
-            this.label5.Text = "Card security code";
+            this.label5.Text = "Card security code (3-digits)";
             // 
             // expiryDate
             // 
             this.expiryDate.Location = new System.Drawing.Point(47, 435);
             this.expiryDate.Name = "expiryDate";
-            this.expiryDate.Size = new System.Drawing.Size(83, 26);
+            this.expiryDate.Size = new System.Drawing.Size(201, 26);
             this.expiryDate.TabIndex = 11;
             // 
             // label6
@@ -158,27 +160,46 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(43, 412);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(87, 20);
+            this.label6.Size = new System.Drawing.Size(153, 20);
             this.label6.TabIndex = 12;
-            this.label6.Text = "Expiry date";
+            this.label6.Text = "Expiry date (MM/YY)";
             // 
             // confirmButton
             // 
             this.confirmButton.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.confirmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.confirmButton.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.confirmButton.Location = new System.Drawing.Point(759, 537);
+            this.confirmButton.Location = new System.Drawing.Point(812, 613);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(195, 40);
             this.confirmButton.TabIndex = 13;
             this.confirmButton.Text = "Verify Payment";
             this.confirmButton.UseVisualStyleBackColor = false;
+            this.confirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(43, 568);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(44, 20);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Total";
+            // 
+            // totalTxtbox
+            // 
+            this.totalTxtbox.Location = new System.Drawing.Point(44, 591);
+            this.totalTxtbox.Name = "totalTxtbox";
+            this.totalTxtbox.Size = new System.Drawing.Size(204, 26);
+            this.totalTxtbox.TabIndex = 15;
             // 
             // Payment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(966, 589);
+            this.ClientSize = new System.Drawing.Size(1030, 665);
+            this.Controls.Add(this.totalTxtbox);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.expiryDate);
@@ -186,7 +207,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.customerID);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
@@ -211,7 +232,7 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox customerID;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -219,5 +240,7 @@
         private System.Windows.Forms.TextBox expiryDate;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button confirmButton;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox totalTxtbox;
     }
 }
