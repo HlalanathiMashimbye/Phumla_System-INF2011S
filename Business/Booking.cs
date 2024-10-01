@@ -5,7 +5,7 @@ namespace Phumla_System.Business
     public class Booking
     {
         // Existing properties
-        public int BookingID { get; }
+        public int BookingID { get; set; } // Made settable
         public string CustID { get; set; }
         public int? RoomID { get; set; }
         public string CustomerName { get; set; }
@@ -18,9 +18,21 @@ namespace Phumla_System.Business
         // New property for room status
         public string RoomStatus { get; private set; }
 
-        // Constructor (unchanged)
-        public Booking( string custID, DateTime checkInDate, DateTime checkOutDate, string status, string numberOfGuests, string details)
+        // Constructor to create a new Booking (without BookingID)
+        public Booking(string custID, DateTime checkInDate, DateTime checkOutDate, string status, string numberOfGuests, string details)
         {
+            CustID = custID;
+            CheckInDate = checkInDate;
+            CheckOutDate = checkOutDate;
+            Status = status;
+            RequestDetails = details;
+            NumberOfGuests = numberOfGuests;
+        }
+
+        // Overloaded constructor to create a Booking with BookingID (for database retrieval)
+        public Booking(int bookingID, string custID, DateTime checkInDate, DateTime checkOutDate, string status, string numberOfGuests, string details)
+        {
+            BookingID = bookingID; // Set BookingID from the database
             CustID = custID;
             CheckInDate = checkInDate;
             CheckOutDate = checkOutDate;

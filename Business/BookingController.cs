@@ -25,24 +25,40 @@ namespace Phumla_System.Business
 
         public void DataMaintenance(Booking booking, DB.DBOperation operation)
         {
-            bookingDB.DataSetChange(booking, operation);
             switch (operation)
             {
                 case DB.DBOperation.Add:
-                    bookings.Add(booking);
+                    if (bookingDB.InsertBooking(booking)) // Insert booking and retrieve the BookingID
+                    {
+                        bookings.Add(booking); // Add new booking to the collection
+                    }
+                    else
+                    {
+                        throw new Exception("Failed to add booking to the database.");
+                    }
                     break;
+
                 case DB.DBOperation.Change:
+                    if (FinalizeChanges(booking)) // Finalize the changes in the database
+                    {
+                        int changeIndex = FindIndex(booking);
+                        if (changeIndex >= 0)
+                        {
+                            bookings[changeIndex] = booking; // Update existing booking in the collection
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Failed to update booking in the database.");
+                    }
+                    break;
+
+                case DB.DBOperation.Delete:
                     int index = FindIndex(booking);
                     if (index >= 0)
                     {
-                        bookings[index] = booking;
-                    }
-                    break;
-                case DB.DBOperation.Delete:
-                    index = FindIndex(booking);
-                    if (index >= 0)
-                    {
-                        bookings.RemoveAt(index);
+                        bookings.RemoveAt(index); // Remove booking from collection
+                        bookingDB.DataSetChange(booking, DB.DBOperation.Delete); // Remove booking from the database
                     }
                     break;
             }
@@ -147,7 +163,10 @@ namespace Phumla_System.Business
         // Method to randomly assign an available room or waitlist (assign Room 0)
         public int AssignRoomBasedOnAvailability(DateTime checkInDate, DateTime checkOutDate)
         {
-            var availableRooms = GetAvailableRoomsForDateRange(checkInDate, checkOutDate);
+            // Get available rooms within the range of 1 to 5
+            var availableRooms = GetAvailableRoomsForDateRange(checkInDate, checkOutDate)
+                .Where(r => r.RoomID >= 1 && r.RoomID <= 5)
+                .ToList();
 
             if (availableRooms.Count == 0)
             {
@@ -156,7 +175,7 @@ namespace Phumla_System.Business
             }
             else
             {
-                // Randomly assign one of the available rooms
+                // Randomly assign one of the available rooms from 1 to 5
                 Random rand = new Random();
                 int randomIndex = rand.Next(availableRooms.Count);
                 return availableRooms[randomIndex].RoomID;

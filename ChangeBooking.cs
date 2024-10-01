@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
 using Phumla_System.Business;
 using Phumla_System.Data;
@@ -16,73 +15,80 @@ namespace Phumla_System
         public ChangeBooking()
         {
             InitializeComponent();
+            bookingController = new BookingController();
+            customerController = new CustomerController();
         }
 
-        public ChangeBooking(int bookingID, BookingController aBookingController, CustomerController aCustomerController)
+        private void ChangeBooking_Load(object sender, EventArgs e)
         {
-            InitializeComponent();
-
-            bookingController = aBookingController;
-            customerController = aCustomerController;
-
-            // Debugging: Log the booking ID passed in.
-            Console.WriteLine($"Attempting to load booking with ID: {bookingID}");
-
-            LoadBooking(bookingID);
+            LoadBookings();
             SetupStatusComboBox();
             SetupNumGuestsComboBox();
             WireUpEventHandlers();
         }
 
-        private void LoadBooking(int bookingID)
+        private void LoadBookings()
         {
-            currentBooking = bookingController.AllBookings.FirstOrDefault(b => b.BookingID == bookingID);
-            if (currentBooking == null)
+            var bookings = bookingController.AllBookings;
+
+            if (bookings == null || bookings.Count == 0)
             {
-                MessageBox.Show($"Booking with ID {bookingID} not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
+                MessageBox.Show("No bookings found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Populate the form with booking details
-            txtBookingID.Text = currentBooking.BookingID.ToString();
-            cmbNumGuests.SelectedItem = currentBooking.NumberOfGuests;
-            txtRoomID.Text = currentBooking.RoomID.ToString();
-            dtpCheckInDate.Value = currentBooking.CheckInDate;
-            dtpCheckOutDate.Value = currentBooking.CheckOutDate;
-            cmbStatus.SelectedItem = currentBooking.Status;
-            txtRequestDetails.Text = currentBooking.RequestDetails;
+            dataGridViewBookings.DataSource = bookings;
 
-            txtBookingID.ReadOnly = true;
+            // Hide irrelevant columns
+            dataGridViewBookings.Columns["BookingID"].Visible = false;
+            dataGridViewBookings.Columns["CustID"].Visible = false;
+
+            // Show CustomerName instead of CustID
+            dataGridViewBookings.Columns["CustomerName"].HeaderText = "Customer Name";
+            dataGridViewBookings.Columns["RoomID"].HeaderText = "Room Number";
+            dataGridViewBookings.Columns["Status"].HeaderText = "Status";
         }
 
         private void SetupStatusComboBox()
         {
             cmbStatus.Items.Clear();
             cmbStatus.Items.AddRange(new string[] { "Confirmed", "Pending", "Cancelled" });
-
-            if (currentBooking != null && !string.IsNullOrEmpty(currentBooking.Status))
-            {
-                cmbStatus.SelectedItem = currentBooking.Status;
-            }
-            else
-            {
-                cmbStatus.SelectedIndex = 0;
-            }
+            cmbStatus.SelectedIndex = 0;
         }
 
         private void SetupNumGuestsComboBox()
         {
             cmbNumGuests.Items.Clear();
-            cmbNumGuests.Items.AddRange(new object[] { 1, 2, 3 });
+            cmbNumGuests.Items.AddRange(new object[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+            cmbNumGuests.SelectedIndex = 0;
+        }
 
-            if (currentBooking != null && currentBooking.NumberOfGuests != "0")
+        private void WireUpEventHandlers()
+        {
+            btnSave.Click += btnSave_Click;
+            btnCancel.Click += btnCancel_Click;
+            dataGridViewBookings.SelectionChanged += DataGridViewBookings_SelectionChanged;
+        }
+
+        private void DataGridViewBookings_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewBookings.SelectedRows.Count > 0)
             {
-                cmbNumGuests.SelectedItem = currentBooking.NumberOfGuests;
+                currentBooking = (Booking)dataGridViewBookings.SelectedRows[0].DataBoundItem;
+                DisplayBookingDetails();
             }
-            else
+        }
+
+        private void DisplayBookingDetails()
+        {
+            if (currentBooking != null)
             {
-                cmbNumGuests.SelectedIndex = 0;
+                txtBookingID.Text = currentBooking.BookingID.ToString();
+                cmbNumGuests.SelectedItem = currentBooking.NumberOfGuests;
+                dtpCheckInDate.Value = currentBooking.CheckInDate;
+                dtpCheckOutDate.Value = currentBooking.CheckOutDate;
+                cmbStatus.SelectedItem = currentBooking.Status;
+                txtRequestDetails.Text = currentBooking.RequestDetails;
             }
         }
 
@@ -90,7 +96,7 @@ namespace Phumla_System
         {
             if (currentBooking == null)
             {
-                MessageBox.Show("No booking is currently loaded. Unable to save changes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please select a booking to change.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -102,8 +108,7 @@ namespace Phumla_System
                     if (bookingController.FinalizeChanges(currentBooking))
                     {
                         MessageBox.Show("Booking updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.DialogResult = DialogResult.OK;
-                        this.Close();
+                        LoadBookings(); // Refresh the bookings list
                     }
                     else
                     {
@@ -119,9 +124,9 @@ namespace Phumla_System
 
         private bool ValidateInput()
         {
-            if (string.IsNullOrWhiteSpace(txtBookingID.Text))
+            if (string.IsNullOrWhiteSpace(txtRequestDetails.Text))
             {
-                MessageBox.Show("Booking ID is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Request details must be entered.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
@@ -143,55 +148,18 @@ namespace Phumla_System
                 return false;
             }
 
-            if (!int.TryParse(txtRoomID.Text, out int roomID) || roomID < 0)
-            {
-                MessageBox.Show("Please enter a valid Room ID.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
             return true;
         }
 
         private void UpdateBooking()
         {
-            if (currentBooking == null)
-            {
-                MessageBox.Show("No booking is currently loaded. Unable to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            currentBooking.NumberOfGuests = cmbNumGuests.SelectedItem.ToString();
+            currentBooking.CheckInDate = dtpCheckInDate.Value;
+            currentBooking.CheckOutDate = dtpCheckOutDate.Value;
+            currentBooking.Status = cmbStatus.SelectedItem.ToString();
+            currentBooking.RequestDetails = txtRequestDetails.Text;
 
-            try
-            {
-                int newRoomID = int.Parse(txtRoomID.Text);
-                if (newRoomID != currentBooking.RoomID)
-                {
-                    var availableRooms = bookingController.GetAvailableRoomsForDateRange(dtpCheckInDate.Value, dtpCheckOutDate.Value);
-                    if (!availableRooms.Any(r => r.RoomID == newRoomID))
-                    {
-                        MessageBox.Show("The selected room is not available for the given date range.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    if (currentBooking.RoomID != 0)
-                    {
-                        bookingController.UpdateRoomStatus((int)currentBooking.RoomID, "Available");
-                    }
-
-                    bookingController.AssignRoomToBooking(currentBooking.BookingID, newRoomID);
-                }
-
-                currentBooking.NumberOfGuests = cmbNumGuests.SelectedItem.ToString();
-                currentBooking.CheckInDate = dtpCheckInDate.Value;
-                currentBooking.CheckOutDate = dtpCheckOutDate.Value;
-                currentBooking.Status = cmbStatus.SelectedItem.ToString();
-                currentBooking.RequestDetails = txtRequestDetails.Text;
-
-                bookingController.DataMaintenance(currentBooking, DBOperation.Change);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error updating booking: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            bookingController.DataMaintenance(currentBooking, DBOperation.Change);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -200,21 +168,9 @@ namespace Phumla_System
             this.Close();
         }
 
-        private void WireUpEventHandlers()
+        private void button1_Click(object sender, EventArgs e)
         {
-            btnSave.Click += btnSave_Click;
-            btnCancel.Click += btnCancel_Click;
-        }
-
-        private void ChangeBooking_Load(object sender, EventArgs e)
-        {
-            SetupStatusComboBox();
-            SetupNumGuestsComboBox();
-        }
-
-        private void cmbNumGuests_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Add any specific logic for when the number of guests changes, if needed
+            LoadBookings();
         }
     }
 }

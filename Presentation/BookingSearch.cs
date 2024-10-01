@@ -58,5 +58,9 @@ namespace Phumla_System
             }
         }
 
+        private void bookingInfoListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

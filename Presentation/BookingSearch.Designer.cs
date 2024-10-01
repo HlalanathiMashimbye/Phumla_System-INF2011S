@@ -27,7 +27,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(20, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(298, 26);
+            this.label1.Size = new System.Drawing.Size(203, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "Enter Customer ID to Search:";
             // 
@@ -35,7 +35,7 @@
             // 
             this.custIDTextBox.Location = new System.Drawing.Point(324, 18);
             this.custIDTextBox.Name = "custIDTextBox";
-            this.custIDTextBox.Size = new System.Drawing.Size(200, 26);
+            this.custIDTextBox.Size = new System.Drawing.Size(200, 20);
             this.custIDTextBox.TabIndex = 1;
             // 
             // searchButton
@@ -54,11 +54,11 @@
             // bookingInfoListBox
             // 
             this.bookingInfoListBox.FormattingEnabled = true;
-            this.bookingInfoListBox.ItemHeight = 20;
             this.bookingInfoListBox.Location = new System.Drawing.Point(20, 70);
             this.bookingInfoListBox.Name = "bookingInfoListBox";
-            this.bookingInfoListBox.Size = new System.Drawing.Size(665, 344);
+            this.bookingInfoListBox.Size = new System.Drawing.Size(665, 342);
             this.bookingInfoListBox.TabIndex = 3;
+            this.bookingInfoListBox.SelectedIndexChanged += new System.EventHandler(this.bookingInfoListBox_SelectedIndexChanged);
             // 
             // BookingSearch
             // 
