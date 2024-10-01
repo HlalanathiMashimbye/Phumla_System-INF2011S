@@ -36,6 +36,7 @@ namespace Phumla_System
             this.label7 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.confirmButton = new System.Windows.Forms.Button();
+            this.crtBookingTitle = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Balance)).BeginInit();
             this.SuspendLayout();
@@ -246,11 +247,27 @@ namespace Phumla_System
             this.confirmButton.UseVisualStyleBackColor = true;
             this.confirmButton.Click += new System.EventHandler(this.confirmButton_Click);
             // 
+            // crtBookingTitle
+            // 
+            this.crtBookingTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.crtBookingTitle.AutoSize = true;
+            this.crtBookingTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.crtBookingTitle.ForeColor = System.Drawing.Color.MediumVioletRed;
+            this.crtBookingTitle.Location = new System.Drawing.Point(246, 44);
+            this.crtBookingTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.crtBookingTitle.Name = "crtBookingTitle";
+            this.crtBookingTitle.Size = new System.Drawing.Size(326, 31);
+            this.crtBookingTitle.TabIndex = 3;
+            this.crtBookingTitle.Text = "Create a New Customer";
+            // 
             // CreateNewCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 558);
+            this.Controls.Add(this.crtBookingTitle);
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -261,6 +278,7 @@ namespace Phumla_System
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Balance)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -288,5 +306,7 @@ namespace Phumla_System
         {
             // Add any initialization code here
         }
+
+        private System.Windows.Forms.Label crtBookingTitle;
     }
 }

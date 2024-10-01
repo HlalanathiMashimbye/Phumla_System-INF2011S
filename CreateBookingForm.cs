@@ -264,5 +264,10 @@ namespace Phumla_System
         {
 
         }
+
+        private void CreateBookingForm_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
