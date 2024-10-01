@@ -43,7 +43,7 @@ namespace Phumla_System
                 customerController.DataMaintenance(newCustomer, DBOperation.Add);
 
                 // Finalize and update the data source
-                if (customerController.FinalizeChanges())
+                if (customerController.FinalizeChanges(newCustomer))
                 {
                     MessageBox.Show("New customer added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -59,4 +59,4 @@ namespace Phumla_System
             }
         }
     }
-}
+    }

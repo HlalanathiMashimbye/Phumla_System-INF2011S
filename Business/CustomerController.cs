@@ -29,6 +29,12 @@ namespace Phumla_System.Business
         #endregion
 
         #region Database Communication
+        public bool FinalizeChanges(Customer customer)
+        {
+            // Ensure changes are committed to the database
+            return customerDB.UpdateDataSource(customer);
+        }
+
         public void DataMaintenance(Customer customer, DBOperation operation)
         {
             // Check for duplicate CustID when adding a new customer
@@ -41,7 +47,7 @@ namespace Phumla_System.Business
             customerDB.DataSetChange(customer, operation);
 
             // Finalize changes to commit to the database
-            if (FinalizeChanges())
+            if (FinalizeChanges(customer))
             {
                 // Based on the operation, update the in-memory collection
                 switch (operation)
@@ -69,12 +75,6 @@ namespace Phumla_System.Business
             {
                 throw new InvalidOperationException("Failed to finalize changes to the database.");
             }
-        }
-
-        public bool FinalizeChanges()
-        {
-            // Ensure changes are committed to the database
-            return customerDB.UpdateDataSource();
         }
 
         private int FindIndex(Customer customer)
