@@ -58,7 +58,7 @@ namespace Phumla_System
                     bookingController.DataMaintenance(selectedBooking, Phumla_System.Data.DB.DBOperation.Change);
 
                     // Save changes to database
-                    if (bookingController.FinalizeChanges())
+                    if (bookingController.FinalizeChanges(selectedBooking))
                     {
                         MessageBox.Show("Booking cancelled successfully.");
                         LoadBookings(); // Refresh the bookings list
@@ -78,6 +78,7 @@ namespace Phumla_System
                 MessageBox.Show("Please select a booking to cancel.");
             }
         }
+
 
         private bool ValidateReceptionist(string email, string password)
         {

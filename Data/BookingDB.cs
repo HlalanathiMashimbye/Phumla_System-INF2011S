@@ -2,8 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using Phumla_System.Business;
-using Phumla_System.Properties;
 
 namespace Phumla_System.Data
 {
@@ -28,14 +28,122 @@ namespace Phumla_System.Data
         }
         #endregion
 
-        #region Property
+        #region Properties
         public Collection<Booking> AllBookings
         {
             get { return bookings; }
         }
         #endregion
 
-        #region Private Methods
+        #region Database Operations
+        public void DataSetChange(Booking booking, DB.DBOperation operation)
+        {
+            DataRow row = null;
+            switch (operation)
+            {
+                case DB.DBOperation.Add:
+                    row = DataSet.Tables[table].NewRow();
+                    FillDataRow(row, booking);
+                    DataSet.Tables[table].Rows.Add(row);
+                    break;
+                case DB.DBOperation.Change:
+                    row = FindRow(booking.BookingID);
+                    if (row != null)
+                    {
+                        FillDataRow(row, booking);
+                    }
+                    break;
+                case DB.DBOperation.Delete:
+                    row = FindRow(booking.BookingID);
+                    if (row != null)
+                    {
+                        row.Delete();
+                    }
+                    break;
+            }
+        }
+
+        public bool UpdateDataSource(Booking booking)
+        {
+            if (DataAdapter == null)
+            {
+                FillDataSet(sqlLocal, table);
+            }
+
+            DataRow[] rows = DataSet.Tables[table].Select($"BookingID = {booking.BookingID}");
+            if (rows.Length > 0)
+            {
+                DataRow row = rows[0];
+                FillDataRow(row, booking);
+            }
+
+            return base.UpdateDataSource(sqlLocal, table);
+        }
+
+        // New method to get bookings for a specific room
+        public Collection<Booking> GetBookingsForRoom(int roomID)
+        {
+            return new Collection<Booking>(bookings.Where(b => b.RoomID == roomID).ToList());
+        }
+        #endregion
+
+        #region Helper Methods
+        private void AddBookingsToCollection()
+        {
+            DataTable dataTable = DataSet.Tables[table];
+            foreach (DataRow row in dataTable.Rows)
+            {
+                if (!int.TryParse(row["BookingID"]?.ToString(), out int bookingID))
+                {
+                    Console.WriteLine($"Invalid BookingID found: {row["BookingID"]}");
+                    continue;
+                }
+
+                string custID = row["CustID"].ToString();
+                string customerName = row["Name"].ToString();
+                int? roomID = row["RoomID"] != DBNull.Value ? (int?)int.Parse(row["RoomID"].ToString()) : null;
+                DateTime checkInDate = DateTime.Parse(row["CheckInDate"].ToString());
+                DateTime checkOutDate = DateTime.Parse(row["CheckOutDate"].ToString());
+                string status = row["Status"].ToString();
+                string requestDetails = row["RequestDetails"]?.ToString();
+                string numberOfGuests = row["NumberOfGuests"]?.ToString();
+
+                Booking booking = new Booking(custID, checkInDate, checkOutDate, status, numberOfGuests, requestDetails)
+                {
+                    CustomerName = customerName
+                };
+
+                if (roomID.HasValue)
+                {
+                    booking.AssignRoom(roomID.Value);
+                }
+
+                booking.SetRequest(requestDetails);
+                bookings.Add(booking);
+            }
+        }
+
+        private DataRow FindRow(int bookingID)
+        {
+            DataTable dataTable = DataSet.Tables[table];
+            DataRow[] rows = dataTable.Select($"BookingID = {bookingID}");
+            return rows.Length > 0 ? rows[0] : null;
+        }
+
+        private void FillDataRow(DataRow row, Booking booking)
+        {
+            row["BookingID"] = booking.BookingID;
+            row["CustID"] = booking.CustID;
+            row["RoomID"] = booking.RoomID ?? (object)DBNull.Value;
+            row["CheckInDate"] = booking.CheckInDate;
+            row["CheckOutDate"] = booking.CheckOutDate;
+            row["Status"] = booking.Status;
+            row["RequestDetails"] = booking.RequestDetails ?? (object)DBNull.Value;
+            row["NumberOfGuests"] = booking.NumberOfGuests ?? (object)DBNull.Value;
+        }
+        #endregion
+
+        #region Update Command Logic
         protected override void FillDataSet(string sqlQuery, string tableName)
         {
             using (SqlConnection connection = new SqlConnection(strConn))
@@ -47,8 +155,9 @@ namespace Phumla_System.Data
                 {
                     DataAdapter.Fill(DataSet, tableName);
 
-                    // Manually create the UpdateCommand
+                    // Create Update and Insert Commands
                     CreateUpdateCommand((SqlDataAdapter)DataAdapter);
+                    CreateInsertCommand((SqlDataAdapter)DataAdapter);
                 }
                 catch (Exception ex)
                 {
@@ -73,7 +182,7 @@ namespace Phumla_System.Data
             adapter.UpdateCommand = new SqlCommand(updateSQL, SqlConnection);
 
             adapter.UpdateCommand.Parameters.Add("@CustID", SqlDbType.NVarChar, 50, "CustID");
-            adapter.UpdateCommand.Parameters.Add("@RoomID", SqlDbType.Int, 0, "RoomID"); // Changed to Int for RoomID
+            adapter.UpdateCommand.Parameters.Add("@RoomID", SqlDbType.Int, 0, "RoomID");
             adapter.UpdateCommand.Parameters.Add("@CheckInDate", SqlDbType.DateTime, 0, "CheckInDate");
             adapter.UpdateCommand.Parameters.Add("@CheckOutDate", SqlDbType.DateTime, 0, "CheckOutDate");
             adapter.UpdateCommand.Parameters.Add("@Status", SqlDbType.NVarChar, 50, "Status");
@@ -81,121 +190,28 @@ namespace Phumla_System.Data
             adapter.UpdateCommand.Parameters.Add("@NumberOfGuests", SqlDbType.NVarChar, -1, "NumberOfGuests");
             adapter.UpdateCommand.Parameters.Add("@BookingID", SqlDbType.Int, 0, "BookingID");
 
-            // Optimistic concurrency: assume the row hasn't changed since it was retrieved
+            // Optimistic concurrency control
             adapter.UpdateCommand.Parameters.Add("@Original_BookingID", SqlDbType.Int, 0, "BookingID").SourceVersion = DataRowVersion.Original;
         }
 
-        private void AddBookingsToCollection()
+        private void CreateInsertCommand(SqlDataAdapter adapter)
         {
-            DataTable dataTable = DataSet.Tables[table];
+            string insertSQL = @"
+                INSERT INTO Booking (CustID, RoomID, CheckInDate, CheckOutDate, Status, RequestDetails, NumberOfGuests)
+                VALUES (@CustID, @RoomID, @CheckInDate, @CheckOutDate, @Status, @RequestDetails, @NumberOfGuests);
+                SELECT @BookingID = SCOPE_IDENTITY();";
 
-            foreach (DataRow row in dataTable.Rows)
-            {
-                // Safely parse BookingID
-                if (!int.TryParse(row["BookingID"]?.ToString(), out int bookingID))
-                {
-                    // Log an error or skip if parsing fails
-                    Console.WriteLine($"Invalid BookingID found: {row["BookingID"]}");
-                    continue;
-                }
+            adapter.InsertCommand = new SqlCommand(insertSQL, SqlConnection);
 
-                string custID = row["CustID"].ToString();
-                string customerName = row["Name"].ToString();
-
-                // Safely parse RoomID if it's nullable
-                int? roomID = row["RoomID"] != DBNull.Value ? (int?)int.Parse(row["RoomID"].ToString()) : null;
-
-                DateTime checkInDate = DateTime.Parse(row["CheckInDate"].ToString());
-                DateTime checkOutDate = DateTime.Parse(row["CheckOutDate"].ToString());
-                string status = row["Status"].ToString();
-                string requestDetails = row["RequestDetails"]?.ToString();
-                string numberOfGuests = row["NumberOfGuests"]?.ToString(); // New property for number of guests
-
-                Booking booking = new Booking(bookingID, custID, checkInDate, checkOutDate, status, numberOfGuests)
-                {
-                    CustomerName = customerName
-                };
-
-                if (roomID.HasValue) // Only assign room if it is valid
-                {
-                    booking.AssignRoom(roomID.Value);
-                }
-
-                booking.SetRequest(requestDetails);
-
-                bookings.Add(booking);
-            }
-        }
-
-        private DataRow FindRow(int bookingID)
-        {
-            DataTable dataTable = DataSet.Tables[table];
-            DataRow[] rows = dataTable.Select($"BookingID = '{bookingID}'");
-            return rows.Length > 0 ? rows[0] : null;
-        }
-
-        private void FillDataRow(DataRow row, Booking booking)
-        {
-            row["BookingID"] = booking.BookingID;
-            row["CustID"] = booking.CustID;
-            row["RoomID"] = booking.RoomID;
-            row["CheckInDate"] = booking.CheckInDate;
-            row["CheckOutDate"] = booking.CheckOutDate;
-            row["Status"] = booking.Status;
-            row["RequestDetails"] = booking.RequestDetails ?? (object)DBNull.Value;
-            row["NumberOfGuests"] = booking.NumberOfGuests ?? (object)DBNull.Value; // Fill NumberOfGuests
-        }
-        #endregion
-
-        #region Public Methods
-        public void DataSetChange(Booking booking, DBOperation operation)
-        {
-            DataRow row = null;
-
-            switch (operation)
-            {
-                case DBOperation.Add:
-                    row = DataSet.Tables[table].NewRow();
-                    FillDataRow(row, booking);
-                    DataSet.Tables[table].Rows.Add(row);
-                    break;
-
-                case DBOperation.Change:
-                    row = FindRow(booking.BookingID);
-                    if (row != null)
-                    {
-                        FillDataRow(row, booking);
-                    }
-                    break;
-
-                case DBOperation.Delete:
-                    row = FindRow(booking.BookingID);
-                    if (row != null)
-                    {
-                        row.Delete();
-                    }
-                    break;
-            }
-        }
-
-        public bool UpdateDataSource(Booking booking)
-        {
-            if (DataAdapter == null || ((SqlDataAdapter)DataAdapter).UpdateCommand == null)
-            {
-                // Re-initialize DataAdapter if it's null or UpdateCommand is not set
-                FillDataSet(sqlLocal, table);
-            }
-
-            // Find the row to update
-            DataRow[] rows = DataSet.Tables[table].Select($"BookingID = {booking.BookingID}");
-            if (rows.Length > 0)
-            {
-                DataRow row = rows[0];
-                // Update the row with new values
-                FillDataRow(row, booking);
-            }
-
-            return base.UpdateDataSource(sqlLocal, table);
+            adapter.InsertCommand.Parameters.Add("@CustID", SqlDbType.NVarChar, 50, "CustID");
+            adapter.InsertCommand.Parameters.Add("@RoomID", SqlDbType.Int, 0, "RoomID");
+            adapter.InsertCommand.Parameters.Add("@CheckInDate", SqlDbType.DateTime, 0, "CheckInDate");
+            adapter.InsertCommand.Parameters.Add("@CheckOutDate", SqlDbType.DateTime, 0, "CheckOutDate");
+            adapter.InsertCommand.Parameters.Add("@Status", SqlDbType.NVarChar, 50, "Status");
+            adapter.InsertCommand.Parameters.Add("@RequestDetails", SqlDbType.NVarChar, -1, "RequestDetails");
+            adapter.InsertCommand.Parameters.Add("@NumberOfGuests", SqlDbType.NVarChar, -1, "NumberOfGuests");
+            SqlParameter outputParam = adapter.InsertCommand.Parameters.Add("@BookingID", SqlDbType.Int);
+            outputParam.Direction = ParameterDirection.Output; // Set the output parameter for the BookingID
         }
         #endregion
     }

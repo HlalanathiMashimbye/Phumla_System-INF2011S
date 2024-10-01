@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Phumla_System.Business;
 using Phumla_System.Data;
@@ -15,84 +9,81 @@ namespace Phumla_System
 {
     public partial class ChangeBooking : Form
     {
-
         private Booking currentBooking;
-        private BookingDB bookingDB;
+        private BookingController bookingController;
+        private CustomerController customerController;
 
         public ChangeBooking()
         {
             InitializeComponent();
         }
 
-        public ChangeBooking(int bookingID)
+        public ChangeBooking(int bookingID, BookingController aBookingController, CustomerController aCustomerController)
         {
-            Console.WriteLine("ChangeBooking constructor called");
             InitializeComponent();
-            Console.WriteLine("InitializeComponent called");
 
-            bookingDB = new BookingDB();
+            bookingController = aBookingController;
+            customerController = aCustomerController;
+
+            // Debugging: Log the booking ID passed in.
+            Console.WriteLine($"Attempting to load booking with ID: {bookingID}");
+
             LoadBooking(bookingID);
             SetupStatusComboBox();
+            SetupNumGuestsComboBox();
             WireUpEventHandlers();
-        }
-
-
-        private void SetupStatusComboBox()
-        {
-            Console.WriteLine("SetupStatusComboBox method called");
-            if (cmbStatus == null)
-            {
-                Console.WriteLine("cmbStatus is null");
-                return;
-            }
-
-            cmbStatus.Items.Clear();
-            Console.WriteLine("Items cleared");
-
-            cmbStatus.Items.AddRange(new string[] { "Confirmed", "Cancelled", "Completed" });
-            Console.WriteLine($"Items added. Count: {cmbStatus.Items.Count}");
-
-            if (currentBooking != null && !string.IsNullOrEmpty(currentBooking.Status))
-            {
-                cmbStatus.SelectedItem = currentBooking.Status;
-                Console.WriteLine($"Selected item set to: {currentBooking.Status}");
-            }
-            else
-            {
-                cmbStatus.SelectedIndex = 0;
-                Console.WriteLine("Selected index set to 0");
-            }
         }
 
         private void LoadBooking(int bookingID)
         {
-            currentBooking = bookingDB.AllBookings.FirstOrDefault(b => b.BookingID == bookingID);
-            if (currentBooking == null )
+            currentBooking = bookingController.AllBookings.FirstOrDefault(b => b.BookingID == bookingID);
+            if (currentBooking == null)
             {
                 MessageBox.Show($"Booking with ID {bookingID} not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
                 return;
             }
 
+            // Populate the form with booking details
             txtBookingID.Text = currentBooking.BookingID.ToString();
-            //txtCustomerID.Text = currentBooking.CustID;
-            //txtCustomerName.Text = currentBooking.CustomerName;
+            cmbNumGuests.SelectedItem = currentBooking.NumberOfGuests;
             txtRoomID.Text = currentBooking.RoomID.ToString();
             dtpCheckInDate.Value = currentBooking.CheckInDate;
             dtpCheckOutDate.Value = currentBooking.CheckOutDate;
-            //cmbStatus.SelectedItem = currentBooking.Status;
+            cmbStatus.SelectedItem = currentBooking.Status;
             txtRequestDetails.Text = currentBooking.RequestDetails;
 
-            // Make BookingID and CustomerName read-only
             txtBookingID.ReadOnly = true;
-            //txtCustomerName.ReadOnly = true;
         }
 
-       
-
-        private void label2_Click(object sender, EventArgs e)
+        private void SetupStatusComboBox()
         {
+            cmbStatus.Items.Clear();
+            cmbStatus.Items.AddRange(new string[] { "Confirmed", "Pending", "Cancelled" });
 
+            if (currentBooking != null && !string.IsNullOrEmpty(currentBooking.Status))
+            {
+                cmbStatus.SelectedItem = currentBooking.Status;
+            }
+            else
+            {
+                cmbStatus.SelectedIndex = 0;
+            }
+        }
+
+        private void SetupNumGuestsComboBox()
+        {
+            cmbNumGuests.Items.Clear();
+            cmbNumGuests.Items.AddRange(new object[] { 1, 2, 3 });
+
+            if (currentBooking != null && currentBooking.NumberOfGuests != "0")
+            {
+                cmbNumGuests.SelectedItem = currentBooking.NumberOfGuests;
+            }
+            else
+            {
+                cmbNumGuests.SelectedIndex = 0;
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -108,10 +99,9 @@ namespace Phumla_System
                 try
                 {
                     UpdateBooking();
-                    bookingDB.DataSetChange(currentBooking, DBOperation.Change);
-                    if (bookingDB.UpdateDataSource(currentBooking))
+                    if (bookingController.FinalizeChanges(currentBooking))
                     {
-                        MessageBox.Show("Booking updated successfully in the database.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Booking updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
@@ -125,11 +115,6 @@ namespace Phumla_System
                     MessageBox.Show($"Error saving booking: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
         }
 
         private bool ValidateInput()
@@ -152,7 +137,17 @@ namespace Phumla_System
                 return false;
             }
 
-            // Add more validation as needed (DONT DELETE FOR NOW)
+            if (cmbNumGuests.SelectedItem == null)
+            {
+                MessageBox.Show("Please select the number of guests.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (!int.TryParse(txtRoomID.Text, out int roomID) || roomID < 0)
+            {
+                MessageBox.Show("Please enter a valid Room ID.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
 
             return true;
         }
@@ -167,24 +162,31 @@ namespace Phumla_System
 
             try
             {
-                if (int.TryParse(txtRoomID.Text, out int roomID))
+                int newRoomID = int.Parse(txtRoomID.Text);
+                if (newRoomID != currentBooking.RoomID)
                 {
-                    currentBooking.RoomID = roomID;
-                }
-                else
-                {
-                    MessageBox.Show("Invalid Room ID. Please enter a valid number.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    var availableRooms = bookingController.GetAvailableRoomsForDateRange(dtpCheckInDate.Value, dtpCheckOutDate.Value);
+                    if (!availableRooms.Any(r => r.RoomID == newRoomID))
+                    {
+                        MessageBox.Show("The selected room is not available for the given date range.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if (currentBooking.RoomID != 0)
+                    {
+                        bookingController.UpdateRoomStatus((int)currentBooking.RoomID, "Available");
+                    }
+
+                    bookingController.AssignRoomToBooking(currentBooking.BookingID, newRoomID);
                 }
 
+                currentBooking.NumberOfGuests = cmbNumGuests.SelectedItem.ToString();
                 currentBooking.CheckInDate = dtpCheckInDate.Value;
                 currentBooking.CheckOutDate = dtpCheckOutDate.Value;
-                currentBooking.Status = cmbStatus.SelectedItem?.ToString() ?? currentBooking.Status;
+                currentBooking.Status = cmbStatus.SelectedItem.ToString();
                 currentBooking.RequestDetails = txtRequestDetails.Text;
 
-                // If you need to update other fields, do so here
-
-                MessageBox.Show("Booking updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                bookingController.DataMaintenance(currentBooking, DBOperation.Change);
             }
             catch (Exception ex)
             {
@@ -192,6 +194,11 @@ namespace Phumla_System
             }
         }
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
 
         private void WireUpEventHandlers()
         {
@@ -201,29 +208,13 @@ namespace Phumla_System
 
         private void ChangeBooking_Load(object sender, EventArgs e)
         {
-            Console.WriteLine("ChangeBooking_Load event fired");
-            ManuallyPopulateStatusComboBox();
-        }
-
-        private void ManuallyPopulateStatusComboBox()
-        {
-            Console.WriteLine("ManuallyPopulateStatusComboBox called");
-            if (cmbStatus == null)
-            {
-                Console.WriteLine("cmbStatus is null in ManuallyPopulateStatusComboBox");
-                return;
-            }
-
-            cmbStatus.Items.Clear();
-            cmbStatus.Items.Add("Confirmed");
-            cmbStatus.Items.Add("Cancelled");
-            cmbStatus.Items.Add("Completed");
-            Console.WriteLine($"Items manually added. Count: {cmbStatus.Items.Count}");
+            SetupStatusComboBox();
+            SetupNumGuestsComboBox();
         }
 
         private void cmbNumGuests_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            // Add any specific logic for when the number of guests changes, if needed
         }
     }
 }

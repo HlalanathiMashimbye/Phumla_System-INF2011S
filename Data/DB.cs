@@ -8,7 +8,6 @@ namespace Phumla_System.Data
 {
     public class DB
     {
-        // Enum to store operations
         public enum DBOperation
         {
             Add = 0,
@@ -39,7 +38,6 @@ namespace Phumla_System.Data
         #endregion
 
         #region Populate the DataSet
-        // Filling the Dataset with fresh table from a specific query
         protected virtual void FillDataSet(string aSQLstring, string aTable)
         {
             try
@@ -79,9 +77,10 @@ namespace Phumla_System.Data
                     throw new InvalidOperationException("DataAdapter is not initialized.");
                 }
 
-                if (((SqlDataAdapter)DataAdapter).UpdateCommand == null)
+                SqlDataAdapter sqlDataAdapter = DataAdapter as SqlDataAdapter;
+                if (sqlDataAdapter.UpdateCommand == null)
                 {
-                    throw new InvalidOperationException("UpdateCommand is not set for the DataAdapter.");
+                   // throw new InvalidOperationException("UpdateCommand is not set for the DataAdapter.");
                 }
 
                 // Ensure the connection string is set
@@ -91,14 +90,14 @@ namespace Phumla_System.Data
                 }
 
                 // Ensure the UpdateCommand has a valid connection
-                if (((SqlDataAdapter)DataAdapter).UpdateCommand.Connection == null ||
-                    string.IsNullOrEmpty(((SqlDataAdapter)DataAdapter).UpdateCommand.Connection.ConnectionString))
+                if (sqlDataAdapter.UpdateCommand.Connection == null ||
+                    string.IsNullOrEmpty(sqlDataAdapter.UpdateCommand.Connection.ConnectionString))
                 {
-                    ((SqlDataAdapter)DataAdapter).UpdateCommand.Connection = SqlConnection;
+                    sqlDataAdapter.UpdateCommand.Connection = SqlConnection;
                 }
 
                 SqlConnection.Open();
-                int rowsAffected = DataAdapter.Update(DataSet, sqlTable);
+                int rowsAffected = sqlDataAdapter.Update(DataSet, sqlTable);
                 success = rowsAffected > 0;
 
                 // Refresh the dataset after update

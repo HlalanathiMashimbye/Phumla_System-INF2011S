@@ -4,49 +4,45 @@ namespace Phumla_System.Business
 {
     public class Booking
     {
-        // Properties for the Booking class
-        #region Property Methods
-        public int BookingID { get; set; }  // Changed to int
+        // Existing properties
+        public int BookingID { get; }
         public string CustID { get; set; }
-        public int? RoomID { get; set; } // Made RoomID nullable
+        public int? RoomID { get; set; }
         public string CustomerName { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
-        public string Status { get; set; } // 'Confirmed', 'Cancelled', 'Completed'
-        public string RequestDetails { get; set; } // Details of the request
-        public string NumberOfGuests { get; set; } // New property for number of guests
-        #endregion
+        public string Status { get; set; }
+        public string RequestDetails { get; set; }
+        public string NumberOfGuests { get; set; }
 
-        // Constructor for creating a Booking
-        #region Constructor
-        public Booking(int bookingID, string custID, DateTime checkInDate, DateTime checkOutDate, string status, string numberOfGuests)
+        // New property for room status
+        public string RoomStatus { get; private set; }
+
+        // Constructor (unchanged)
+        public Booking( string custID, DateTime checkInDate, DateTime checkOutDate, string status, string numberOfGuests, string details)
         {
-            BookingID = bookingID; // Updated to int
             CustID = custID;
             CheckInDate = checkInDate;
             CheckOutDate = checkOutDate;
             Status = status;
-            RequestDetails = null;
-            NumberOfGuests = numberOfGuests; // Initialize number of guests
+            RequestDetails = details;
+            NumberOfGuests = numberOfGuests;
         }
-        #endregion
 
-        // Method to update the room allocation (optional for your system)
+        // Existing methods (unchanged)
         public void AssignRoom(int roomID)
         {
             RoomID = roomID;
         }
 
-        // Method to set request details
         public void SetRequest(string requestDetails)
         {
             RequestDetails = requestDetails;
         }
 
-        // Method to change booking status
         public void UpdateStatus(string newStatus)
         {
-            if (newStatus == "Confirmed" || newStatus == "Cancelled" || newStatus == "Completed" || newStatus == "Changed")
+            if (newStatus == "Confirmed" || newStatus == "Cancelled" || newStatus == "Completed" || newStatus == "Changed" || newStatus == "Enquired")
             {
                 Status = newStatus;
             }
@@ -56,10 +52,28 @@ namespace Phumla_System.Business
             }
         }
 
-        // Method to check if the booking is valid (e.g., Check-out must be after Check-in)
         public bool IsBookingValid()
         {
             return CheckOutDate > CheckInDate;
+        }
+
+        // New method to update room status
+        public void UpdateRoomStatus(string newStatus)
+        {
+            if (newStatus == "Available" || newStatus == "Occupied" || newStatus == "Maintenance")
+            {
+                RoomStatus = newStatus;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid room status value");
+            }
+        }
+
+        // New method to get room status
+        public string GetRoomStatus()
+        {
+            return RoomStatus;
         }
     }
 }
