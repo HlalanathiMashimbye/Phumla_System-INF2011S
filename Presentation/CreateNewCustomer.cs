@@ -29,6 +29,29 @@ namespace Phumla_System
             string status = Status.SelectedItem?.ToString();
             decimal balance = Balance.Value;
 
+            // Check if all required fields are filled
+            if (string.IsNullOrEmpty(custID) || string.IsNullOrEmpty(name) || string.IsNullOrEmpty(surname) ||
+                string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(address) ||
+                string.IsNullOrEmpty(status))
+            {
+                MessageBox.Show("All fields must be filled.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Optional: Validate phone number format
+            if (!System.Text.RegularExpressions.Regex.IsMatch(phone, @"^\d+$"))
+            {
+                MessageBox.Show("Invalid phone number. It must contain only digits.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Optional: Validate email format
+            if (!System.Text.RegularExpressions.Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                MessageBox.Show("Invalid email address format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             // Check if the customer already exists
             if (customerController.CustomerExists(custID))
             {
@@ -59,4 +82,5 @@ namespace Phumla_System
             }
         }
     }
-    }
+
+}
