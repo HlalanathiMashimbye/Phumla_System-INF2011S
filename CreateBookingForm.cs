@@ -79,7 +79,7 @@ namespace Phumla_System
                 custIDTextBox.Text,
                 checkInDateTimePicker.Value,
                 checkOutDateTimePicker.Value,
-                "Confirmed",
+                "Pending",                       // Status is set to Pending by default for new bookings(unpaid)
                 noOfGuestsTextBox.Text,
                 requirementsTextBox.Text
             );
@@ -89,6 +89,97 @@ namespace Phumla_System
         {
             // Check if customer has any booking
             return bookingController.CustomerHasBooking(custID);
+        }
+        #endregion
+
+        #region Customer ID Validation
+        private bool ValidateCustomerID(string customerID)
+        {
+            if (customerID.Length != 13)
+            {
+                MessageBox.Show("Customer ID must be 13 digits.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            for (int i = 0; i < customerID.Length; i++)
+            {
+                if (!char.IsDigit(customerID[i]))
+                {
+                    MessageBox.Show("Customer ID must contain only digits.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+
+            // Validate additional portions like BirthDate, Gender, Citizenship, and Luhn Check
+            if (!ValidateBirthDate(customerID) || !ValidateGender(customerID) || !ValidateCitizenship(customerID) || !ValidLuhnCheck(customerID))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ValidateBirthDate(string customerID)
+        {
+            int year = int.Parse(customerID.Substring(0, 2));
+            int month = int.Parse(customerID.Substring(2, 2));
+            int day = int.Parse(customerID.Substring(4, 2));
+
+            if (year < 0 || year > 99 || month < 1 || month > 12 || day < 1 || day > 31)
+            {
+                MessageBox.Show("Invalid Birthdate.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidateGender(string customerID)
+        {
+            int genderDigit = int.Parse(customerID.Substring(6, 4));
+            bool valid = (genderDigit >= 0 && genderDigit <= 4999) || (genderDigit >= 5000 && genderDigit <= 9999);
+            if (!valid)
+            {
+                MessageBox.Show("Invalid Gender identifier.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return valid;
+        }
+
+        private bool ValidateCitizenship(string customerID)
+        {
+            int citizenshipDigit = int.Parse(customerID.Substring(10, 1));
+            bool valid = citizenshipDigit == 0 || citizenshipDigit == 1;
+            if (!valid)
+            {
+                MessageBox.Show("Invalid Citizenship identifier.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return valid;
+        }
+
+        private bool ValidLuhnCheck(string customerID)
+        {
+            int sum = 0;
+            bool isSecond = false;
+
+            for (int i = 0; i < customerID.Length; i++)
+            {
+                int digit = int.Parse(customerID[i].ToString());
+                if (isSecond)
+                {
+                    digit *= 2;
+                    if (digit > 9)
+                    {
+                        digit -= 9;
+                    }
+                }
+                sum += digit;
+                isSecond = !isSecond;
+            }
+
+            bool isValid = (sum % 10 == 0);
+            if (!isValid)
+            {
+                MessageBox.Show("Invalid Luhn check.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return isValid;
         }
         #endregion
 
@@ -104,6 +195,12 @@ namespace Phumla_System
 
             string custID = custIDTextBox.Text;
 
+            // Validate Customer ID before proceeding
+            if (!ValidateCustomerID(custID))
+            {
+                return; // Exit if validation fails
+            }
+
             // Check if the customer exists
             if (!customerController.CustomerExists(custID))
             {
@@ -115,7 +212,11 @@ namespace Phumla_System
             }
 
             // Check if the customer has an existing booking
-  
+            if (CustomerHasBooking(custID))
+            {
+                MessageBox.Show("This customer already has a booking.", "Existing Booking", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return; // Exit if booking exists
+            }
 
             // If no booking exists, proceed with the new booking
             PopulateObject();
@@ -136,7 +237,6 @@ namespace Phumla_System
             // Refresh the customer list
             customers = customerController.AllCustomers;
         }
-
 
         // Method to check room availability and assign a room
         private void AssignRoomBasedOnAvailability()

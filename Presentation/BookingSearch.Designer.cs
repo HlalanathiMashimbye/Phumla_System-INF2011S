@@ -27,9 +27,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(20, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(203, 18);
+            this.label1.Size = new System.Drawing.Size(250, 18);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Enter Customer ID to Search:";
+            this.label1.Text = "Enter Customer ID(SA ID) to Search:";
             // 
             // custIDTextBox
             // 
@@ -69,6 +69,7 @@
             this.Controls.Add(this.bookingInfoListBox);
             this.Name = "BookingSearch";
             this.Text = "Booking Search";
+            this.Load += new System.EventHandler(this.BookingSearch_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 

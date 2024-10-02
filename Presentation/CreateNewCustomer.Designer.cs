@@ -66,6 +66,7 @@ namespace Phumla_System
             this.groupBox1.Size = new System.Drawing.Size(694, 350);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // Surname
             // 
@@ -130,6 +131,7 @@ namespace Phumla_System
             this.CustomerID.Name = "CustomerID";
             this.CustomerID.Size = new System.Drawing.Size(448, 18);
             this.CustomerID.TabIndex = 4;
+            this.CustomerID.TextChanged += new System.EventHandler(this.CustomerID_TextChanged);
             // 
             // label5
             // 

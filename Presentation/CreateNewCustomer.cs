@@ -18,6 +18,7 @@ namespace Phumla_System
             customerController = new CustomerController();
         }
 
+        // Event handler for the confirm button click event
         private void confirmButton_Click(object sender, EventArgs e)
         {
             string custID = CustomerID.Text.Trim();
@@ -38,14 +39,22 @@ namespace Phumla_System
                 return;
             }
 
-            // Optional: Validate phone number format
+            // Validate customer ID format
+            bool validID = validateID(custID);
+            if (!validID)
+            {
+                MessageBox.Show("Invalid customer ID format. It must be a 13-digit number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validate phone number format
             if (!System.Text.RegularExpressions.Regex.IsMatch(phone, @"^\d+$"))
             {
                 MessageBox.Show("Invalid phone number. It must contain only digits.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Optional: Validate email format
+            // Validate email format
             if (!System.Text.RegularExpressions.Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
                 MessageBox.Show("Invalid email address format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -81,6 +90,105 @@ namespace Phumla_System
                 }
             }
         }
-    }
 
+        // Event handler for the CustomerID textbox text changed event
+        private void CustomerID_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        // Validates the customer ID format
+        private bool validateID(string customerID)
+        {
+            if (customerID.Length != 13)
+            {
+                return false;
+            }
+            for (int i = 0; i < customerID.Length; i++)
+            {
+                if (!char.IsDigit(customerID[i]))
+                {
+                    return false;
+                }
+            }
+            bool validBirthDate = validateBirthDate(customerID);
+            bool validGender = validateGender(customerID);
+            bool validCitizenship = validateCitizenship(customerID);
+            bool validLuhnCheck = validLuhn(customerID); //I am not too sure if this is failsafe but it is in-line with the algorithm online.
+            return validBirthDate && validGender && validCitizenship && validLuhnCheck;
+        }
+
+        // Validates the birth date portion of the customer ID
+        virtual protected bool validateBirthDate(string customerID)
+        {
+            int year = int.Parse(customerID.Substring(0, 2));
+            int month = int.Parse(customerID.Substring(2, 2));
+            int day = int.Parse(customerID.Substring(4, 2));
+            if (year < 0 || year > 99 || month < 1 || month > 12 || day < 1 || day > 31)
+            {
+                //MessageBox.Show("Invalid Birthdate.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            return true;
+        }
+
+        // Validates the gender portion of the customer ID
+        private bool validateGender(string customerID)
+        {
+            int genderDigit = int.Parse(customerID.Substring(6, 4));
+            bool valid = (genderDigit >= 0 && genderDigit <= 4999) || (genderDigit >= 5000 && genderDigit <= 9999);
+            if (!valid)
+            {
+                //MessageBox.Show("Invalid Gender identifier.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return valid;
+        }
+
+        // Validates the citizenship portion of the customer ID
+        private bool validateCitizenship(string customerID)
+        {
+            int citizenshipDigit = int.Parse(customerID.Substring(10, 1));
+            bool valid = citizenshipDigit == 0 || citizenshipDigit == 1;
+            if (!valid)
+            {
+                //MessageBox.Show("Invalid Citizenship identifier.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return valid;
+        }
+
+        // Performs the Luhn check on the customer ID
+        private bool validLuhn(string customerID)
+        {
+            int sum = 0;
+            bool isSecond = false;
+            bool isValid = false;
+
+            for (int i = 0; i < customerID.Length; i++)
+            {
+                int digit = int.Parse(customerID[i].ToString());
+                if (isSecond)
+                {
+                    digit *= 2;
+                    if (digit > 9)
+                    {
+                        digit -= 9;
+                    }
+                }
+                sum += digit;
+                isSecond = !isSecond;
+            }
+
+            isValid = (sum % 10 == 0);
+            if (!isValid)
+            {
+                //MessageBox.Show("Invalid Luhn check.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return (sum % 10 == 0);
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+    }
 }
