@@ -65,7 +65,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 38);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1120, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1120, 36);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
