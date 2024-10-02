@@ -208,15 +208,12 @@ namespace Phumla_System
         #region Menu Item Click Events
         private void listToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CustomerListing customerListingForm = new CustomerListing();
-            customerListingForm.Show();
+
         }
 
         private void createNewCustomerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateNewCustomer createNewCustomerForm = new CreateNewCustomer();
-            createNewCustomerForm.CustomerCreated += OnCustomerCreated; // Subscribe to the event
-            createNewCustomerForm.Show();
+
         }
 
         private void newBookingToolStripMenuItem_Click(object sender, EventArgs e)
@@ -266,6 +263,24 @@ namespace Phumla_System
         }
 
         private void CreateBookingForm_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void customerSearchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CustomerListing customerListingForm = new CustomerListing();
+            customerListingForm.Show();
+        }
+
+        private void createNewCustomerToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            CreateNewCustomer createNewCustomerForm = new CreateNewCustomer();
+            createNewCustomerForm.CustomerCreated += OnCustomerCreated; // Subscribe to the event
+            createNewCustomerForm.Show();
+        }
+
+        private void custIDLabel_Click(object sender, EventArgs e)
         {
 
         }

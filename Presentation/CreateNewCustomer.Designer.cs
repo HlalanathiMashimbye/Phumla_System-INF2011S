@@ -138,9 +138,9 @@ namespace Phumla_System
             this.label5.Location = new System.Drawing.Point(28, 12);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(113, 24);
+            this.label5.Size = new System.Drawing.Size(172, 24);
             this.label5.TabIndex = 11;
-            this.label5.Text = "Customer ID";
+            this.label5.Text = "Customer ID(SA ID)";
             // 
             // phone
             // 
