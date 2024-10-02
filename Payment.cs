@@ -14,6 +14,14 @@ namespace Phumla_System
         private Booking currentBooking;
         private decimal totalAmount;
 
+        // Define season dates and rates
+        private static readonly (DateTime Start, DateTime End, decimal Rate)[] Seasons = new[]
+        {
+            (new DateTime(2024, 12, 1), new DateTime(2024, 12, 7), 550m),  // Low Season
+            (new DateTime(2024, 12, 8), new DateTime(2024, 12, 15), 750m), // Mid Season
+            (new DateTime(2024, 12, 16), new DateTime(2024, 12, 31), 995m) // High Season
+        };
+
         public Payment()
         {
             InitializeComponent();
@@ -89,11 +97,29 @@ namespace Phumla_System
                 return;
             }
 
-            var days = (currentBooking.CheckOutDate - currentBooking.CheckInDate).Days;
-            totalAmount = room.Rate * days;
+            totalAmount = CalculateTotalAmount(currentBooking.CheckInDate, currentBooking.CheckOutDate);
 
             // Update the total amount on the form
             totalTxtbox.Text = totalAmount.ToString("C");
+        }
+
+        private decimal CalculateTotalAmount(DateTime checkIn, DateTime checkOut)
+        {
+            decimal total = 0;
+            for (DateTime date = checkIn; date < checkOut; date = date.AddDays(1))
+            {
+                var season = Seasons.FirstOrDefault(s => date >= s.Start && date <= s.End);
+                if (season != default)
+                {
+                    total += season.Rate;
+                }
+                else
+                {
+                    // Default rate if date is outside defined seasons
+                    total += 550m; // Using Low Season rate as default
+                }
+            }
+            return total;
         }
 
         private void ProcessPayment()
