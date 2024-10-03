@@ -116,7 +116,7 @@ namespace Phumla_System
                 else
                 {
                     // Default rate if date is outside defined seasons
-                    total += 550m; // Using Low Season rate as default
+                    total += 550m; // Using Low Season rate as the default
                 }
             }
             return total;

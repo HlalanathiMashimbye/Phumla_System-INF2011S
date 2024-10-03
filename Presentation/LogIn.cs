@@ -17,12 +17,16 @@ namespace Phumla_System
             receptionistController = new ReceptionistController(); // Initialize the receptionist controller
             bookingController = new BookingController(); // Initialize the booking controller
             customerController = new CustomerController(); // Initialize the customer controller
+
+            // Set the password TextBox to mask input
+            enterPassword.PasswordChar = '*'; // Mask the password with '*'
         }
 
         private void LogIn_Load(object sender, EventArgs e)
         {
 
         }
+
         private void signInButton_Click(object sender, EventArgs e)
         {
             string email = enterEmail.Text.Trim(); // Assuming you have an emailTextBox for email input
@@ -32,7 +36,7 @@ namespace Phumla_System
             {
                 // If valid, proceed to the next part of your application
                 MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //open the  main dashboard
+                // Open the main dashboard
                 CreateBookingForm createBookingForm = new CreateBookingForm(bookingController, customerController); // Pass the required parameters
                 createBookingForm.Show();
                 this.Hide();
@@ -43,15 +47,15 @@ namespace Phumla_System
             }
         }
 
-
-
         private bool IsValidCredentials(string email, string password)
         {
             // Check if the email and password are correct using the receptionist controller
             return receptionistController.ValidateCredentials(email, password);
         }
 
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
 
-
+        }
     }
 }

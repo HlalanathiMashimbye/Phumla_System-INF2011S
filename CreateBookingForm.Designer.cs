@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.customerSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createNewCustomerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.newBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modifyBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,7 +53,7 @@
             this.checkOutLabel = new System.Windows.Forms.Label();
             this.noOfGuestsLabel = new System.Windows.Forms.Label();
             this.custIDLabel = new System.Windows.Forms.Label();
-            this.createNewCustomerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -91,6 +92,14 @@
             this.customerSearchToolStripMenuItem.Size = new System.Drawing.Size(112, 24);
             this.customerSearchToolStripMenuItem.Text = "Customer List";
             this.customerSearchToolStripMenuItem.Click += new System.EventHandler(this.customerSearchToolStripMenuItem_Click);
+            // 
+            // createNewCustomerToolStripMenuItem1
+            // 
+            this.createNewCustomerToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.createNewCustomerToolStripMenuItem1.Name = "createNewCustomerToolStripMenuItem1";
+            this.createNewCustomerToolStripMenuItem1.Size = new System.Drawing.Size(169, 24);
+            this.createNewCustomerToolStripMenuItem1.Text = "Create New Customer";
+            this.createNewCustomerToolStripMenuItem1.Click += new System.EventHandler(this.createNewCustomerToolStripMenuItem1_Click);
             // 
             // newBookingToolStripMenuItem
             // 
@@ -177,6 +186,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.AutoSize = true;
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.checkAvailButton);
             this.groupBox1.Controls.Add(this.checkOutDateTimePicker);
             this.groupBox1.Controls.Add(this.exitButton);
@@ -191,9 +201,9 @@
             this.groupBox1.Controls.Add(this.custIDLabel);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(37, 83);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(708, 332);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
@@ -205,7 +215,7 @@
             this.checkAvailButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkAvailButton.ForeColor = System.Drawing.SystemColors.Highlight;
             this.checkAvailButton.Location = new System.Drawing.Point(558, 279);
-            this.checkAvailButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkAvailButton.Margin = new System.Windows.Forms.Padding(2);
             this.checkAvailButton.Name = "checkAvailButton";
             this.checkAvailButton.Size = new System.Drawing.Size(146, 32);
             this.checkAvailButton.TabIndex = 6;
@@ -216,7 +226,7 @@
             // checkOutDateTimePicker
             // 
             this.checkOutDateTimePicker.Location = new System.Drawing.Point(191, 190);
-            this.checkOutDateTimePicker.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkOutDateTimePicker.Margin = new System.Windows.Forms.Padding(2);
             this.checkOutDateTimePicker.Name = "checkOutDateTimePicker";
             this.checkOutDateTimePicker.Size = new System.Drawing.Size(230, 20);
             this.checkOutDateTimePicker.TabIndex = 19;
@@ -229,7 +239,7 @@
             this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitButton.ForeColor = System.Drawing.SystemColors.Highlight;
             this.exitButton.Location = new System.Drawing.Point(486, 279);
-            this.exitButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.exitButton.Margin = new System.Windows.Forms.Padding(2);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(54, 33);
             this.exitButton.TabIndex = 5;
@@ -240,7 +250,7 @@
             // checkInDateTimePicker
             // 
             this.checkInDateTimePicker.Location = new System.Drawing.Point(191, 149);
-            this.checkInDateTimePicker.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkInDateTimePicker.Margin = new System.Windows.Forms.Padding(2);
             this.checkInDateTimePicker.Name = "checkInDateTimePicker";
             this.checkInDateTimePicker.Size = new System.Drawing.Size(230, 20);
             this.checkInDateTimePicker.TabIndex = 18;
@@ -249,7 +259,7 @@
             // requirementsTextBox
             // 
             this.requirementsTextBox.Location = new System.Drawing.Point(191, 232);
-            this.requirementsTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.requirementsTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.requirementsTextBox.Name = "requirementsTextBox";
             this.requirementsTextBox.Size = new System.Drawing.Size(227, 20);
             this.requirementsTextBox.TabIndex = 17;
@@ -257,7 +267,7 @@
             // noOfGuestsTextBox
             // 
             this.noOfGuestsTextBox.Location = new System.Drawing.Point(191, 105);
-            this.noOfGuestsTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.noOfGuestsTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.noOfGuestsTextBox.Name = "noOfGuestsTextBox";
             this.noOfGuestsTextBox.Size = new System.Drawing.Size(230, 20);
             this.noOfGuestsTextBox.TabIndex = 16;
@@ -265,7 +275,7 @@
             // custIDTextBox
             // 
             this.custIDTextBox.Location = new System.Drawing.Point(191, 66);
-            this.custIDTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.custIDTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.custIDTextBox.Name = "custIDTextBox";
             this.custIDTextBox.Size = new System.Drawing.Size(230, 20);
             this.custIDTextBox.TabIndex = 12;
@@ -288,9 +298,9 @@
             this.requirementsLabel.Location = new System.Drawing.Point(19, 232);
             this.requirementsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.requirementsLabel.Name = "requirementsLabel";
-            this.requirementsLabel.Size = new System.Drawing.Size(112, 18);
+            this.requirementsLabel.Size = new System.Drawing.Size(146, 18);
             this.requirementsLabel.TabIndex = 9;
-            this.requirementsLabel.Text = "Request Details";
+            this.requirementsLabel.Text = "Special requirements";
             // 
             // checkOutLabel
             // 
@@ -326,13 +336,16 @@
             this.custIDLabel.Text = "Customer ID(SA ID)";
             this.custIDLabel.Click += new System.EventHandler(this.custIDLabel_Click);
             // 
-            // createNewCustomerToolStripMenuItem1
+            // label2
             // 
-            this.createNewCustomerToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
-            this.createNewCustomerToolStripMenuItem1.Name = "createNewCustomerToolStripMenuItem1";
-            this.createNewCustomerToolStripMenuItem1.Size = new System.Drawing.Size(169, 24);
-            this.createNewCustomerToolStripMenuItem1.Text = "Create New Customer";
-            this.createNewCustomerToolStripMenuItem1.Click += new System.EventHandler(this.createNewCustomerToolStripMenuItem1_Click);
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(4, 250);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(173, 13);
+            this.label2.TabIndex = 20;
+            this.label2.Text = "(write \'N/A\' if there are none)";
             // 
             // CreateBookingForm
             // 
@@ -348,7 +361,7 @@
             this.Controls.Add(this.menuStrip2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CreateBookingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CreateBookingForm";
@@ -389,5 +402,6 @@
         private System.Windows.Forms.ToolStripMenuItem cancelBookingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem occupancyLevelReportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createNewCustomerToolStripMenuItem1;
+        private System.Windows.Forms.Label label2;
     }
 }
