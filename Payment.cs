@@ -14,7 +14,6 @@ namespace Phumla_System
         private Booking currentBooking;
         private decimal totalAmount;
 
-        // Define season dates and rates
         private static readonly (DateTime Start, DateTime End, decimal Rate)[] Seasons = new[]
         {
             (new DateTime(2024, 12, 1), new DateTime(2024, 12, 7), 550m),  // Low Season
@@ -32,7 +31,6 @@ namespace Phumla_System
 
         private void InitializeForm()
         {
-            // The label and event handler are already set in the Designer file
             totalTxtbox.ReadOnly = true;
         }
 
@@ -45,6 +43,9 @@ namespace Phumla_System
                 {
                     ProcessPayment();
                 }
+                MessageBox.Show("Booking Confirmed.");
+                MainForm mainForm = new MainForm();
+                mainForm.ShowDialog();
             }
         }
 
@@ -99,8 +100,7 @@ namespace Phumla_System
 
             totalAmount = CalculateTotalAmount(currentBooking.CheckInDate, currentBooking.CheckOutDate);
 
-            // Update the total amount on the form
-            totalTxtbox.Text = totalAmount.ToString("C");
+            totalTxtbox.Text = string.Format("R {0:N2}", totalAmount);
         }
 
         private decimal CalculateTotalAmount(DateTime checkIn, DateTime checkOut)
@@ -126,35 +126,61 @@ namespace Phumla_System
         {
             try
             {
-                currentBooking.UpdateStatus("Confirmed");
-                bookingDB.DataSetChange(currentBooking, DBOperation.Change);
-                if (bookingDB.UpdateDataSource(currentBooking))
-                {
-                    // Update room status to "Occupied"
-                    if (currentBooking.RoomID.HasValue)
-                    {
-                        var room = roomDB.AllRooms.FirstOrDefault(r => r.RoomID == currentBooking.RoomID.Value);
-                        if (room != null)
-                        {
-                            room.Status = "Occupied";
-                            roomDB.DataSetChange(room, DBOperation.Change);
-                            roomDB.UpdateDataSource();
-                        }
-                    }
+                // Simulate payment processing
+                bool paymentSuccessful = ProcessPaymentTransaction();
 
-                    MessageBox.Show($"Payment of {totalAmount:C} processed successfully for booking ID {currentBooking.BookingID}.");
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+                if (paymentSuccessful)
+                {
+                    // Update booking status to "Confirmed" using the Booking class method
+                    currentBooking.UpdateStatus("Confirmed");
+                    bookingDB.DataSetChange(currentBooking, DBOperation.Change);
+
+                    if (bookingDB.UpdateDataSource(currentBooking))
+                    {
+                        // Update room status to "Occupied" if the check-in date is today
+                        if (currentBooking.RoomID.HasValue)
+                        {
+                            var room = roomDB.AllRooms.FirstOrDefault(r => r.RoomID == currentBooking.RoomID.Value);
+                            if (room != null && currentBooking.CheckInDate.Date == DateTime.Today)
+                            {
+                                room.Status = "Occupied";
+                                roomDB.DataSetChange(room, DBOperation.Change);
+                                roomDB.UpdateDataSource();
+                            }
+                        }
+
+                        MessageBox.Show($"Payment of R {totalAmount:N2} processed successfully for booking ID {currentBooking.BookingID}. Booking status updated to Confirmed.");
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error: Failed to update booking status in the database. The booking may still be in Pending status.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Error: Failed to update booking status in the database.");
+                    // Ensure the booking remains in "Pending" status
+                    currentBooking.UpdateStatus("Pending");
+                    bookingDB.DataSetChange(currentBooking, DBOperation.Change);
+                    bookingDB.UpdateDataSource(currentBooking);
+
+                    MessageBox.Show("Payment processing failed. The booking remains in Pending status. Please try again or use a different payment method.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error processing payment: {ex.Message}");
+                MessageBox.Show($"Error processing payment: {ex.Message}. The booking status was not changed.");
             }
+        }
+
+        private bool ProcessPaymentTransaction()
+        {
+            // This is a placeholder for the actual payment processing logic
+            // In a real-world scenario, this would interact with a payment gateway
+            // For demonstration, let's simulate a successful payment 90% of the time
+            Random rnd = new Random();
+            return rnd.Next(100) < 90;
         }
     }
 }
