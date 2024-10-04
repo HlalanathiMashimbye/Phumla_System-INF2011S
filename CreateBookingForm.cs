@@ -384,5 +384,11 @@ namespace Phumla_System
         {
 
         }
+
+        private void reservationCancellationReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReservationCancellationReport reservationCancellationReportForm = new ReservationCancellationReport();
+            reservationCancellationReportForm.Show();
+        }
     }
 }
