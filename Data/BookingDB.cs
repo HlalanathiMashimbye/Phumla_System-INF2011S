@@ -86,7 +86,7 @@ namespace Phumla_System.Data
             }
             catch (DBConcurrencyException ex)
             {
-                Console.WriteLine($"Concurrency violation occurred: {ex.Message}");
+                //Console.WriteLine($"Concurrency violation occurred: {ex.Message}");
 
                 // Fetch the latest version of the record
                 DataSet latestDataSet = FetchLatestData(table, booking.BookingID);

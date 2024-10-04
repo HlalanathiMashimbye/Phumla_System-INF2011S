@@ -64,7 +64,6 @@ namespace Phumla_System.Data
         public bool UpdateDataSource(Customer customer)
         {
             bool success = false;
-            try
             {
                 if (dataAdapter == null)
                 {
@@ -97,10 +96,7 @@ namespace Phumla_System.Data
                 // Accept changes to DataSet
                 DataSet.AcceptChanges();
             }
-            catch (Exception ex)
-            {
-                throw new Exception("Error updating data source: " + ex.Message, ex);
-            }
+            
 
             return success;
         }
