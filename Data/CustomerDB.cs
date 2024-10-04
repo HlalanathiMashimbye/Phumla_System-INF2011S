@@ -3,7 +3,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 
 namespace Phumla_System.Data
 {
@@ -61,20 +60,72 @@ namespace Phumla_System.Data
 
         public bool UpdateDataSource(Customer customer)
         {
-            if (DataAdapter == null)
+            bool success = false;
+            try
             {
-                FillDataSet(sqlLocal, table);
+                if (DataAdapter == null)
+                {
+                    FillDataSet(sqlLocal, table);
+                }
+
+                SqlDataAdapter sqlDataAdapter = (SqlDataAdapter)DataAdapter;
+
+                using (SqlConnection connection = new SqlConnection(strConn))
+                {
+                    connection.Open();
+
+                    // Ensure InsertCommand and UpdateCommand have connections
+                    if (sqlDataAdapter.InsertCommand == null)
+                    {
+                        CreateInsertCommand(sqlDataAdapter);
+                    }
+                    sqlDataAdapter.InsertCommand.Connection = connection;
+
+                    if (sqlDataAdapter.UpdateCommand == null)
+                    {
+                        CreateUpdateCommand(sqlDataAdapter);
+                    }
+                    sqlDataAdapter.UpdateCommand.Connection = connection;
+
+                    // Find the row and update data
+                    DataRow row = FindRow(customer.CustID);
+                    if (row != null)
+                    {
+                        // If the row is unchanged, update it
+                        if (row.RowState == DataRowState.Unchanged || row.RowState == DataRowState.Modified)
+                        {
+                            FillDataRow(row, customer);
+                        }
+                        else if (row.RowState == DataRowState.Added)
+                        {
+                            // Row was added, no need to set modified, just ensure it's ready for insert
+                            FillDataRow(row, customer);
+                        }
+                    }
+                    else
+                    {
+                        // If the row does not exist, add it as a new row
+                        row = DataSet.Tables[table].NewRow();
+                        FillDataRow(row, customer);
+                        DataSet.Tables[table].Rows.Add(row);
+                    }
+
+                    // Update database
+                    int rowsAffected = sqlDataAdapter.Update(DataSet, table);
+                    success = rowsAffected > 0;
+                }
+
+                // Accept changes to DataSet
+                DataSet.AcceptChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating data source: " + ex.Message, ex);
             }
 
-            DataRow[] rows = DataSet.Tables[table].Select($"CustID = '{customer.CustID}'");
-            if (rows.Length > 0)
-            {
-                DataRow row = rows[0];
-                FillDataRow(row, customer);
-            }
-
-            return base.UpdateDataSource(sqlLocal, table);
+            return success;
         }
+
         #endregion
 
         #region Helper Methods
@@ -84,7 +135,7 @@ namespace Phumla_System.Data
             foreach (DataRow row in dataTable.Rows)
             {
                 Customer customer = new Customer(
-                    row["CustID"].ToString().TrimEnd(),
+                    row["custID"].ToString().TrimEnd(),
                     row["Name"].ToString().TrimEnd(),
                     row["Surname"].ToString().TrimEnd(),
                     row["Phone"].ToString().TrimEnd(),
@@ -101,13 +152,13 @@ namespace Phumla_System.Data
         private DataRow FindRow(string custID)
         {
             DataTable dataTable = DataSet.Tables[table];
-            DataRow[] rows = dataTable.Select($"CustID = '{custID}'");
+            DataRow[] rows = dataTable.Select($"custID = '{custID}'");
             return rows.Length > 0 ? rows[0] : null;
         }
 
         private void FillDataRow(DataRow row, Customer customer)
         {
-            row["CustID"] = customer.CustID;
+            row["custID"] = customer.CustID;
             row["Name"] = customer.Name;
             row["Surname"] = customer.Surname;
             row["Phone"] = customer.Phone;
@@ -124,19 +175,20 @@ namespace Phumla_System.Data
             using (SqlConnection connection = new SqlConnection(strConn))
             {
                 DataAdapter = new SqlDataAdapter(sqlQuery, connection);
-                connection.Open();
+                SqlDataAdapter sqlDataAdapter = (SqlDataAdapter)DataAdapter;
 
                 try
                 {
-                    DataAdapter.Fill(DataSet, tableName);
+                    connection.Open();
+                    sqlDataAdapter.Fill(DataSet, tableName);
 
                     // Create Update and Insert Commands
-                    CreateUpdateCommand((SqlDataAdapter)DataAdapter);
-                    CreateInsertCommand((SqlDataAdapter)DataAdapter);
+                    CreateUpdateCommand(sqlDataAdapter);
+                    CreateInsertCommand(sqlDataAdapter);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Error filling DataSet: " + ex.Message);
+                    throw new Exception("Error filling DataSet: " + ex.Message, ex);
                 }
             }
         }
@@ -152,38 +204,38 @@ namespace Phumla_System.Data
                     Address = @Address, 
                     Status = @Status, 
                     Balance = @Balance
-                WHERE CustID = @CustID";
+                WHERE custID = @custID";
 
-            adapter.UpdateCommand = new SqlCommand(updateSQL, SqlConnection);
+            adapter.UpdateCommand = new SqlCommand(updateSQL);
 
-            adapter.UpdateCommand.Parameters.Add("@Name", SqlDbType.NVarChar, 100, "Name");
-            adapter.UpdateCommand.Parameters.Add("@Surname", SqlDbType.NVarChar, 100, "Surname");
-            adapter.UpdateCommand.Parameters.Add("@Phone", SqlDbType.NVarChar, 20, "Phone");
-            adapter.UpdateCommand.Parameters.Add("@Email", SqlDbType.NVarChar, 100, "Email");
+            adapter.UpdateCommand.Parameters.Add("@Name", SqlDbType.VarChar, 100, "Name");
+            adapter.UpdateCommand.Parameters.Add("@Surname", SqlDbType.VarChar, 100, "Surname");
+            adapter.UpdateCommand.Parameters.Add("@Phone", SqlDbType.VarChar, 20, "Phone");
+            adapter.UpdateCommand.Parameters.Add("@Email", SqlDbType.VarChar, 100, "Email");
             adapter.UpdateCommand.Parameters.Add("@Address", SqlDbType.Text, -1, "Address");
-            adapter.UpdateCommand.Parameters.Add("@Status", SqlDbType.NVarChar, 20, "Status");
+            adapter.UpdateCommand.Parameters.Add("@Status", SqlDbType.VarChar, 20, "Status");
             adapter.UpdateCommand.Parameters.Add("@Balance", SqlDbType.Decimal, 0, "Balance");
-            adapter.UpdateCommand.Parameters.Add("@CustID", SqlDbType.Char, 13, "CustID");
+            adapter.UpdateCommand.Parameters.Add("@custID", SqlDbType.Char, 13, "custID");
 
             // Optimistic concurrency control
-            adapter.UpdateCommand.Parameters.Add("@Original_CustID", SqlDbType.Char, 13, "CustID").SourceVersion = DataRowVersion.Original;
+            adapter.UpdateCommand.Parameters.Add("@Original_custID", SqlDbType.Char, 13, "custID").SourceVersion = DataRowVersion.Original;
         }
 
         private void CreateInsertCommand(SqlDataAdapter adapter)
         {
             string insertSQL = @"
-                INSERT INTO Customer (CustID, Name, Surname, Phone, Email, Address, Status, Balance)
-                VALUES (@CustID, @Name, @Surname, @Phone, @Email, @Address, @Status, @Balance)";
+                INSERT INTO Customer (custID, Name, Surname, Phone, Email, Address, Status, Balance)
+                VALUES (@custID, @Name, @Surname, @Phone, @Email, @Address, @Status, @Balance)";
 
-            adapter.InsertCommand = new SqlCommand(insertSQL, SqlConnection);
+            adapter.InsertCommand = new SqlCommand(insertSQL);
 
-            adapter.InsertCommand.Parameters.Add("@CustID", SqlDbType.Char, 13, "CustID");
-            adapter.InsertCommand.Parameters.Add("@Name", SqlDbType.NVarChar, 100, "Name");
-            adapter.InsertCommand.Parameters.Add("@Surname", SqlDbType.NVarChar, 100, "Surname");
-            adapter.InsertCommand.Parameters.Add("@Phone", SqlDbType.NVarChar, 20, "Phone");
-            adapter.InsertCommand.Parameters.Add("@Email", SqlDbType.NVarChar, 100, "Email");
+            adapter.InsertCommand.Parameters.Add("@custID", SqlDbType.Char, 13, "custID");
+            adapter.InsertCommand.Parameters.Add("@Name", SqlDbType.VarChar, 100, "Name");
+            adapter.InsertCommand.Parameters.Add("@Surname", SqlDbType.VarChar, 100, "Surname");
+            adapter.InsertCommand.Parameters.Add("@Phone", SqlDbType.VarChar, 20, "Phone");
+            adapter.InsertCommand.Parameters.Add("@Email", SqlDbType.VarChar, 100, "Email");
             adapter.InsertCommand.Parameters.Add("@Address", SqlDbType.Text, -1, "Address");
-            adapter.InsertCommand.Parameters.Add("@Status", SqlDbType.NVarChar, 20, "Status");
+            adapter.InsertCommand.Parameters.Add("@Status", SqlDbType.VarChar, 20, "Status");
             adapter.InsertCommand.Parameters.Add("@Balance", SqlDbType.Decimal, 0, "Balance");
         }
         #endregion
