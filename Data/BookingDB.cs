@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Data;
+using System.Data.Common;
+using System.Data;  
 using System.Data.SqlClient;
 using System.Linq;
 using Phumla_System.Business;
@@ -70,6 +71,7 @@ namespace Phumla_System.Data
                 FillDataSet(sqlLocal, table);
             }
 
+            // Fetch the row based on BookingID
             DataRow[] rows = DataSet.Tables[table].Select($"BookingID = {booking.BookingID}");
             if (rows.Length > 0)
             {
@@ -77,8 +79,62 @@ namespace Phumla_System.Data
                 FillDataRow(row, booking);
             }
 
-            return base.UpdateDataSource(sqlLocal, table);
+            try
+            {
+                // Try to update the data source
+                return base.UpdateDataSource(sqlLocal, table);
+            }
+            catch (DBConcurrencyException ex)
+            {
+                Console.WriteLine($"Concurrency violation occurred: {ex.Message}");
+
+                // Fetch the latest version of the record
+                DataSet latestDataSet = FetchLatestData(table, booking.BookingID);
+
+                // Apply changes from local dataset to remote dataset
+                ApplyChanges(DataSet, latestDataSet);
+
+                // Try updating again
+                return base.UpdateDataSource(sqlLocal, table);
+            }
         }
+
+        private DataSet FetchLatestData(string sqlTable, int bookingID)
+        {
+            using (SqlConnection connection = new SqlConnection(strConn))
+            {
+                connection.Open();
+                SqlDataAdapter da = new SqlDataAdapter($"SELECT * FROM {sqlTable} WHERE BookingID = @BookingID", connection);
+                da.SelectCommand.Parameters.AddWithValue("@BookingID", bookingID);
+                DataSet dataSet = new DataSet();
+                da.Fill(dataSet);
+                return dataSet;
+            }
+        }
+
+        private void ApplyChanges(DataSet oldDS, DataSet newDS)
+        {
+            DataTable oldTable = oldDS.Tables[0];
+            DataTable newTable = newDS.Tables[0];
+
+            foreach (DataRow oldRow in oldTable.Rows)
+            {
+                DataRow newRow = newTable.Rows.Find(oldRow["BookingID"]);
+                if (newRow != null && oldRow.RowState == DataRowState.Unchanged)
+                {
+                    oldRow.AcceptChanges();
+                }
+            }
+
+            foreach (DataRow newRow in newTable.Rows)
+            {
+                if (!oldTable.Rows.Contains(newRow["BookingID"]))
+                {
+                    newRow.SetAdded();
+                }
+            }
+        }
+
 
         // New method to get bookings for a specific room
         public Collection<Booking> GetBookingsForRoom(int roomID)
