@@ -261,8 +261,6 @@ namespace Phumla_System
                 if (bookingController.FinalizeChanges(booking))
                 {
                     MessageBox.Show($"Room {assignedRoomID} has been assigned to the booking.", "Room Assigned", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ClearAll();
-                    ShowAll(false);
                 }
                 else
                 {
@@ -297,6 +295,26 @@ namespace Phumla_System
                     MessageBox.Show("Please choose another date range.", "Choose New Date", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+        }
+
+        private void OpenPaymentScreen(Booking booking)
+        {
+            Payment paymentScreen = new Payment(booking);
+            DialogResult result = paymentScreen.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                // Payment successful, booking is already updated in the Payment screen
+                MessageBox.Show("Booking confirmed and payment processed successfully.", "Booking Confirmed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                // Payment failed or cancelled
+                MessageBox.Show("Payment not completed. Booking will remain in pending status.", "Payment Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            ClearAll();
+            ShowAll(false);
         }
 
         private void exitButton_Click(object sender, EventArgs e)
