@@ -235,10 +235,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BookingsDatabase.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="BookingsDatabase_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>BookingsDatabase.mdf</DependentUpon>
     </Content>
   </ItemGroup>
