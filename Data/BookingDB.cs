@@ -81,21 +81,15 @@ namespace Phumla_System.Data
 
             try
             {
-                // Try to update the data source
-                return base.UpdateDataSource(sqlLocal, table);
+                SqlCommandBuilder builder = new SqlCommandBuilder((SqlDataAdapter)DataAdapter);
+                DataAdapter.Update(DataSet, table);
+                DataSet.AcceptChanges();
+                return true;
             }
-            catch (DBConcurrencyException ex)
+            catch (Exception ex)
             {
-                //Console.WriteLine($"Concurrency violation occurred: {ex.Message}");
-
-                // Fetch the latest version of the record
-                DataSet latestDataSet = FetchLatestData(table, booking.BookingID);
-
-                // Apply changes from local dataset to remote dataset
-                ApplyChanges(DataSet, latestDataSet);
-
-                // Try updating again
-                return base.UpdateDataSource(sqlLocal, table);
+                Console.WriteLine("Error updating the data source: " + ex.Message);
+                return false;
             }
         }
 
