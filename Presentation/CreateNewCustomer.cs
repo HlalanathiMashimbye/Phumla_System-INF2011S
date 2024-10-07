@@ -16,6 +16,7 @@ namespace Phumla_System
         {
             InitializeComponent();
             customerController = new CustomerController();
+            createNewCustomerClosed = false;
         }
 
         // Event handler for the confirm button click event
@@ -189,6 +190,14 @@ namespace Phumla_System
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        public bool createNewCustomerClosed { get; private set; }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            createNewCustomerClosed = true;
         }
     }
 }

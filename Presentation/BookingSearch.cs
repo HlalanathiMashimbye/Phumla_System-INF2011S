@@ -13,6 +13,7 @@ namespace Phumla_System
         {
             InitializeComponent();
             bookingController = new BookingController(); // Initialize the BookingController
+            bookingSearchClosed = false;
         }
 
         private void BookingSearch_Load(object sender, EventArgs e)
@@ -160,6 +161,15 @@ namespace Phumla_System
         private void BookingSearch_Load_1(object sender, EventArgs e)
         {
 
+        }
+
+        public bool bookingSearchClosed { get; private set; }
+
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            bookingSearchClosed = true;
         }
     }
 }

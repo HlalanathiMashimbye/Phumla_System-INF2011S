@@ -14,6 +14,7 @@ namespace Phumla_System
         {
             InitializeComponent();
             customerDB = new CustomerDB(); // Initialize the CustomerDB instance
+            customerListingClosed = false;
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
@@ -53,5 +54,14 @@ namespace Phumla_System
         {
 
         }
+
+            public bool customerListingClosed { get; private set; }
+
+            protected override void OnFormClosing(FormClosingEventArgs e)
+            {
+                base.OnFormClosing(e);
+                customerListingClosed = true;
+            }
+        
     }
 }

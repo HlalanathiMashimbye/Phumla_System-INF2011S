@@ -63,42 +63,31 @@ namespace Phumla_System.Data
 
         public bool UpdateDataSource(Customer customer)
         {
-            bool success = false;
+            if (DataAdapter == null)
             {
-                if (dataAdapter == null)
-                {
-                    FillDataSet(sqlLocal, table);
-                }
-
-                using (SqlConnection connection = new SqlConnection(strConn))
-                {
-                    connection.Open();
-                    dataAdapter.SelectCommand.Connection = connection;
-
-                    // Find the row and update data
-                    DataRow row = FindRow(customer.CustID);
-                    if (row != null)
-                    {
-                        FillDataRow(row, customer);
-                    }
-                    else
-                    {
-                        row = DataSet.Tables[table].NewRow();
-                        FillDataRow(row, customer);
-                        DataSet.Tables[table].Rows.Add(row);
-                    }
-
-                    // Update the database
-                    int rowsAffected = dataAdapter.Update(DataSet, table);
-                    success = rowsAffected > 0;
-                }
-
-                // Accept changes to DataSet
-                DataSet.AcceptChanges();
+                FillDataSet(sqlLocal, table);
             }
-            
 
-            return success;
+            // Fetch the row based on BookingID
+            DataRow[] rows = DataSet.Tables[table].Select($"CustID = {customer.CustID}");
+            if (rows.Length > 0)
+            {
+                DataRow row = rows[0];
+                FillDataRow(row, customer);
+            }
+
+            try
+            {
+                SqlCommandBuilder builder = new SqlCommandBuilder((SqlDataAdapter)DataAdapter);
+                DataAdapter.Update(DataSet, table);
+                DataSet.AcceptChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error updating the data source: " + ex.Message);
+                return false;
+            }
         }
         #endregion
 

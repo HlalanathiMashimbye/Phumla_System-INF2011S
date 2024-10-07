@@ -14,6 +14,7 @@ namespace Phumla_System
             InitializeComponent();
             bookingController = new BookingController();
             receptionistController = new ReceptionistController();
+            cancelBookingClosed = false;
         }
 
         private void CancelBooking_Load(object sender, EventArgs e)
@@ -90,5 +91,14 @@ namespace Phumla_System
         {
 
         }
-    }
+
+            public bool cancelBookingClosed { get; private set; }
+
+            protected override void OnFormClosing(FormClosingEventArgs e)
+            {
+                base.OnFormClosing(e);
+                cancelBookingClosed = true;
+            }
+        }
+    
 }

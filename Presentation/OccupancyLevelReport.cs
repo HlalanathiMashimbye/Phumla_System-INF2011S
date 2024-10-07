@@ -17,6 +17,7 @@ namespace Phumla_System
         public OccupancyLevelReport()
         {
             InitializeComponent();
+            occupancyLevelReportClosed = false;
         }
 
 
@@ -82,6 +83,15 @@ namespace Phumla_System
             Console.WriteLine($"Rows in occupancyData: {occupancyData.Rows.Count}");
             Console.WriteLine($"Rows in dataGridViewReport: {dataGridViewReport.Rows.Count}");
         }
-    }
+
+            public bool occupancyLevelReportClosed { get; private set; }
+
+            protected override void OnFormClosing(FormClosingEventArgs e)
+            {
+                base.OnFormClosing(e);
+                occupancyLevelReportClosed = true;
+            }
+        }
+    
 }
 

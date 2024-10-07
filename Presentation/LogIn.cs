@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Phumla_System.Data;
 using Phumla_System.Business;
+using Phumla_System.Presentation;
 
 namespace Phumla_System
 {
@@ -20,6 +21,8 @@ namespace Phumla_System
 
             // Set the password TextBox to mask input
             enterPassword.PasswordChar = '*'; // Mask the password with '*'
+
+            loginClosed = false;
         }
 
         private void LogIn_Load(object sender, EventArgs e)
@@ -37,8 +40,8 @@ namespace Phumla_System
                 // If valid, proceed to the next part of your application
                 MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 // Open the main dashboard
-                CreateBookingForm createBookingForm = new CreateBookingForm(bookingController, customerController); // Pass the required parameters
-                createBookingForm.Show();
+                MainForm mainForm = new MainForm();
+                mainForm.Show();
                 this.Hide();
             }
             else
@@ -57,5 +60,14 @@ namespace Phumla_System
         {
 
         }
-    }
+
+            public bool loginClosed { get; private set; }
+
+            protected override void OnFormClosing(FormClosingEventArgs e)
+            {
+                base.OnFormClosing(e);
+                loginClosed = true;
+            }
+        }
+    
 }

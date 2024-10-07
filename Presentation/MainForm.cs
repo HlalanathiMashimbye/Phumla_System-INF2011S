@@ -1,24 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Phumla_System.Business;
+using Phumla_System.Data;
+using System;
 using System.Windows.Forms;
 
-namespace Phumla_System
+namespace Phumla_System.Presentation
 {
     public partial class MainForm : Form
     {
+        #region Variables
         private int childFormNumber = 0;
 
+        //forms
+        private CreateBookingForm createBookingForm;
+        private CreateNewCustomer createNewCustomer;
+        private BookingSearch bookingSearch;
+        private CancelBooking cancelBooking;
+        private CustomerListing customerListing;
+        private LogIn logIn;
+        private ChangeBooking changeBooking;
+        private OccupancyLevelReport occupancyLevelReport;
+        private ReservationCancellationReport reservationCancellationReport;
+        private Payment payment;
+
+        //controllers
+        private BookingController bookingController;
+        private CustomerController customerController;
+        private RoomController roomController;
+        private Booking booking;
+        #endregion
+
+        #region Constructor
         public MainForm()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
+            bookingController = new BookingController();
+            customerController = new CustomerController();
+            roomController = new RoomController();
         }
+        #endregion
 
+        #region create childforms
         private void ShowNewForm(object sender, EventArgs e)
         {
             Form childForm = new Form();
@@ -26,103 +48,193 @@ namespace Phumla_System
             childForm.Text = "Window " + childFormNumber++;
             childForm.Show();
         }
+        #endregion
 
-        private void OpenFile(object sender, EventArgs e)
+        #region Create a New ChildForm
+        public void CreateBookingForm()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            createBookingForm = new CreateBookingForm(bookingController, customerController);
+            createBookingForm.MdiParent = this;
+            createBookingForm.StartPosition = FormStartPosition.Manual;
+            createBookingForm.Dock = DockStyle.Fill;
+        }
+
+        public void CreateNewCustomerForm()
+        {
+            createNewCustomer = new CreateNewCustomer();
+            createNewCustomer.MdiParent = this;
+            createNewCustomer.StartPosition = FormStartPosition.Manual;
+            createNewCustomer.Dock = DockStyle.Fill;
+        }
+
+        public void BookingSearchForm()
+        {
+            bookingSearch = new BookingSearch();
+            bookingSearch.MdiParent = this;
+            bookingSearch.StartPosition = FormStartPosition.Manual;
+            bookingSearch.Dock = DockStyle.Fill;
+        }
+
+        public void CancelBookingForm()
+        {
+            cancelBooking = new CancelBooking();
+            cancelBooking.MdiParent = this;
+            cancelBooking.StartPosition = FormStartPosition.Manual;
+            cancelBooking.Dock = DockStyle.Fill;
+        }
+
+        public void ChangeBookingForm()
+        {
+            changeBooking = new ChangeBooking();
+            changeBooking.MdiParent = this;
+            changeBooking.StartPosition = FormStartPosition.Manual;
+            changeBooking.Dock = DockStyle.Fill;
+        }
+
+        public void CustomerListingForm()
+        {
+            customerListing = new CustomerListing();
+            customerListing.MdiParent = this;
+            customerListing.StartPosition = FormStartPosition.Manual;
+            customerListing.Dock = DockStyle.Fill;
+        }
+
+        public void LoginForm()
+        {
+            logIn = new LogIn();
+            logIn.MdiParent = this;
+            logIn.StartPosition = FormStartPosition.Manual;
+            logIn.Dock = DockStyle.Fill;
+        }
+
+        public void OccupancyLevelReportForm()
+        {
+            occupancyLevelReport = new OccupancyLevelReport();
+            occupancyLevelReport.MdiParent = this;
+            occupancyLevelReport.StartPosition = FormStartPosition.Manual;
+            occupancyLevelReport.Dock = DockStyle.Fill;
+        }
+
+        public void ReservationCancellationReportForm()
+        {
+            reservationCancellationReport = new ReservationCancellationReport();
+            reservationCancellationReport.MdiParent = this;
+            reservationCancellationReport.StartPosition = FormStartPosition.Manual;
+            reservationCancellationReport.Dock = DockStyle.Fill;
+        }
+
+        public void PaymentForm()
+        {
+            payment = new Payment(booking);
+            payment.MdiParent = this;
+            payment.StartPosition = FormStartPosition.Manual;
+            payment.Dock = DockStyle.Fill;
+        }
+        #endregion
+
+        #region ToolStrip Menus for Listing
+        private void OpenChildForm(Form childForm)
+        {
+            // Close all existing child forms
+            foreach (Form f in this.MdiChildren)
             {
-                string FileName = openFileDialog.FileName;
+                f.Close();
             }
+
+            // Clear main form content
+            this.pictureBox1.Visible = false;  // Assuming pictureBox1 is your main content
+
+            // Set up the child form
+            childForm.MdiParent = this;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            childForm.Show();
         }
 
-        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void customerSearchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+            if (customerListing == null || customerListing.IsDisposed)
             {
-                string FileName = saveFileDialog.FileName;
+                customerListing = new CustomerListing();
             }
+            OpenChildForm(customerListing);
         }
 
-        private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
+        private void createNewCustomerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            this.Close();
-        }
-
-        private void CutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //toolStrip.Visible = toolBarToolStripMenuItem.Checked;
-        }
-
-        private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //statusStrip.Visible = statusBarToolStripMenuItem.Checked;
-        }
-
-        private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LayoutMdi(MdiLayout.Cascade);
-        }
-
-        private void TileVerticalToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LayoutMdi(MdiLayout.TileVertical);
-        }
-
-        private void TileHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LayoutMdi(MdiLayout.TileHorizontal);
-        }
-
-        private void ArrangeIconsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LayoutMdi(MdiLayout.ArrangeIcons);
-        }
-
-        private void CloseAllToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            foreach (Form childForm in MdiChildren)
+            if (createNewCustomer == null || createNewCustomer.IsDisposed)
             {
-                childForm.Close();
+                createNewCustomer = new CreateNewCustomer();
             }
+            OpenChildForm(createNewCustomer);
         }
 
-        private void bookingBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        private void createNewBookingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Validate();
-            this.bookingBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.bookingsDatabaseDataSet);
-
+            if (createBookingForm == null || createBookingForm.IsDisposed)
+            {
+                createBookingForm = new CreateBookingForm(bookingController, customerController);
+            }
+            OpenChildForm(createBookingForm);
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void bookingSearchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'bookingsDatabaseDataSet.Booking' table. You can move, or remove it, as needed.
-            this.bookingTableAdapter.Fill(this.bookingsDatabaseDataSet.Booking);
+            if (bookingSearch == null || bookingSearch.IsDisposed)
+            {
+                bookingSearch = new BookingSearch();
+            }
+            OpenChildForm(bookingSearch);
+        }
 
+        private void changeBookingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (changeBooking == null || changeBooking.IsDisposed)
+            {
+                changeBooking = new ChangeBooking();
+            }
+            OpenChildForm(changeBooking);
+        }
+
+        private void cancelBookingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (cancelBooking == null || cancelBooking.IsDisposed)
+            {
+                cancelBooking = new CancelBooking();
+            }
+            OpenChildForm(cancelBooking);
         }
 
         private void occupancyLevelReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OccupancyLevelReport occupancyLevelReport = new OccupancyLevelReport();
-            occupancyLevelReport.Show();
+            if (occupancyLevelReport == null || occupancyLevelReport.IsDisposed)
+            {
+                occupancyLevelReport = new OccupancyLevelReport();
+            }
+            OpenChildForm(occupancyLevelReport);
         }
+
+        private void reservationCancellationReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (reservationCancellationReport == null || reservationCancellationReport.IsDisposed)
+            {
+                reservationCancellationReport = new ReservationCancellationReport();
+            }
+            OpenChildForm(reservationCancellationReport);
+        }
+        #endregion
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            // This line of code loads data into the 'bookingsDatabaseDataSet.Booking' table.
+            this.bookingTableAdapter.Fill(this.bookingsDatabaseDataSet.Booking);
+        }
+
+        private void notificationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
