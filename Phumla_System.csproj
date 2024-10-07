@@ -160,6 +160,12 @@
     <Compile Include="ReservationCancellationReport.Designer.cs">
       <DependentUpon>ReservationCancellationReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="TestEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestEmail.Designer.cs">
+      <DependentUpon>TestEmail.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Presentation\OccupancyLevelReport.resx">
       <DependentUpon>OccupancyLevelReport.cs</DependentUpon>
     </EmbeddedResource>
@@ -201,6 +207,9 @@
     </Compile>
     <EmbeddedResource Include="ReservationCancellationReport.resx">
       <DependentUpon>ReservationCancellationReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestEmail.resx">
+      <DependentUpon>TestEmail.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="BookingsDatabaseDataSet.xsc">
       <DependentUpon>BookingsDatabaseDataSet.xsd</DependentUpon>
