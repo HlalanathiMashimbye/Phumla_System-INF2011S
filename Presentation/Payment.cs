@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using System.Net.Mail;
+using System.Net;
 using Phumla_System.Business;
 using Phumla_System.Data;
 using static Phumla_System.Data.DB;
@@ -11,6 +13,7 @@ namespace Phumla_System
     {
         private BookingDB bookingDB;
         private RoomDB roomDB;
+        private CustomerDB customerDB;
         private Booking currentBooking;
         private decimal totalAmount;
 
@@ -26,6 +29,7 @@ namespace Phumla_System
             InitializeComponent();
             this.bookingDB = new BookingDB();
             this.roomDB = new RoomDB();
+            this.customerDB = new CustomerDB();
             this.currentBooking = booking;
             InitializeForm();
             paymentClosed = false;
@@ -50,7 +54,6 @@ namespace Phumla_System
             if (ValidateInput())
             {
                 ProcessPayment();
-
             }
         }
 
@@ -82,7 +85,6 @@ namespace Phumla_System
 
             return true;
         }
-
 
         private decimal CalculateTotalAmount(DateTime checkIn, DateTime checkOut)
         {
@@ -117,7 +119,8 @@ namespace Phumla_System
                     if (bookingDB.UpdateDataSource(currentBooking))
                     {
                         UpdateRoomStatus();
-                        MessageBox.Show($"Payment of R {totalAmount:N2} processed successfully for booking ID {currentBooking.BookingID}. Booking status updated to Confirmed.");
+                        SendConfirmationEmail();
+                        MessageBox.Show($"Payment of R {totalAmount:N2} processed successfully for booking ID {currentBooking.BookingID}. Booking status updated to Confirmed. Confirmation email sent.");
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
@@ -160,7 +163,6 @@ namespace Phumla_System
             this.DialogResult = DialogResult.Cancel;
         }
 
-
         private bool ProcessPaymentTransaction()
         {
             // This is a placeholder for the actual payment processing logic
@@ -170,13 +172,70 @@ namespace Phumla_System
             return rnd.Next(100) < 90;
         }
 
-            public bool paymentClosed { get; private set; }
-
-            protected override void OnFormClosing(FormClosingEventArgs e)
+        private void SendConfirmationEmail()
+        {
+            try
             {
-                base.OnFormClosing(e);
-                paymentClosed = true;
+                var customer = customerDB.AllCustomers.FirstOrDefault(c => c.CustID == currentBooking.CustID);
+                if (customer == null || string.IsNullOrWhiteSpace(customer.Email))
+                {
+                    MessageBox.Show("Unable to send confirmation email. Customer email not found.");
+                    return;
+                }
+
+                string subject = "Booking Confirmation - Phumla System";
+                string body = GenerateEmailBody();
+
+                using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com"))
+                {
+                    smtpClient.Port = 587;
+                    smtpClient.Credentials = new NetworkCredential("hlalianoint@gmail.com", "ztic qpwi snua vkln");
+                    smtpClient.EnableSsl = true; // Enable SSL for secure connection
+
+                    using (MailMessage mailMessage = new MailMessage())
+                    {
+                        mailMessage.From = new MailAddress("hlalianoint@gmail.com");
+                        mailMessage.To.Add(customer.Email);
+                        mailMessage.Subject = subject;
+                        mailMessage.Body = body;
+                        mailMessage.IsBodyHtml = true; // Setting the body to HTML format
+
+                        smtpClient.Send(mailMessage);
+                    }
+                }
+
+                MessageBox.Show("Confirmation email sent successfully.");
             }
-        
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error sending confirmation email: {ex.Message}");
+            }
+        }
+
+        private string GenerateEmailBody()
+        {
+            var room = roomDB.AllRooms.FirstOrDefault(r => r.RoomID == currentBooking.RoomID);
+       
+
+            return $@"
+                <html>
+                <body>
+                    <h2>Booking Confirmation</h2>
+                    <p>Dear Valued Guest,</p>
+                    <p>Thank you for choosing Phumla System. Your booking has been confirmed.</p>
+                    <h3>Booking Details:</h3>
+                    <ul>
+                        <li>Booking ID: {currentBooking.BookingID}</li>
+                        <li>Check-In Date: {currentBooking.CheckInDate.ToShortDateString()}</li>
+                        <li>Check-Out Date: {currentBooking.CheckOutDate.ToShortDateString()}</li>
+                        <li>Number of Guests: {currentBooking.NumberOfGuests}</li>
+                        <li>Total Amount Paid: R {totalAmount:N2}</li>
+                    </ul>
+                    <p>If you have any questions or need to make changes to your reservation, please contact us at www.phumla.com or 012 342 5467.</p>
+                    <p>We look forward to welcoming you!</p>
+                    <p>Best regards,<br>Phumla System Team</p>
+                </body>
+                </html>";
+        }
     }
 }
