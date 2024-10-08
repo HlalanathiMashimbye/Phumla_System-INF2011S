@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Phumla_System.Business;
 using Phumla_System.Data;
+using Phumla_System.Presentation;
 using static Phumla_System.Data.DB;
 
 namespace Phumla_System
@@ -182,6 +183,12 @@ namespace Phumla_System
                 base.OnFormClosing(e);
                 changeBookingClosed = true;
             }
+
+        private void btnCancel_Click_1(object sender, EventArgs e)
+        {
+            MainForm mainForm = new MainForm();
+            mainForm.Show();
         }
+    }
     
 }

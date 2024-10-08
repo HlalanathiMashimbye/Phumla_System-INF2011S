@@ -39,17 +39,16 @@
             this.tableAdapterManager = new Phumla_System.BookingsDatabaseDataSetTableAdapters.TableAdapterManager();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.customerSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createNewCustomerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.newBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createNewBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modifyBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notificationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.occupancyLevelReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.createNewCustomerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.bookingSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reservationCancellationReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.createNewBookingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bookingsDatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookingBindingSource)).BeginInit();
@@ -110,6 +109,7 @@
             this.customerSearchToolStripMenuItem,
             this.createNewCustomerToolStripMenuItem1,
             this.newBookingToolStripMenuItem,
+            this.createNewBookingToolStripMenuItem1,
             this.modifyBookingToolStripMenuItem,
             this.notificationsToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
@@ -126,22 +126,21 @@
             this.customerSearchToolStripMenuItem.Text = "Customer List";
             this.customerSearchToolStripMenuItem.Click += new System.EventHandler(this.customerSearchToolStripMenuItem_Click);
             // 
+            // createNewCustomerToolStripMenuItem1
+            // 
+            this.createNewCustomerToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.createNewCustomerToolStripMenuItem1.Name = "createNewCustomerToolStripMenuItem1";
+            this.createNewCustomerToolStripMenuItem1.Size = new System.Drawing.Size(248, 34);
+            this.createNewCustomerToolStripMenuItem1.Text = "Create New Customer";
+            this.createNewCustomerToolStripMenuItem1.Click += new System.EventHandler(this.createNewCustomerToolStripMenuItem1_Click);
+            // 
             // newBookingToolStripMenuItem
             // 
-            this.newBookingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createNewBookingToolStripMenuItem,
-            this.bookingSearchToolStripMenuItem});
             this.newBookingToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newBookingToolStripMenuItem.Name = "newBookingToolStripMenuItem";
-            this.newBookingToolStripMenuItem.Size = new System.Drawing.Size(121, 34);
-            this.newBookingToolStripMenuItem.Text = "Bookings";
-            // 
-            // createNewBookingToolStripMenuItem
-            // 
-            this.createNewBookingToolStripMenuItem.Name = "createNewBookingToolStripMenuItem";
-            this.createNewBookingToolStripMenuItem.Size = new System.Drawing.Size(322, 38);
-            this.createNewBookingToolStripMenuItem.Text = "Create New Booking";
-            this.createNewBookingToolStripMenuItem.Click += new System.EventHandler(this.createNewBookingToolStripMenuItem_Click);
+            this.newBookingToolStripMenuItem.Size = new System.Drawing.Size(184, 34);
+            this.newBookingToolStripMenuItem.Text = "Booking Search";
+            this.newBookingToolStripMenuItem.Click += new System.EventHandler(this.newBookingToolStripMenuItem_Click);
             // 
             // modifyBookingToolStripMenuItem
             // 
@@ -181,34 +180,9 @@
             // occupancyLevelReportToolStripMenuItem
             // 
             this.occupancyLevelReportToolStripMenuItem.Name = "occupancyLevelReportToolStripMenuItem";
-            this.occupancyLevelReportToolStripMenuItem.Size = new System.Drawing.Size(356, 38);
+            this.occupancyLevelReportToolStripMenuItem.Size = new System.Drawing.Size(436, 38);
             this.occupancyLevelReportToolStripMenuItem.Text = "Occupancy Level Report";
             this.occupancyLevelReportToolStripMenuItem.Click += new System.EventHandler(this.occupancyLevelReportToolStripMenuItem_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 41);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1180, 624);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
-            // 
-            // createNewCustomerToolStripMenuItem1
-            // 
-            this.createNewCustomerToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.createNewCustomerToolStripMenuItem1.Name = "createNewCustomerToolStripMenuItem1";
-            this.createNewCustomerToolStripMenuItem1.Size = new System.Drawing.Size(248, 34);
-            this.createNewCustomerToolStripMenuItem1.Text = "Create New Customer";
-            this.createNewCustomerToolStripMenuItem1.Click += new System.EventHandler(this.createNewCustomerToolStripMenuItem1_Click);
-            // 
-            // bookingSearchToolStripMenuItem
-            // 
-            this.bookingSearchToolStripMenuItem.Name = "bookingSearchToolStripMenuItem";
-            this.bookingSearchToolStripMenuItem.Size = new System.Drawing.Size(322, 38);
-            this.bookingSearchToolStripMenuItem.Text = "Booking Search";
-            this.bookingSearchToolStripMenuItem.Click += new System.EventHandler(this.bookingSearchToolStripMenuItem_Click);
             // 
             // reservationCancellationReportToolStripMenuItem
             // 
@@ -217,11 +191,32 @@
             this.reservationCancellationReportToolStripMenuItem.Text = "Reservation Cancellation Report";
             this.reservationCancellationReportToolStripMenuItem.Click += new System.EventHandler(this.reservationCancellationReportToolStripMenuItem_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(0, 38);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1180, 634);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
+            // 
+            // createNewBookingToolStripMenuItem1
+            // 
+            this.createNewBookingToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.createNewBookingToolStripMenuItem1.Name = "createNewBookingToolStripMenuItem1";
+            this.createNewBookingToolStripMenuItem1.Size = new System.Drawing.Size(235, 34);
+            this.createNewBookingToolStripMenuItem1.Text = "Create New Booking";
+            this.createNewBookingToolStripMenuItem1.Click += new System.EventHandler(this.createNewBookingToolStripMenuItem1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1180, 700);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip2);
@@ -254,15 +249,14 @@
         private System.Windows.Forms.ToolStripMenuItem newBookingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem modifyBookingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem notificationsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem createNewBookingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changeBookingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cancelBookingToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.ToolStripMenuItem occupancyLevelReportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createNewCustomerToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem bookingSearchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reservationCancellationReportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createNewBookingToolStripMenuItem1;
     }
 }
 

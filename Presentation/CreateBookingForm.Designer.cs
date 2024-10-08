@@ -35,7 +35,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.checkAvailButton = new System.Windows.Forms.Button();
             this.checkOutDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.exitButton = new System.Windows.Forms.Button();
             this.checkInDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.requirementsTextBox = new System.Windows.Forms.TextBox();
             this.noOfGuestsTextBox = new System.Windows.Forms.TextBox();
@@ -54,7 +53,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1120, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1120, 36);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -95,7 +94,6 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.checkAvailButton);
             this.groupBox1.Controls.Add(this.checkOutDateTimePicker);
-            this.groupBox1.Controls.Add(this.exitButton);
             this.groupBox1.Controls.Add(this.checkInDateTimePicker);
             this.groupBox1.Controls.Add(this.requirementsTextBox);
             this.groupBox1.Controls.Add(this.noOfGuestsTextBox);
@@ -143,20 +141,6 @@
             this.checkOutDateTimePicker.Size = new System.Drawing.Size(343, 26);
             this.checkOutDateTimePicker.TabIndex = 19;
             this.checkOutDateTimePicker.Value = new System.DateTime(2024, 12, 18, 23, 22, 0, 0);
-            // 
-            // exitButton
-            // 
-            this.exitButton.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.exitButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.exitButton.Location = new System.Drawing.Point(729, 429);
-            this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(81, 51);
-            this.exitButton.TabIndex = 5;
-            this.exitButton.Text = "Exit";
-            this.exitButton.UseVisualStyleBackColor = false;
-            this.exitButton.Click += new System.EventHandler(this.exitButton_Click_1);
             // 
             // checkInDateTimePicker
             // 
@@ -244,7 +228,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.CancelButton = this.exitButton;
             this.ClientSize = new System.Drawing.Size(1120, 620);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.crtBookingTitle);
@@ -278,7 +261,6 @@
         private System.Windows.Forms.TextBox noOfGuestsTextBox;
         private System.Windows.Forms.TextBox custIDTextBox;
         private System.Windows.Forms.DateTimePicker checkOutDateTimePicker;
-        private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button checkAvailButton;
         private System.Windows.Forms.Label label2;
     }

@@ -37,8 +37,18 @@ namespace Phumla_System.Presentation
             bookingController = new BookingController();
             customerController = new CustomerController();
             roomController = new RoomController();
+            pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            this.BackgroundImageLayout = ImageLayout.Stretch;
+            this.MdiChildActivate += MainForm_MdiChildActivate;
         }
+
         #endregion
+
+        private void MainForm_MdiChildActivate(object sender, EventArgs e)
+        {
+            ShowLogo();
+        }
 
         #region create childforms
         private void ShowNewForm(object sender, EventArgs e)
@@ -55,7 +65,7 @@ namespace Phumla_System.Presentation
         {
             createBookingForm = new CreateBookingForm(bookingController, customerController);
             createBookingForm.MdiParent = this;
-            createBookingForm.StartPosition = FormStartPosition.Manual;
+            createBookingForm.StartPosition = FormStartPosition.CenterParent;
             createBookingForm.Dock = DockStyle.Fill;
         }
 
@@ -63,7 +73,7 @@ namespace Phumla_System.Presentation
         {
             createNewCustomer = new CreateNewCustomer();
             createNewCustomer.MdiParent = this;
-            createNewCustomer.StartPosition = FormStartPosition.Manual;
+            createNewCustomer.StartPosition = FormStartPosition.CenterParent;
             createNewCustomer.Dock = DockStyle.Fill;
         }
 
@@ -71,7 +81,7 @@ namespace Phumla_System.Presentation
         {
             bookingSearch = new BookingSearch();
             bookingSearch.MdiParent = this;
-            bookingSearch.StartPosition = FormStartPosition.Manual;
+            bookingSearch.StartPosition = FormStartPosition.CenterParent;
             bookingSearch.Dock = DockStyle.Fill;
         }
 
@@ -79,7 +89,7 @@ namespace Phumla_System.Presentation
         {
             cancelBooking = new CancelBooking();
             cancelBooking.MdiParent = this;
-            cancelBooking.StartPosition = FormStartPosition.Manual;
+            cancelBooking.StartPosition = FormStartPosition.CenterParent;
             cancelBooking.Dock = DockStyle.Fill;
         }
 
@@ -87,7 +97,7 @@ namespace Phumla_System.Presentation
         {
             changeBooking = new ChangeBooking();
             changeBooking.MdiParent = this;
-            changeBooking.StartPosition = FormStartPosition.Manual;
+            changeBooking.StartPosition = FormStartPosition.CenterParent;
             changeBooking.Dock = DockStyle.Fill;
         }
 
@@ -95,7 +105,7 @@ namespace Phumla_System.Presentation
         {
             customerListing = new CustomerListing();
             customerListing.MdiParent = this;
-            customerListing.StartPosition = FormStartPosition.Manual;
+            customerListing.StartPosition = FormStartPosition.CenterParent;
             customerListing.Dock = DockStyle.Fill;
         }
 
@@ -103,7 +113,7 @@ namespace Phumla_System.Presentation
         {
             logIn = new LogIn();
             logIn.MdiParent = this;
-            logIn.StartPosition = FormStartPosition.Manual;
+            logIn.StartPosition = FormStartPosition.CenterParent;
             logIn.Dock = DockStyle.Fill;
         }
 
@@ -111,7 +121,7 @@ namespace Phumla_System.Presentation
         {
             occupancyLevelReport = new OccupancyLevelReport();
             occupancyLevelReport.MdiParent = this;
-            occupancyLevelReport.StartPosition = FormStartPosition.Manual;
+            occupancyLevelReport.StartPosition = FormStartPosition.CenterParent;
             occupancyLevelReport.Dock = DockStyle.Fill;
         }
 
@@ -119,7 +129,7 @@ namespace Phumla_System.Presentation
         {
             reservationCancellationReport = new ReservationCancellationReport();
             reservationCancellationReport.MdiParent = this;
-            reservationCancellationReport.StartPosition = FormStartPosition.Manual;
+            reservationCancellationReport.StartPosition = FormStartPosition.CenterParent;
             reservationCancellationReport.Dock = DockStyle.Fill;
         }
 
@@ -127,7 +137,7 @@ namespace Phumla_System.Presentation
         {
             payment = new Payment(booking);
             payment.MdiParent = this;
-            payment.StartPosition = FormStartPosition.Manual;
+            payment.StartPosition = FormStartPosition.CenterParent;
             payment.Dock = DockStyle.Fill;
         }
         #endregion
@@ -142,13 +152,27 @@ namespace Phumla_System.Presentation
             }
 
             // Clear main form content
-            this.pictureBox1.Visible = false;  // Assuming pictureBox1 is your main content
+            //this.pictureBox1.Visible = false;
 
             // Set up the child form
             childForm.MdiParent = this;
-            childForm.FormBorderStyle = FormBorderStyle.None;
+           // childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
             childForm.Show();
+            ShowLogo();
+        }
+
+        private void ShowLogo()
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                pictureBox1.Visible = true;
+                pictureBox1.BringToFront();
+            }
+            else
+            {
+                pictureBox1.Visible = false;
+            }
         }
 
         private void customerSearchToolStripMenuItem_Click(object sender, EventArgs e)
@@ -169,23 +193,6 @@ namespace Phumla_System.Presentation
             OpenChildForm(createNewCustomer);
         }
 
-        private void createNewBookingToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (createBookingForm == null || createBookingForm.IsDisposed)
-            {
-                createBookingForm = new CreateBookingForm(bookingController, customerController);
-            }
-            OpenChildForm(createBookingForm);
-        }
-
-        private void bookingSearchToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (bookingSearch == null || bookingSearch.IsDisposed)
-            {
-                bookingSearch = new BookingSearch();
-            }
-            OpenChildForm(bookingSearch);
-        }
 
         private void changeBookingToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -228,6 +235,7 @@ namespace Phumla_System.Presentation
         {
             // This line of code loads data into the 'bookingsDatabaseDataSet.Booking' table.
             this.bookingTableAdapter.Fill(this.bookingsDatabaseDataSet.Booking);
+            this.IsMdiContainer = true;
         }
 
         private void notificationsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -235,6 +243,22 @@ namespace Phumla_System.Presentation
 
         }
 
+        private void createNewBookingToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (createBookingForm == null || createBookingForm.IsDisposed)
+            {
+                createBookingForm = new CreateBookingForm(bookingController, customerController);
+            }
+            OpenChildForm(createBookingForm);
+        }
 
+        private void newBookingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (bookingSearch == null || bookingSearch.IsDisposed)
+            {
+                bookingSearch = new BookingSearch();
+            }
+            OpenChildForm(bookingSearch);
+        }
     }
 }
