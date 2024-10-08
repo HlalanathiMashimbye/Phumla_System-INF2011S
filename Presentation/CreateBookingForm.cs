@@ -67,7 +67,7 @@ namespace Phumla_System
             requirementsTextBox.Visible = value;
 
             checkAvailButton.Visible = value;
-            exitButton.Visible = value;
+            
         }
 
         private void ClearAll()
