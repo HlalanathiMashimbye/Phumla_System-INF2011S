@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Phumla_System.Business;
 using Phumla_System;
+using Phumla_System.Presentation;
 
 namespace Phumla_System
 {
@@ -22,8 +23,8 @@ namespace Phumla_System
             BookingController bookingController = new BookingController();
             CustomerController customerController = new CustomerController();
 
-            //Application.Run(new LogIn());
-            Application.Run(new TestForm());
+            Application.Run(new MainForm());
+            //Application.Run(new TestForm());
         }
     }
 }

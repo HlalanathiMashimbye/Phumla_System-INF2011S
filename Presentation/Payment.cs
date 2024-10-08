@@ -16,6 +16,7 @@ namespace Phumla_System
         private CustomerDB customerDB;
         private Booking currentBooking;
         private decimal totalAmount;
+        private bool paymentClosed;
 
         private static readonly (DateTime Start, DateTime End, decimal Rate)[] Seasons = new[]
         {

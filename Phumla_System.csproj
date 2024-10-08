@@ -73,9 +73,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookingsDatabaseDataSet.cs">
-      <DependentUpon>BookingsDatabaseDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="BookingsDatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

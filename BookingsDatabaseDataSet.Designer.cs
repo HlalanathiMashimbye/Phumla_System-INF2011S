@@ -42,11 +42,11 @@ namespace Phumla_System {
         
         private global::System.Data.DataRelation relationFK__Booking__custID__5E54FF49;
         
-        private global::System.Data.DataRelation relationFK__Booking__roomID__47DBAE45;
+        private global::System.Data.DataRelation relationFK__Booking__roomID__7BE56230;
         
-        private global::System.Data.DataRelation relationFK__Payment__booking__4CA06362;
+        private global::System.Data.DataRelation relationFK__Payment__booking__640DD89F;
         
-        private global::System.Data.DataRelation relationFK__Room__hotelID__3A81B327;
+        private global::System.Data.DataRelation relationFK__Room__hotelID__7AF13DF7;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -552,7 +552,11 @@ namespace Phumla_System {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class BookingDataTable : global::System.Data.TypedTableBase<BookingRow> {
             
+            private global::System.Data.DataColumn columnbookingID;
+            
             private global::System.Data.DataColumn columncustID;
+            
+            private global::System.Data.DataColumn columnroomID;
             
             private global::System.Data.DataColumn columnCheckInDate;
             
@@ -563,8 +567,6 @@ namespace Phumla_System {
             private global::System.Data.DataColumn columnRequestDetails;
             
             private global::System.Data.DataColumn columnNumberOfGuests;
-            
-            private global::System.Data.DataColumn columnroomID;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -601,9 +603,25 @@ namespace Phumla_System {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn bookingIDColumn {
+                get {
+                    return this.columnbookingID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public global::System.Data.DataColumn custIDColumn {
                 get {
                     return this.columncustID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn roomIDColumn {
+                get {
+                    return this.columnroomID;
                 }
             }
             
@@ -635,7 +653,7 @@ namespace Phumla_System {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public global::System.Data.DataColumn RequestDetailsColumn {
                 get {
-                    return this.columnbookingID;
+                    return this.columnRequestDetails;
                 }
             }
             
@@ -730,7 +748,9 @@ namespace Phumla_System {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             internal void InitVars() {
+                this.columnbookingID = base.Columns["bookingID"];
                 this.columncustID = base.Columns["custID"];
+                this.columnroomID = base.Columns["roomID"];
                 this.columnCheckInDate = base.Columns["CheckInDate"];
                 this.columnCheckOutDate = base.Columns["CheckOutDate"];
                 this.columnStatus = base.Columns["Status"];
@@ -3330,7 +3350,7 @@ namespace Phumla_System {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public CustomerRow CustomerRow {
+            public RoomRow RoomRow {
                 get {
                     return ((RoomRow)(this.GetParentRow(this.Table.ParentRelations["FK__Booking__roomID__7BE56230"])));
                 }
@@ -4436,7 +4456,9 @@ namespace Phumla_System.BookingsDatabaseDataSetTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "Booking";
+            tableMapping.ColumnMappings.Add("bookingID", "bookingID");
             tableMapping.ColumnMappings.Add("custID", "custID");
+            tableMapping.ColumnMappings.Add("roomID", "roomID");
             tableMapping.ColumnMappings.Add("CheckInDate", "CheckInDate");
             tableMapping.ColumnMappings.Add("CheckOutDate", "CheckOutDate");
             tableMapping.ColumnMappings.Add("Status", "Status");
@@ -7789,6 +7811,15 @@ SELECT roomID, hotelID, Status, Number, Type, Rate FROM Room WHERE (roomID = @ro
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private int UpdateUpdatedRows(BookingsDatabaseDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._hotelTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Hotel.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._hotelTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._customerTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Customer.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -7798,12 +7829,12 @@ SELECT roomID, hotelID, Status, Number, Type, Rate FROM Room WHERE (roomID = @ro
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._hotelTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Hotel.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._roomTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Room.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._hotelTableAdapter.Update(updatedRows));
+                    result = (result + this._roomTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -7852,15 +7883,6 @@ SELECT roomID, hotelID, Status, Number, Type, Rate FROM Room WHERE (roomID = @ro
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._roomTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Room.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._roomTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             return result;
         }
         
@@ -7871,6 +7893,14 @@ SELECT roomID, hotelID, Status, Number, Type, Rate FROM Room WHERE (roomID = @ro
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private int UpdateInsertedRows(BookingsDatabaseDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._hotelTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Hotel.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._hotelTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._customerTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Customer.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -7879,11 +7909,11 @@ SELECT roomID, hotelID, Status, Number, Type, Rate FROM Room WHERE (roomID = @ro
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._hotelTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Hotel.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._roomTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Room.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._hotelTableAdapter.Update(addedRows));
+                    result = (result + this._roomTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -7927,14 +7957,6 @@ SELECT roomID, hotelID, Status, Number, Type, Rate FROM Room WHERE (roomID = @ro
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._roomTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Room.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._roomTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             return result;
         }
         
@@ -7945,14 +7967,6 @@ SELECT roomID, hotelID, Status, Number, Type, Rate FROM Room WHERE (roomID = @ro
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private int UpdateDeletedRows(BookingsDatabaseDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._roomTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Room.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._roomTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._reportsTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.Reports.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -7993,11 +8007,11 @@ SELECT roomID, hotelID, Status, Number, Type, Rate FROM Room WHERE (roomID = @ro
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._hotelTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Hotel.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._roomTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Room.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._hotelTableAdapter.Update(deletedRows));
+                    result = (result + this._roomTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -8006,6 +8020,14 @@ SELECT roomID, hotelID, Status, Number, Type, Rate FROM Room WHERE (roomID = @ro
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._customerTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._hotelTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Hotel.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._hotelTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
