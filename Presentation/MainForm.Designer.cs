@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.bookingsDatabaseDataSet = new Phumla_System.BookingsDatabaseDataSet();
             this.bookingBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -49,7 +48,6 @@
             this.reservationCancellationReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.createNewBookingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bookingsDatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookingBindingSource)).BeginInit();
             this.menuStrip2.SuspendLayout();
@@ -59,19 +57,12 @@
             // statusStrip
             // 
             this.statusStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripProgressBar1});
             this.statusStrip.Location = new System.Drawing.Point(0, 672);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
             this.statusStrip.Size = new System.Drawing.Size(1180, 28);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "StatusStrip";
-            // 
-            // toolStripProgressBar1
-            // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 20);
             // 
             // bookingsDatabaseDataSet
             // 
@@ -226,8 +217,6 @@
             this.Name = "MainForm";
             this.Text = "MDIParent1";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.statusStrip.ResumeLayout(false);
-            this.statusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bookingsDatabaseDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookingBindingSource)).EndInit();
             this.menuStrip2.ResumeLayout(false);
@@ -252,7 +241,6 @@
         private System.Windows.Forms.ToolStripMenuItem changeBookingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cancelBookingToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.ToolStripMenuItem occupancyLevelReportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createNewCustomerToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem reservationCancellationReportToolStripMenuItem;
