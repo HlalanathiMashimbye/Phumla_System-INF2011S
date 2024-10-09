@@ -60,31 +60,47 @@ namespace Phumla_System
 
         private bool ValidateInput()
         {
-            if (string.IsNullOrWhiteSpace(textBox1.Text) || textBox1.Text.Length != 16)
+            // Validate card number (16 digits)
+            if (string.IsNullOrWhiteSpace(textBox1.Text) || !System.Text.RegularExpressions.Regex.IsMatch(textBox1.Text, @"^\d{16}$"))
             {
                 MessageBox.Show("Please enter a valid 16-digit card number.");
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(customerID.Text))
-            {
-                MessageBox.Show("Please enter the Customer ID.");
-                return false;
-            }
 
-            if (string.IsNullOrWhiteSpace(expiryDate.Text) || expiryDate.Text.Length != 5)
+            // Validate expiry date (MM/YY)
+            if (string.IsNullOrWhiteSpace(expiryDate.Text) || !IsValidExpiryDate(expiryDate.Text))
             {
                 MessageBox.Show("Please enter a valid expiry date (MM/YY).");
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(textBox3.Text) || textBox3.Text.Length != 3)
+            // Validate CVV (3 digits)
+            if (string.IsNullOrWhiteSpace(textBox3.Text) || !System.Text.RegularExpressions.Regex.IsMatch(textBox3.Text, @"^\d{3}$"))
             {
                 MessageBox.Show("Please enter a valid 3-digit security code.");
                 return false;
             }
 
             return true;
+        }
+
+        private bool IsValidExpiryDate(string expiry)
+        {
+            if (expiry.Length != 5 || expiry[2] != '/')
+                return false;
+
+            if (int.TryParse(expiry.Substring(0, 2), out int month) && int.TryParse(expiry.Substring(3, 2), out int year))
+            {
+                // Check if month is valid
+                if (month < 1 || month > 12)
+                    return false;
+
+                // Check if year is valid (considering 2-digit year as 2000s)
+                var expiryDate = new DateTime(2000 + year, month, 1);
+                return expiryDate >= DateTime.Now; // Ensure the date is in the future
+            }
+            return false;
         }
 
         private decimal CalculateTotalAmount(DateTime checkIn, DateTime checkOut)
@@ -216,7 +232,6 @@ namespace Phumla_System
         private string GenerateEmailBody()
         {
             var room = roomDB.AllRooms.FirstOrDefault(r => r.RoomID == currentBooking.RoomID);
-       
 
             return $@"
                 <html>
