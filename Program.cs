@@ -23,7 +23,7 @@ namespace Phumla_System
             BookingController bookingController = new BookingController();
             CustomerController customerController = new CustomerController();
 
-            Application.Run(new MainForm());
+            Application.Run(new LogIn());
             //Application.Run(new TestForm());
         }
     }

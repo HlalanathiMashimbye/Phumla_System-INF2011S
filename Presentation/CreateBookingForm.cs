@@ -267,10 +267,11 @@ namespace Phumla_System
                 if (bookingController.FinalizeChanges(booking))
                 {
                     MessageBox.Show($"Room {assignedRoomID} has been assigned to the booking.", "Room Assigned", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    OpenPaymentScreen(booking);
                 }
                 else
                 {
-                    MessageBox.Show("Failed to create booking. Please try again.");
+                    MessageBox.Show("Failed to create booking, Customer has booking");
                 }
             }
             else
