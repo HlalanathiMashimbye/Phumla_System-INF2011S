@@ -18,6 +18,8 @@ namespace Phumla_System
             bookingDB = new BookingDB();
             customerDB = new CustomerDB();
             reservationCancellationReportClosed = false;
+            this.Load += ReservationCancellationReport_Load;
+            button1.Click += button1_Click;
         }
 
         private void ReservationCancellationReport_Load(object sender, EventArgs e)
@@ -27,34 +29,44 @@ namespace Phumla_System
 
         private void LoadCancelledBookings()
         {
-            var cancelledBookings = bookingDB.AllBookings.Where(b => b.Status == "Cancelled").ToList();
-            var reportData = new List<CancellationReportItem>();
-
-            foreach (var booking in cancelledBookings)
+            try
             {
-                var customer = customerDB.AllCustomers.FirstOrDefault(c => c.CustID == booking.CustID);
-                if (customer != null)
+                var cancelledBookings = bookingDB.AllBookings.Where(b => b.Status == "Cancelled").ToList();
+                var reportData = new List<CancellationReportItem>();
+                foreach (var booking in cancelledBookings)
                 {
-                    reportData.Add(new CancellationReportItem
+                    var customer = customerDB.AllCustomers.FirstOrDefault(c => c.CustID == booking.CustID);
+                    if (customer != null)
                     {
-                        BookingID = booking.BookingID,
-                        CustomerName = $"{customer.Name} {customer.Surname}",
-                        CustomerPhone = customer.Phone,
-                        CustomerEmail = customer.Email,
-                        CancellationReason = booking.RequestDetails // Assuming RequestDetails is used for cancellation reason
-                    });
+                        reportData.Add(new CancellationReportItem
+                        {
+                            BookingID = booking.BookingID,
+                            CustomerName = $"{customer.Name} {customer.Surname}",
+                            CustomerPhone = customer.Phone,
+                            CustomerEmail = customer.Email,
+                            CancellationReason = booking.RequestDetails
+                        });
+                    }
                 }
+
+                dataGridViewCancellations.DataSource = null;
+                dataGridViewCancellations.DataSource = reportData;
+                dataGridViewCancellations.Refresh();
+
+                lblTotalCancellations.Text = $"Total Cancellations: {reportData.Count}";
+
+                // Add debug information
+                Console.WriteLine($"Loaded {reportData.Count} cancelled bookings");
             }
-
-            dataGridViewCancellations.DataSource = reportData;
-            lblTotalCancellations.Text = $"Total Cancellations: {reportData.Count}";
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading cancellations: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine($"Error in LoadCancelledBookings: {ex}");
+            }
         }
 
-        // You might want to add a refresh button
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            LoadCancelledBookings();
-        }
+
+
 
         public bool reservationCancellationReportClosed { get; private set; }
 
@@ -62,6 +74,11 @@ namespace Phumla_System
         {
             base.OnFormClosing(e);
             reservationCancellationReportClosed = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadCancelledBookings();
         }
     }
 
