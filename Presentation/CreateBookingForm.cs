@@ -229,10 +229,12 @@ namespace Phumla_System
                 return;
             }
 
+            customers = customerController.AllCustomers;
+
             if (!customerController.CustomerExists(custID))
             {
                 CreateNewCustomer createNewCustomerForm = new CreateNewCustomer();
-                createNewCustomerForm.CustomerCreated += OnCustomerCreated;
+                //createNewCustomerForm.CustomerCreated += OnCustomerCreated;
                 createNewCustomerForm.ShowDialog();
                 return;
             }

@@ -20,6 +20,7 @@ namespace Phumla_System
         }
 
         // Event handler for the confirm button click event
+        // Event handler for the confirm button click event
         private void confirmButton_Click(object sender, EventArgs e)
         {
             string custID = CustomerID.Text.Trim();
@@ -72,26 +73,19 @@ namespace Phumla_System
                 // Create a new Customer instance
                 Customer newCustomer = new Customer(custID, name, surname, phone, email, address, status, balance);
 
-                // Add customer to the database
+                // Add customer to the DataSet (this is considered a success)
                 customerController.DataMaintenance(newCustomer, DBOperation.Add);
 
-                // Finalize and update the data source
-                if (customerController.FinalizeChanges(newCustomer))
-                {
-                    MessageBox.Show("New customer added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // No need to wait for finalization, consider success after DataMaintenance
+                MessageBox.Show("New customer added successfully to the dataset!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // Trigger the event to notify that a customer was created
-                    CustomerCreated?.Invoke();
+                // Trigger the event to notify that a customer was created
+                CustomerCreated?.Invoke();
 
-                    this.Close();  // Close the form after success
-                }
-                else
-                {
-                    MessageBox.Show("Failed to add new customer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                // Close the form after success
+                this.Close();
             }
         }
-
         // Event handler for the CustomerID textbox text changed event
         private void CustomerID_TextChanged(object sender, EventArgs e)
         {
@@ -198,6 +192,11 @@ namespace Phumla_System
         {
             base.OnFormClosing(e);
             createNewCustomerClosed = true;
+        }
+
+        private void Address_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

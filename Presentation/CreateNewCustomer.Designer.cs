@@ -61,9 +61,9 @@ namespace Phumla_System
             this.groupBox1.Controls.Add(this.Balance);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Location = new System.Drawing.Point(27, 105);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(694, 350);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
@@ -72,7 +72,7 @@ namespace Phumla_System
             // Surname
             // 
             this.Surname.Location = new System.Drawing.Point(225, 68);
-            this.Surname.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Surname.Margin = new System.Windows.Forms.Padding(2);
             this.Surname.Multiline = true;
             this.Surname.Name = "Surname";
             this.Surname.Size = new System.Drawing.Size(448, 18);
@@ -92,7 +92,7 @@ namespace Phumla_System
             // Telephone
             // 
             this.Telephone.Location = new System.Drawing.Point(225, 198);
-            this.Telephone.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Telephone.Margin = new System.Windows.Forms.Padding(2);
             this.Telephone.Name = "Telephone";
             this.Telephone.Size = new System.Drawing.Size(448, 20);
             this.Telephone.TabIndex = 7;
@@ -100,7 +100,7 @@ namespace Phumla_System
             // EmailAddress
             // 
             this.EmailAddress.Location = new System.Drawing.Point(225, 156);
-            this.EmailAddress.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.EmailAddress.Margin = new System.Windows.Forms.Padding(2);
             this.EmailAddress.Multiline = true;
             this.EmailAddress.Name = "EmailAddress";
             this.EmailAddress.Size = new System.Drawing.Size(448, 18);
@@ -109,16 +109,17 @@ namespace Phumla_System
             // Address
             // 
             this.Address.Location = new System.Drawing.Point(225, 112);
-            this.Address.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Address.Margin = new System.Windows.Forms.Padding(2);
             this.Address.Multiline = true;
             this.Address.Name = "Address";
             this.Address.Size = new System.Drawing.Size(448, 18);
             this.Address.TabIndex = 5;
+            this.Address.TextChanged += new System.EventHandler(this.Address_TextChanged);
             // 
             // CustomerName
             // 
             this.CustomerName.Location = new System.Drawing.Point(225, 40);
-            this.CustomerName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CustomerName.Margin = new System.Windows.Forms.Padding(2);
             this.CustomerName.Multiline = true;
             this.CustomerName.Name = "CustomerName";
             this.CustomerName.Size = new System.Drawing.Size(448, 18);
@@ -127,7 +128,7 @@ namespace Phumla_System
             // CustomerID
             // 
             this.CustomerID.Location = new System.Drawing.Point(225, 12);
-            this.CustomerID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CustomerID.Margin = new System.Windows.Forms.Padding(2);
             this.CustomerID.Multiline = true;
             this.CustomerID.Name = "CustomerID";
             this.CustomerID.Size = new System.Drawing.Size(448, 18);
@@ -216,7 +217,7 @@ namespace Phumla_System
             // 
             this.Balance.DecimalPlaces = 2;
             this.Balance.Location = new System.Drawing.Point(225, 280);
-            this.Balance.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Balance.Margin = new System.Windows.Forms.Padding(2);
             this.Balance.Name = "Balance";
             this.Balance.Size = new System.Drawing.Size(448, 20);
             this.Balance.TabIndex = 12;
@@ -245,7 +246,7 @@ namespace Phumla_System
             this.confirmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.confirmButton.ForeColor = System.Drawing.SystemColors.Highlight;
             this.confirmButton.Location = new System.Drawing.Point(294, 472);
-            this.confirmButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.confirmButton.Margin = new System.Windows.Forms.Padding(2);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(110, 35);
             this.confirmButton.TabIndex = 1;
@@ -277,7 +278,7 @@ namespace Phumla_System
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CreateNewCustomer";
             this.Text = "Create New Customer";
             this.Load += new System.EventHandler(this.CreateNewCustomer_Load);
