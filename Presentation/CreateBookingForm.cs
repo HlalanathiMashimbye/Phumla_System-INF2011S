@@ -96,7 +96,7 @@ namespace Phumla_System
                 custIDTextBox.Text,
                 checkInDateTimePicker.Value,
                 checkOutDateTimePicker.Value,
-                "Pending",                       // Status is set to Pending by default for new bookings(unpaid)
+                "Confirmed",                   //Assume payment always goes through   
                 comboBox1.SelectedItem.ToString(),
                 requirementsTextBox.Text
             );

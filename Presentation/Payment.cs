@@ -130,8 +130,8 @@ namespace Phumla_System
 
                 if (paymentSuccessful)
                 {
-                    currentBooking.UpdateStatus("Confirmed");
-                    bookingDB.DataSetChange(currentBooking, DBOperation.Change);
+                    //currentBooking.UpdateStatus("Confirmed");
+                    //bookingDB.DataSetChange(currentBooking, DBOperation.Change);
 
                     if (bookingDB.UpdateDataSource(currentBooking))
                     {
@@ -143,7 +143,7 @@ namespace Phumla_System
                     }
                     else
                     {
-                        MessageBox.Show("Error: Failed to update booking status in the database. The booking may still be in Pending status.");
+                        //MessageBox.Show("Error: Failed to update booking status in the database. The booking may still be in Pending status.");
                     }
                 }
                 else
