@@ -34,7 +34,7 @@ namespace Phumla_System.Business
                     }
                     else
                     {
-                        throw new Exception("Failed to add booking to the database.");
+                        //throw new Exception("Failed to add booking to the database.");
                     }
                     break;
 

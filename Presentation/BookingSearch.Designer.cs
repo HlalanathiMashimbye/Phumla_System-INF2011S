@@ -15,6 +15,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BookingSearch));
             this.label1 = new System.Windows.Forms.Label();
             this.custIDTextBox = new System.Windows.Forms.TextBox();
             this.searchButton = new System.Windows.Forms.Button();
@@ -67,6 +68,7 @@
             this.Controls.Add(this.custIDTextBox);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.bookingInfoListBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BookingSearch";
             this.Text = "Booking Search";
             this.Load += new System.EventHandler(this.BookingSearch_Load_1);

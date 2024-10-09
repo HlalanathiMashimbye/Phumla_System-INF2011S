@@ -238,5 +238,10 @@ namespace Phumla_System
                 </body>
                 </html>";
         }
+
+        private void Payment_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

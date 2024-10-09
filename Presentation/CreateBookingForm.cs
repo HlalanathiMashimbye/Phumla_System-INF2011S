@@ -264,13 +264,15 @@ namespace Phumla_System
                 booking.AssignRoom(assignedRoomID);
                 bookingController.DataMaintenance(booking, Data.DB.DBOperation.Add);
 
-                if (bookingController.FinalizeChanges(booking))
+                // Check if the booking was successfully added to the dataset
+                if (bookingController.AllBookings.Contains(booking))
                 {
                     MessageBox.Show($"Room {assignedRoomID} has been assigned to the booking.", "Room Assigned", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    OpenPaymentScreen(booking);
                 }
                 else
                 {
-                    MessageBox.Show("Failed to create booking. Please try again.");
+                    MessageBox.Show("Failed to create booking, Customer has booking.");
                 }
             }
             else
@@ -284,7 +286,8 @@ namespace Phumla_System
                     booking.AssignRoom(0);
                     bookingController.DataMaintenance(booking, Data.DB.DBOperation.Add);
 
-                    if (bookingController.FinalizeChanges(booking))
+                    // Check if the booking was successfully added to the dataset
+                    if (bookingController.AllBookings.Contains(booking))
                     {
                         MessageBox.Show("Booking has been added to the waitlist (Room 0).", "Waitlist", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ClearAll();
@@ -302,6 +305,7 @@ namespace Phumla_System
                 }
             }
         }
+
 
         private void OpenPaymentScreen(Booking booking)
         {
