@@ -1,6 +1,7 @@
 ﻿using Phumla_System.Business;
 using Phumla_System.Data;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Phumla_System.Presentation
@@ -145,20 +146,26 @@ namespace Phumla_System.Presentation
         #region ToolStrip Menus for Listing
         private void OpenChildForm(Form childForm)
         {
-            // Close all existing child forms
-            foreach (Form f in this.MdiChildren)
+            // Check if a form of the same type is already open
+            Form existingForm = this.MdiChildren.FirstOrDefault(f => f.GetType() == childForm.GetType());
+
+            if (existingForm != null)
             {
-                f.Close();
+                // If the form is already open, bring it to the front
+                existingForm.BringToFront();
+                if (existingForm.WindowState == FormWindowState.Minimized)
+                {
+                    existingForm.WindowState = FormWindowState.Normal;
+                }
+            }
+            else
+            {
+                // If it's not open, set up the new child form
+                childForm.MdiParent = this;
+                childForm.Dock = DockStyle.Fill;
+                childForm.Show();
             }
 
-            // Clear main form content
-            //this.pictureBox1.Visible = false;
-
-            // Set up the child form
-            childForm.MdiParent = this;
-           // childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
             ShowLogo();
         }
 
