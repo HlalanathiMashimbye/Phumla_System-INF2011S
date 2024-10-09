@@ -25,18 +25,19 @@ namespace Phumla_System
             customerController = aCustomerController;
             customers = customerController.AllCustomers;
             createBookingClosed = false;
+            InitializeNumberOfGuestsDropdown();
         }
         #endregion
 
         #region Form Events
         private void CreateBookingForm_Load(object sender, EventArgs e)
         {
-            ShowAll(false);
+            ShowAll(true);
         }
 
         private void CreateBookingForm_Activated(object sender, EventArgs e)
         {
-            ShowAll(false);
+            ShowAll(true);
         }
 
         private void CreateBookingForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -52,6 +53,16 @@ namespace Phumla_System
         }
 
         #region Utility Methods
+        private void InitializeNumberOfGuestsDropdown()
+        {
+            comboBox1.Items.Clear();
+            for (int i = 1; i <= 10; i++)
+            {
+                comboBox1.Items.Add(i.ToString());
+            }
+            comboBox1.SelectedIndex = 0; // Set default selection to 1 guest
+        }
+
         private void ShowAll(bool value)
         {
             custIDLabel.Visible = value;
@@ -61,7 +72,7 @@ namespace Phumla_System
             requirementsLabel.Visible = value;
 
             custIDTextBox.Visible = value;
-            noOfGuestsTextBox.Visible = value;
+            comboBox1.Visible = value;
             checkInDateTimePicker.Visible = value;
             checkOutDateTimePicker.Visible = value;
             requirementsTextBox.Visible = value;
@@ -73,7 +84,7 @@ namespace Phumla_System
         private void ClearAll()
         {
             custIDTextBox.Text = "";
-            noOfGuestsTextBox.Text = "";
+            comboBox1.SelectedIndex = -1;
             checkInDateTimePicker.Value = DateTime.Now;
             checkOutDateTimePicker.Value = DateTime.Now.AddDays(1);
             requirementsTextBox.Text = "";
@@ -86,7 +97,7 @@ namespace Phumla_System
                 checkInDateTimePicker.Value,
                 checkOutDateTimePicker.Value,
                 "Pending",                       // Status is set to Pending by default for new bookings(unpaid)
-                noOfGuestsTextBox.Text,
+                comboBox1.SelectedItem.ToString(),
                 requirementsTextBox.Text
             );
         }
@@ -95,6 +106,13 @@ namespace Phumla_System
         {
             // Check if customer has any booking
             return bookingController.CustomerHasBooking(custID);
+        }
+
+        private bool AreAllFieldsFilled()
+        {
+            return !string.IsNullOrWhiteSpace(custIDTextBox.Text) &&
+                   comboBox1.SelectedIndex != -1 &&
+                   !string.IsNullOrWhiteSpace(requirementsTextBox.Text);
         }
         #endregion
 
@@ -192,44 +210,43 @@ namespace Phumla_System
         #region Button Click Events
         private void checkAvailButton_Click_1(object sender, EventArgs e)
         {
-            // Ensure the customer ID is not empty
-            if (string.IsNullOrWhiteSpace(custIDTextBox.Text) || custIDTextBox.Text.Length != 13)
+            if (!AreAllFieldsFilled())
             {
-                MessageBox.Show("Please enter a valid customer ID.");
+                MessageBox.Show("Please fill in all fields before checking availability.", "Incomplete Form", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (custIDTextBox.Text.Length != 13)
+            {
+                MessageBox.Show("Please enter a valid 13-digit customer ID.");
                 return;
             }
 
             string custID = custIDTextBox.Text;
 
-            // Validate Customer ID before proceeding
             if (!ValidateCustomerID(custID))
             {
-                return; // Exit if validation fails
+                return;
             }
 
-            // Check if the customer exists
             if (!customerController.CustomerExists(custID))
             {
-                // If the customer does not exist, open the CreateNewCustomer form
                 CreateNewCustomer createNewCustomerForm = new CreateNewCustomer();
-                createNewCustomerForm.CustomerCreated += OnCustomerCreated; // Subscribe to the event
-                createNewCustomerForm.ShowDialog(); // Show the form as a dialog
-                return; // Exit the method
+                createNewCustomerForm.CustomerCreated += OnCustomerCreated;
+                createNewCustomerForm.ShowDialog();
+                return;
             }
 
-            // Check if the customer has an existing booking
             if (CustomerHasBooking(custID))
             {
                 MessageBox.Show("This customer already has a booking.", "Existing Booking", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return; // Exit if booking exists
+                return;
             }
 
-            // If no booking exists, proceed with the new booking
             PopulateObject();
 
             if (booking.IsBookingValid())
             {
-                // Check room availability and assign a room or handle waitlist
                 AssignRoomBasedOnAvailability();
             }
             else
@@ -419,6 +436,14 @@ namespace Phumla_System
             reservationCancellationReportForm.Show();
         }
 
+        private void noOfGuestsTextBox_TextChanged(object sender, EventArgs e)
+        {
 
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

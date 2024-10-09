@@ -38,23 +38,24 @@
             this.checkOutDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.checkInDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.requirementsTextBox = new System.Windows.Forms.TextBox();
-            this.noOfGuestsTextBox = new System.Windows.Forms.TextBox();
             this.custIDTextBox = new System.Windows.Forms.TextBox();
             this.checkInLabel = new System.Windows.Forms.Label();
             this.requirementsLabel = new System.Windows.Forms.Label();
             this.checkOutLabel = new System.Windows.Forms.Label();
             this.noOfGuestsLabel = new System.Windows.Forms.Label();
             this.custIDLabel = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(747, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1120, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -66,10 +67,9 @@
             this.crtBookingTitle.AutoSize = true;
             this.crtBookingTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.crtBookingTitle.ForeColor = System.Drawing.Color.MediumVioletRed;
-            this.crtBookingTitle.Location = new System.Drawing.Point(241, 51);
-            this.crtBookingTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.crtBookingTitle.Location = new System.Drawing.Point(362, 78);
             this.crtBookingTitle.Name = "crtBookingTitle";
-            this.crtBookingTitle.Size = new System.Drawing.Size(305, 31);
+            this.crtBookingTitle.Size = new System.Drawing.Size(440, 46);
             this.crtBookingTitle.TabIndex = 2;
             this.crtBookingTitle.Text = "Create a New Booking";
             // 
@@ -80,10 +80,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(217, 14);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(326, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(284, 26);
+            this.label1.Size = new System.Drawing.Size(401, 37);
             this.label1.TabIndex = 3;
             this.label1.Text = "Enter Reservation Details";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -94,12 +93,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.AutoSize = true;
+            this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.checkAvailButton);
             this.groupBox1.Controls.Add(this.checkOutDateTimePicker);
             this.groupBox1.Controls.Add(this.checkInDateTimePicker);
             this.groupBox1.Controls.Add(this.requirementsTextBox);
-            this.groupBox1.Controls.Add(this.noOfGuestsTextBox);
             this.groupBox1.Controls.Add(this.custIDTextBox);
             this.groupBox1.Controls.Add(this.checkInLabel);
             this.groupBox1.Controls.Add(this.requirementsLabel);
@@ -107,11 +106,9 @@
             this.groupBox1.Controls.Add(this.noOfGuestsLabel);
             this.groupBox1.Controls.Add(this.custIDLabel);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(37, 83);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Location = new System.Drawing.Point(56, 128);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox1.Size = new System.Drawing.Size(708, 332);
+            this.groupBox1.Size = new System.Drawing.Size(1062, 511);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
@@ -120,10 +117,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(4, 250);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(6, 385);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(173, 13);
+            this.label2.Size = new System.Drawing.Size(256, 20);
             this.label2.TabIndex = 20;
             this.label2.Text = "(write \'N/A\' if there are none)";
             // 
@@ -132,10 +128,9 @@
             this.checkAvailButton.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.checkAvailButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkAvailButton.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.checkAvailButton.Location = new System.Drawing.Point(558, 279);
-            this.checkAvailButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkAvailButton.Location = new System.Drawing.Point(837, 429);
             this.checkAvailButton.Name = "checkAvailButton";
-            this.checkAvailButton.Size = new System.Drawing.Size(146, 32);
+            this.checkAvailButton.Size = new System.Drawing.Size(219, 49);
             this.checkAvailButton.TabIndex = 6;
             this.checkAvailButton.Text = "Check Availability";
             this.checkAvailButton.UseVisualStyleBackColor = false;
@@ -143,54 +138,41 @@
             // 
             // checkOutDateTimePicker
             // 
-            this.checkOutDateTimePicker.Location = new System.Drawing.Point(191, 190);
-            this.checkOutDateTimePicker.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkOutDateTimePicker.Location = new System.Drawing.Point(286, 292);
             this.checkOutDateTimePicker.Name = "checkOutDateTimePicker";
-            this.checkOutDateTimePicker.Size = new System.Drawing.Size(230, 20);
+            this.checkOutDateTimePicker.Size = new System.Drawing.Size(343, 26);
             this.checkOutDateTimePicker.TabIndex = 19;
             this.checkOutDateTimePicker.Value = new System.DateTime(2024, 12, 18, 23, 22, 0, 0);
             // 
             // checkInDateTimePicker
             // 
-            this.checkInDateTimePicker.Location = new System.Drawing.Point(191, 149);
-            this.checkInDateTimePicker.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkInDateTimePicker.Location = new System.Drawing.Point(286, 229);
             this.checkInDateTimePicker.Name = "checkInDateTimePicker";
-            this.checkInDateTimePicker.Size = new System.Drawing.Size(230, 20);
+            this.checkInDateTimePicker.Size = new System.Drawing.Size(343, 26);
             this.checkInDateTimePicker.TabIndex = 18;
             this.checkInDateTimePicker.Value = new System.DateTime(2024, 12, 13, 23, 22, 0, 0);
             // 
             // requirementsTextBox
             // 
-            this.requirementsTextBox.Location = new System.Drawing.Point(191, 232);
-            this.requirementsTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.requirementsTextBox.Location = new System.Drawing.Point(286, 357);
             this.requirementsTextBox.Name = "requirementsTextBox";
-            this.requirementsTextBox.Size = new System.Drawing.Size(227, 20);
+            this.requirementsTextBox.Size = new System.Drawing.Size(338, 26);
             this.requirementsTextBox.TabIndex = 17;
-            // 
-            // noOfGuestsTextBox
-            // 
-            this.noOfGuestsTextBox.Location = new System.Drawing.Point(191, 105);
-            this.noOfGuestsTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.noOfGuestsTextBox.Name = "noOfGuestsTextBox";
-            this.noOfGuestsTextBox.Size = new System.Drawing.Size(230, 20);
-            this.noOfGuestsTextBox.TabIndex = 16;
             // 
             // custIDTextBox
             // 
-            this.custIDTextBox.Location = new System.Drawing.Point(191, 66);
-            this.custIDTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.custIDTextBox.Location = new System.Drawing.Point(286, 102);
             this.custIDTextBox.Name = "custIDTextBox";
-            this.custIDTextBox.Size = new System.Drawing.Size(230, 20);
+            this.custIDTextBox.Size = new System.Drawing.Size(343, 26);
             this.custIDTextBox.TabIndex = 12;
             // 
             // checkInLabel
             // 
             this.checkInLabel.AutoSize = true;
             this.checkInLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkInLabel.Location = new System.Drawing.Point(19, 149);
-            this.checkInLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.checkInLabel.Location = new System.Drawing.Point(28, 229);
             this.checkInLabel.Name = "checkInLabel";
-            this.checkInLabel.Size = new System.Drawing.Size(99, 18);
+            this.checkInLabel.Size = new System.Drawing.Size(146, 26);
             this.checkInLabel.TabIndex = 10;
             this.checkInLabel.Text = "Check-in date";
             // 
@@ -198,10 +180,9 @@
             // 
             this.requirementsLabel.AutoSize = true;
             this.requirementsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.requirementsLabel.Location = new System.Drawing.Point(19, 232);
-            this.requirementsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.requirementsLabel.Location = new System.Drawing.Point(28, 357);
             this.requirementsLabel.Name = "requirementsLabel";
-            this.requirementsLabel.Size = new System.Drawing.Size(146, 18);
+            this.requirementsLabel.Size = new System.Drawing.Size(217, 26);
             this.requirementsLabel.TabIndex = 9;
             this.requirementsLabel.Text = "Special requirements";
             // 
@@ -209,10 +190,9 @@
             // 
             this.checkOutLabel.AutoSize = true;
             this.checkOutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkOutLabel.Location = new System.Drawing.Point(19, 190);
-            this.checkOutLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.checkOutLabel.Location = new System.Drawing.Point(28, 292);
             this.checkOutLabel.Name = "checkOutLabel";
-            this.checkOutLabel.Size = new System.Drawing.Size(109, 18);
+            this.checkOutLabel.Size = new System.Drawing.Size(159, 26);
             this.checkOutLabel.TabIndex = 8;
             this.checkOutLabel.Text = "Check-out date";
             // 
@@ -220,10 +200,9 @@
             // 
             this.noOfGuestsLabel.AutoSize = true;
             this.noOfGuestsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.noOfGuestsLabel.Location = new System.Drawing.Point(19, 104);
-            this.noOfGuestsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.noOfGuestsLabel.Location = new System.Drawing.Point(28, 160);
             this.noOfGuestsLabel.Name = "noOfGuestsLabel";
-            this.noOfGuestsLabel.Size = new System.Drawing.Size(130, 18);
+            this.noOfGuestsLabel.Size = new System.Drawing.Size(189, 26);
             this.noOfGuestsLabel.TabIndex = 7;
             this.noOfGuestsLabel.Text = "Number of Guests";
             // 
@@ -231,28 +210,35 @@
             // 
             this.custIDLabel.AutoSize = true;
             this.custIDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.custIDLabel.Location = new System.Drawing.Point(19, 65);
-            this.custIDLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.custIDLabel.Location = new System.Drawing.Point(28, 100);
             this.custIDLabel.Name = "custIDLabel";
-            this.custIDLabel.Size = new System.Drawing.Size(139, 18);
+            this.custIDLabel.Size = new System.Drawing.Size(207, 26);
             this.custIDLabel.TabIndex = 5;
             this.custIDLabel.Text = "Customer ID(SA ID)";
             this.custIDLabel.Click += new System.EventHandler(this.custIDLabel_Click);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(286, 160);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(343, 28);
+            this.comboBox1.TabIndex = 21;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // CreateBookingForm
             // 
             this.AcceptButton = this.checkAvailButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ClientSize = new System.Drawing.Size(747, 403);
+            this.ClientSize = new System.Drawing.Size(1120, 620);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.crtBookingTitle);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "CreateBookingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CreateBookingForm";
@@ -277,10 +263,10 @@
         private System.Windows.Forms.Label custIDLabel;
         private System.Windows.Forms.DateTimePicker checkInDateTimePicker;
         private System.Windows.Forms.TextBox requirementsTextBox;
-        private System.Windows.Forms.TextBox noOfGuestsTextBox;
         private System.Windows.Forms.TextBox custIDTextBox;
         private System.Windows.Forms.DateTimePicker checkOutDateTimePicker;
         private System.Windows.Forms.Button checkAvailButton;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
