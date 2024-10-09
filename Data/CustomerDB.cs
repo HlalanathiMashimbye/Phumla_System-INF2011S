@@ -79,7 +79,17 @@ namespace Phumla_System.Data
             try
             {
                 SqlCommandBuilder builder = new SqlCommandBuilder((SqlDataAdapter)DataAdapter);
-                DataAdapter.Update(DataSet, table);
+                if (DataAdapter != null)
+                {
+                    DataAdapter.Update(DataSet, table);
+                }
+                else
+                {
+                    // Handle the case where DataAdapter is null
+                    Console.WriteLine("DataAdapter is null");
+                    // or throw a more specific exception
+                }
+                //DataAdapter.Update(DataSet, table);
                 DataSet.AcceptChanges();
                 return true;
             }

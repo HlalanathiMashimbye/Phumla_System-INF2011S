@@ -97,12 +97,12 @@
             this.menuStrip2.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.customerSearchToolStripMenuItem,
             this.createNewCustomerToolStripMenuItem1,
-            this.newBookingToolStripMenuItem,
+            this.customerSearchToolStripMenuItem,
             this.createNewBookingToolStripMenuItem1,
-            this.modifyBookingToolStripMenuItem,
-            this.notificationsToolStripMenuItem});
+            this.newBookingToolStripMenuItem,
+            this.notificationsToolStripMenuItem,
+            this.modifyBookingToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
@@ -217,7 +217,7 @@
             this.IsMdiContainer = true;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
-            this.Text = "MDIParent1";
+            this.Text = "Phumla Kamnandi";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bookingsDatabaseDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookingBindingSource)).EndInit();
