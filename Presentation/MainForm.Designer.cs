@@ -41,6 +41,7 @@
             this.customerSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createNewCustomerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.newBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createNewBookingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.modifyBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,7 +49,6 @@
             this.occupancyLevelReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reservationCancellationReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.createNewBookingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bookingsDatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookingBindingSource)).BeginInit();
@@ -61,17 +61,16 @@
             this.statusStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBar1});
-            this.statusStrip.Location = new System.Drawing.Point(0, 672);
+            this.statusStrip.Location = new System.Drawing.Point(0, 433);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
-            this.statusStrip.Size = new System.Drawing.Size(1180, 28);
+            this.statusStrip.Size = new System.Drawing.Size(787, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "StatusStrip";
             // 
             // toolStripProgressBar1
             // 
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 20);
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(67, 16);
             // 
             // bookingsDatabaseDataSet
             // 
@@ -103,7 +102,6 @@
             // menuStrip2
             // 
             this.menuStrip2.BackColor = System.Drawing.Color.Thistle;
-            this.menuStrip2.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.customerSearchToolStripMenuItem,
@@ -114,7 +112,8 @@
             this.notificationsToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(1180, 38);
+            this.menuStrip2.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
+            this.menuStrip2.Size = new System.Drawing.Size(787, 26);
             this.menuStrip2.TabIndex = 7;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -122,7 +121,7 @@
             // 
             this.customerSearchToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.customerSearchToolStripMenuItem.Name = "customerSearchToolStripMenuItem";
-            this.customerSearchToolStripMenuItem.Size = new System.Drawing.Size(165, 34);
+            this.customerSearchToolStripMenuItem.Size = new System.Drawing.Size(112, 24);
             this.customerSearchToolStripMenuItem.Text = "Customer List";
             this.customerSearchToolStripMenuItem.Click += new System.EventHandler(this.customerSearchToolStripMenuItem_Click);
             // 
@@ -130,7 +129,7 @@
             // 
             this.createNewCustomerToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.createNewCustomerToolStripMenuItem1.Name = "createNewCustomerToolStripMenuItem1";
-            this.createNewCustomerToolStripMenuItem1.Size = new System.Drawing.Size(248, 34);
+            this.createNewCustomerToolStripMenuItem1.Size = new System.Drawing.Size(169, 24);
             this.createNewCustomerToolStripMenuItem1.Text = "Create New Customer";
             this.createNewCustomerToolStripMenuItem1.Click += new System.EventHandler(this.createNewCustomerToolStripMenuItem1_Click);
             // 
@@ -138,9 +137,17 @@
             // 
             this.newBookingToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newBookingToolStripMenuItem.Name = "newBookingToolStripMenuItem";
-            this.newBookingToolStripMenuItem.Size = new System.Drawing.Size(184, 34);
+            this.newBookingToolStripMenuItem.Size = new System.Drawing.Size(128, 24);
             this.newBookingToolStripMenuItem.Text = "Booking Search";
             this.newBookingToolStripMenuItem.Click += new System.EventHandler(this.newBookingToolStripMenuItem_Click);
+            // 
+            // createNewBookingToolStripMenuItem1
+            // 
+            this.createNewBookingToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.createNewBookingToolStripMenuItem1.Name = "createNewBookingToolStripMenuItem1";
+            this.createNewBookingToolStripMenuItem1.Size = new System.Drawing.Size(161, 24);
+            this.createNewBookingToolStripMenuItem1.Text = "Create New Booking";
+            this.createNewBookingToolStripMenuItem1.Click += new System.EventHandler(this.createNewBookingToolStripMenuItem1_Click);
             // 
             // modifyBookingToolStripMenuItem
             // 
@@ -149,20 +156,20 @@
             this.cancelBookingToolStripMenuItem});
             this.modifyBookingToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.modifyBookingToolStripMenuItem.Name = "modifyBookingToolStripMenuItem";
-            this.modifyBookingToolStripMenuItem.Size = new System.Drawing.Size(189, 34);
+            this.modifyBookingToolStripMenuItem.Size = new System.Drawing.Size(131, 24);
             this.modifyBookingToolStripMenuItem.Text = "Modify Booking";
             // 
             // changeBookingToolStripMenuItem
             // 
             this.changeBookingToolStripMenuItem.Name = "changeBookingToolStripMenuItem";
-            this.changeBookingToolStripMenuItem.Size = new System.Drawing.Size(281, 38);
+            this.changeBookingToolStripMenuItem.Size = new System.Drawing.Size(191, 24);
             this.changeBookingToolStripMenuItem.Text = "Change Booking";
             this.changeBookingToolStripMenuItem.Click += new System.EventHandler(this.changeBookingToolStripMenuItem_Click);
             // 
             // cancelBookingToolStripMenuItem
             // 
             this.cancelBookingToolStripMenuItem.Name = "cancelBookingToolStripMenuItem";
-            this.cancelBookingToolStripMenuItem.Size = new System.Drawing.Size(281, 38);
+            this.cancelBookingToolStripMenuItem.Size = new System.Drawing.Size(191, 24);
             this.cancelBookingToolStripMenuItem.Text = "Cancel Booking";
             this.cancelBookingToolStripMenuItem.Click += new System.EventHandler(this.cancelBookingToolStripMenuItem_Click);
             // 
@@ -173,21 +180,21 @@
             this.reservationCancellationReportToolStripMenuItem});
             this.notificationsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.notificationsToolStripMenuItem.Name = "notificationsToolStripMenuItem";
-            this.notificationsToolStripMenuItem.Size = new System.Drawing.Size(147, 34);
+            this.notificationsToolStripMenuItem.Size = new System.Drawing.Size(100, 24);
             this.notificationsToolStripMenuItem.Text = "Get Reports";
             this.notificationsToolStripMenuItem.Click += new System.EventHandler(this.notificationsToolStripMenuItem_Click);
             // 
             // occupancyLevelReportToolStripMenuItem
             // 
             this.occupancyLevelReportToolStripMenuItem.Name = "occupancyLevelReportToolStripMenuItem";
-            this.occupancyLevelReportToolStripMenuItem.Size = new System.Drawing.Size(436, 38);
+            this.occupancyLevelReportToolStripMenuItem.Size = new System.Drawing.Size(297, 24);
             this.occupancyLevelReportToolStripMenuItem.Text = "Occupancy Level Report";
             this.occupancyLevelReportToolStripMenuItem.Click += new System.EventHandler(this.occupancyLevelReportToolStripMenuItem_Click);
             // 
             // reservationCancellationReportToolStripMenuItem
             // 
             this.reservationCancellationReportToolStripMenuItem.Name = "reservationCancellationReportToolStripMenuItem";
-            this.reservationCancellationReportToolStripMenuItem.Size = new System.Drawing.Size(436, 38);
+            this.reservationCancellationReportToolStripMenuItem.Size = new System.Drawing.Size(297, 24);
             this.reservationCancellationReportToolStripMenuItem.Text = "Reservation Cancellation Report";
             this.reservationCancellationReportToolStripMenuItem.Click += new System.EventHandler(this.reservationCancellationReportToolStripMenuItem_Click);
             // 
@@ -195,34 +202,27 @@
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 38);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 26);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1180, 634);
+            this.pictureBox1.Size = new System.Drawing.Size(787, 407);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
             // 
-            // createNewBookingToolStripMenuItem1
-            // 
-            this.createNewBookingToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.createNewBookingToolStripMenuItem1.Name = "createNewBookingToolStripMenuItem1";
-            this.createNewBookingToolStripMenuItem1.Size = new System.Drawing.Size(235, 34);
-            this.createNewBookingToolStripMenuItem1.Text = "Create New Booking";
-            this.createNewBookingToolStripMenuItem1.Click += new System.EventHandler(this.createNewBookingToolStripMenuItem1_Click);
-            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(1180, 700);
+            this.ClientSize = new System.Drawing.Size(787, 455);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip2);
             this.Controls.Add(this.statusStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
             this.Text = "MDIParent1";
             this.Load += new System.EventHandler(this.MainForm_Load);

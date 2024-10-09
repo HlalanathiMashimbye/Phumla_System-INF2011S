@@ -76,7 +76,7 @@
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(29, 105);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(67, 32);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -87,7 +87,7 @@
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(100, 105);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(79, 32);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -98,7 +98,7 @@
             // 
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
             this.pictureBox3.Location = new System.Drawing.Point(183, 105);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(67, 32);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -108,7 +108,7 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(29, 177);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(180, 20);
             this.textBox1.TabIndex = 5;
@@ -116,7 +116,7 @@
             // customerID
             // 
             this.customerID.Location = new System.Drawing.Point(29, 224);
-            this.customerID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.customerID.Margin = new System.Windows.Forms.Padding(2);
             this.customerID.Name = "customerID";
             this.customerID.Size = new System.Drawing.Size(180, 20);
             this.customerID.TabIndex = 6;
@@ -124,7 +124,7 @@
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(29, 333);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(137, 20);
             this.textBox3.TabIndex = 7;
@@ -162,7 +162,7 @@
             // expiryDate
             // 
             this.expiryDate.Location = new System.Drawing.Point(31, 283);
-            this.expiryDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.expiryDate.Margin = new System.Windows.Forms.Padding(2);
             this.expiryDate.Name = "expiryDate";
             this.expiryDate.Size = new System.Drawing.Size(135, 20);
             this.expiryDate.TabIndex = 11;
@@ -183,7 +183,7 @@
             this.confirmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.confirmButton.ForeColor = System.Drawing.SystemColors.Highlight;
             this.confirmButton.Location = new System.Drawing.Point(546, 388);
-            this.confirmButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.confirmButton.Margin = new System.Windows.Forms.Padding(2);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(130, 33);
             this.confirmButton.TabIndex = 13;
@@ -204,7 +204,7 @@
             // totalTxtbox
             // 
             this.totalTxtbox.Location = new System.Drawing.Point(29, 384);
-            this.totalTxtbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.totalTxtbox.Margin = new System.Windows.Forms.Padding(2);
             this.totalTxtbox.Name = "totalTxtbox";
             this.totalTxtbox.Size = new System.Drawing.Size(137, 20);
             this.totalTxtbox.TabIndex = 15;
@@ -230,9 +230,11 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Payment";
             this.Text = "Payment";
+            this.Load += new System.EventHandler(this.Payment_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
