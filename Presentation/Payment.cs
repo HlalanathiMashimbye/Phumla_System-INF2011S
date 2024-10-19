@@ -206,7 +206,7 @@ namespace Phumla_System
                 using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com"))
                 {
                     smtpClient.Port = 587;
-                    smtpClient.Credentials = new NetworkCredential("hlalianoint@gmail.com", "ztic qpwi snua vkln");
+                    smtpClient.Credentials = new NetworkCredential("", ""); //SETUP YOUR SMTP HERE, HAD TO REMOVE MINE
                     smtpClient.EnableSsl = true; // Enable SSL for secure connection
 
                     using (MailMessage mailMessage = new MailMessage())
